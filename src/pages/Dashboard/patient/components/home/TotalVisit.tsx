@@ -1,15 +1,16 @@
+import { CalendarDays, FileText, FlaskConical, Users } from "lucide-react"; // Importing icons
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { Users, FileText, CalendarDays, FlaskConical } from "lucide-react"; // Importing icons
-import { Icon } from "lucide-react";
 
 // Type for card data
 interface CardData {
   title: string;
   content: string;
-  icon: Icon;
+  icon: React.ElementType;
 }
+
+type CalendarValue = Date | [Date, Date];
 
 const TotalVisit: React.FC = () => {
   const cardData: CardData[] = [
@@ -19,7 +20,7 @@ const TotalVisit: React.FC = () => {
     { title: "Lab Report", content: "320", icon: FlaskConical },
   ];
 
-  const [date, setDate] = useState<Date>(new Date());
+  const [date, setDate] = useState<CalendarValue>(new Date());
 
   return (
     <div className="flex flex-col lg:flex-row px-6 gap-6">
@@ -37,7 +38,9 @@ const TotalVisit: React.FC = () => {
                   <Icon className="text-blue-500 w-6 h-6" />
                   <h2 className="text-xl font-semibold">{card.title}</h2>
                 </div>
-                <p className="text-gray-600 text-3xl font-bold">{card.content}</p>
+                <p className="text-gray-600 text-3xl font-bold">
+                  {card.content}
+                </p>
               </div>
             );
           })}
@@ -49,7 +52,7 @@ const TotalVisit: React.FC = () => {
         <div className="px-4 lg:px-10 shadow-2xl space-y-6 py-6 rounded-2xl">
           {/* Calendar */}
           <div className="bg-white rounded-xl shadow-md p-4 w-full max-w-sm mx-auto">
-            <Calendar onChange={setDate} value={date} />
+            <Calendar value={date} />
           </div>
         </div>
       </div>
