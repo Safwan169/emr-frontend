@@ -1,5 +1,11 @@
+import HomeMangement from "./components/home/HomeMangement";
+
 const PatientDashboard = () => {
-  return <div>PatientDashboard</div>;
+  return (
+    <div>
+      <HomeMangement />
+    </div>
+  );
 };
 
 export default PatientDashboard;

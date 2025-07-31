@@ -1,5 +1,5 @@
+import { ChevronDown, Star } from "lucide-react";
 import React, { useState } from "react";
-import { Star, ChevronDown } from "lucide-react";
 
 interface Doctor {
   name: string;
@@ -10,7 +10,8 @@ interface Doctor {
 }
 
 const Available: React.FC = () => {
-  const [selectedSpeciality, setSelectedSpeciality] = useState<string>("All Specialities");
+  const [selectedSpeciality, setSelectedSpeciality] =
+    useState<string>("All Specialities");
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
 
   const specialities: string[] = [
@@ -58,23 +59,30 @@ const Available: React.FC = () => {
       : doctors.filter((doc) => doc.specialization === selectedSpeciality);
 
   return (
-    <div className="w-full lg:w-1/2 rounded-2xl py-5 px-5 shadow-2xl">
+    <div className="w-full max-w-4xl mx-auto rounded-2xl py-4 px-4 sm:py-6 sm:px-6 lg:py-8 lg:px-8 shadow-2xl bg-gray-50">
       {/* Header with Dropdown */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
-        <h1 className="text-xl font-bold">Available Doctors</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800">
+          Available Doctors
+        </h1>
 
         {/* Dropdown Button */}
-        <div className="relative w-full sm:w-auto">
+        <div className="relative w-full sm:w-auto min-w-[200px]">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center justify-between sm:justify-center w-full sm:w-auto gap-2 px-4 py-2 rounded-lg bg-gray-300 shadow hover:bg-gray-100"
+            className="flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-white border border-gray-200 shadow-sm hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 text-sm font-medium text-gray-700"
           >
-            {selectedSpeciality}
-            <ChevronDown size={16} />
+            <span className="truncate">{selectedSpeciality}</span>
+            <ChevronDown
+              size={16}
+              className={`ml-2 flex-shrink-0 transition-transform duration-200 ${
+                dropdownOpen ? "rotate-180" : ""
+              }`}
+            />
           </button>
 
           {dropdownOpen && (
-            <ul className="absolute right-0 mt-2 w-full sm:w-40 bg-white rounded-lg shadow-lg z-10">
+            <ul className="absolute right-0 mt-2 w-full bg-white rounded-lg shadow-lg border border-gray-200 z-20 max-h-60 overflow-y-auto">
               {specialities.map((item, index) => (
                 <li
                   key={index}
@@ -82,7 +90,7 @@ const Available: React.FC = () => {
                     setSelectedSpeciality(item);
                     setDropdownOpen(false);
                   }}
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  className="px-4 py-3 hover:bg-blue-50 cursor-pointer text-sm text-gray-700 hover:text-blue-600 transition-colors duration-150 first:rounded-t-lg last:rounded-b-lg"
                 >
                   {item}
                 </li>
@@ -93,53 +101,83 @@ const Available: React.FC = () => {
       </div>
 
       {/* Doctor Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2  gap-4 sm:gap-6">
         {filteredDoctors.map((doc, index) => (
           <div
             key={index}
-            className="rounded-xl p-4 bg-white shadow-2xl flex flex-col sm:flex-row items-start gap-4"
+            className="rounded-xl p-4 sm:p-5 bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col"
           >
-            {/* Profile Picture */}
-            <img
-              src={doc.image}
-              alt={doc.name}
-              className="w-16 h-16 rounded-full object-cover"
-            />
+            {/* Doctor Header */}
+            <div className="flex items-start gap-4 mb-4">
+              {/* Profile Picture */}
+              <img
+                src={doc.image}
+                alt={doc.name}
+                className="w-16 h-16 sm:w-18 sm:h-18 rounded-full object-cover flex-shrink-0 border-2 border-gray-100"
+              />
 
-            {/* Doctor Info */}
-            <div className="flex flex-col flex-1 w-full">
-              <h2 className="text-lg font-semibold">{doc.name}</h2>
-              <p className="text-gray-600 text-sm">{doc.specialization}</p>
+              {/* Doctor Basic Info */}
+              <div className="flex-1 min-w-0">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-800 truncate">
+                  {doc.name}
+                </h2>
+                <p className="text-blue-600 text-sm sm:text-base font-medium">
+                  {doc.specialization}
+                </p>
 
-              {/* Rating */}
-              <div className="flex items-center mt-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`w-4 h-4 ${
-                      i < Math.floor(doc.rating) ? "text-yellow-400" : "text-gray-300"
-                    }`}
-                    fill={i < Math.floor(doc.rating) ? "yellow" : "none"}
-                  />
-                ))}
-                <span className="ml-2 text-sm text-gray-600">{doc.rating}</span>
+                {/* Rating */}
+                <div className="flex items-center mt-2">
+                  <div className="flex">
+                    {[...Array(1)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${
+                          i < Math.floor(doc.rating)
+                            ? "text-yellow-400"
+                            : "text-gray-300"
+                        }`}
+                        fill={
+                          i < Math.floor(doc.rating) ? "currentColor" : "none"
+                        }
+                      />
+                    ))}
+                  </div>
+                  <span className="ml-2 text-sm text-gray-600 font-medium">
+                    {doc.rating}
+                  </span>
+                </div>
               </div>
+            </div>
 
-              <p className="text-gray-500 text-xs mt-1">{doc.address}</p>
+            {/* Address */}
+            <div className="mb-4">
+              <p className="text-gray-500 text-sm leading-relaxed">
+                {doc.address}
+              </p>
+            </div>
 
-              {/* Buttons - Always Left & Bigger */}
-              <div className="flex gap-4 mt-4">
-                <button className="px-6 py-2 rounded-lg bg-gray-300 text-blue-600 hover:bg-gray-400">
-                  Cancel
-                </button>
-                <button className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
-                  Book Now
-                </button>
-              </div>
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 mt-auto">
+              <button className="flex-1 px-4 py-2.5 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 text-sm font-medium">
+                Cancel
+              </button>
+              <button className="flex-1 px-4 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-all duration-200 text-sm font-medium shadow-sm">
+                Book Now
+              </button>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Empty State */}
+      {filteredDoctors.length === 0 && (
+        <div className="text-center py-12">
+          <div className="text-gray-400 text-lg mb-2">No doctors found</div>
+          <div className="text-gray-500 text-sm">
+            Try selecting a different speciality
+          </div>
+        </div>
+      )}
     </div>
   );
 };
