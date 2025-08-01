@@ -35,7 +35,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
       </div>
 
       {/* Optional image */}
-      <img className="absolute bottom-0 h-[60%] right-0 -translate-x-1/4" src="vector.png" alt="" />
+      <img className="absolute bottom-0 h-[60%] right-0 -translate-x-1/4" src="/vector.png" alt="" />
 
       {/* Navigation */}
       <nav className="flex flex-col gap-4">
