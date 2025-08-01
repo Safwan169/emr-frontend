@@ -7,7 +7,7 @@ interface NavbarProps {
 
 const Navbar: FC<NavbarProps> = ({ title, onToggleSidebar }) => {
   return (
-    <div className="flex justify-between items-center bg-white px-6 py-4 shadow-md">
+    <div className="flex justify-between rounded-lg mx-2  items-center bg-white px-6 py-4 shadow-md">
       <div className="flex items-center gap-4">
         <button onClick={onToggleSidebar} className="md:hidden text-2xl">
           ☰

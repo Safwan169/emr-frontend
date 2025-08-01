@@ -7,22 +7,31 @@ interface LayoutProps {
   pageTitle: string;
 }
 
-const DashboardLayout: FC<LayoutProps> = ({  pageTitle }) => {
+const DashboardLayout: FC<LayoutProps> = ({ pageTitle }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   return (
-    <div className="flex">
+    <div className="flex h-screen overflow-hidden">
+      {/* Sidebar fixed */}
       <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-      <div className="flex-1 min-h-screen bg-gray-50">
-        <Navbar title={pageTitle} onToggleSidebar={toggleSidebar} />
-        <main className="p-6">
-            <Outlet />
+
+      {/* Main content */}
+      <div className="flex-1 ml-1   flex flex-col my-3">
+        {/* Navbar (sticky top) */}
+        <div className="sticky top-0 z-30  ">
+          <Navbar title={pageTitle} onToggleSidebar={toggleSidebar} />
+        </div>
+
+        {/* Scrollable content */}
+        <main className="overflow-y-auto p-3 h-full">
+          <Outlet />
         </main>
       </div>
     </div>
   );
 };
+
 
 export default DashboardLayout;

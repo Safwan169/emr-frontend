@@ -16,10 +16,13 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
   return (
     <div
-      className={`fixed z-40 top-0 left-0 h-full w-64 bg-[#0B3D91] text-white p-4 transform ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      } transition-transform duration-300 md:relative md:translate-x-0`}
+      className={`z-50 fixed bottom-0 my-3 ml-2 left-0 w-full md:relative md:top-0 md:left-0 
+        md:w-64  bg-[#1A3EAB] text-white p-4 transform 
+        ${isOpen ? "translate-y-0" : "translate-y-full"} 
+        transition-transform duration-300 
+        md:translate-y-0 rounded-t-xl md:rounded-xl`}
     >
+      {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">EMR Logo</h1>
         <button
@@ -31,6 +34,10 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
         </button>
       </div>
 
+      {/* Optional image */}
+      <img className="absolute bottom-0 h-[60%] right-0 -translate-x-1/4" src="vector.png" alt="" />
+
+      {/* Navigation */}
       <nav className="flex flex-col gap-4">
         <NavLink to="/" className="flex items-center gap-2 hover:text-gray-300">
           <Home size={20} /> Dashboard
@@ -48,5 +55,6 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
     </div>
   );
 };
+
 
 export default Sidebar;
