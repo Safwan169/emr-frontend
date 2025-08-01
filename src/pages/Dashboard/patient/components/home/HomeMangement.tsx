@@ -1,5 +1,5 @@
 import AppointmentConfirmation from "../../../../../designSlotComponents/AppointmentConfirmation";
-import SelectDoctor from "../../../../../designSlotComponents/SelectDoctor";
+import AppointmentDetails from "../../../../../designSlotComponents/AppointmentDetails";
 import Available from "./Available";
 import TotalVisit from "./TotalVisit";
 import Upcoming from "./Upcoming";
@@ -17,7 +17,7 @@ const HomeMangement = () => {
         <AppointmentConfirmation />
       </div>
 
-      <SelectDoctor />
+      <AppointmentDetails />
     </div>
   );
 };
