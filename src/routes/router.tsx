@@ -6,16 +6,15 @@ import Home from "../pages/home/Home";
 import Login from "../pages/login/Login";
 import NotFound from "../pages/notfound/NotFound";
 import Register from "../pages/register/Register";
+import DashboardLayout from "../layouts/DashboardLayout";
+import AppointmentRoute from "./AppointmentRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <DashboardLayout pageTitle="Dashboard" />,
     children: [
-      {
-        path: "",
-        element: <Home />,
-      },
+      ...AppointmentRoute ,
       // doctor dashboard
       {
         path: "/dashboard/doctor",
