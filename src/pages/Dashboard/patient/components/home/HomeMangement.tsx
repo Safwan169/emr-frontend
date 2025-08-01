@@ -1,11 +1,23 @@
+import AppointmentConfirmation from "../../../../../designSlotComponents/AppointmentConfirmation";
+import SelectDoctor from "../../../../../designSlotComponents/SelectDoctor";
 import Available from "./Available";
 import TotalVisit from "./TotalVisit";
+import Upcoming from "./Upcoming";
 
 const HomeMangement = () => {
   return (
-    <div>
+    <div className="py-10">
       <TotalVisit />
-      <Available />
+      <div className="flex flex-col lg:flex-row mt-5 px-6 gap-5">
+        <Available />
+        <Upcoming />
+      </div>
+
+      <div className="my-20">
+        <AppointmentConfirmation />
+      </div>
+
+      <SelectDoctor />
     </div>
   );
 };
