@@ -1,6 +1,6 @@
-import Available from "./components/home/Available";
-import TotalVisit from "./components/home/TotalVisit";
-import Upcoming from "./components/home/Upcoming";
+import Available from "./components/Available";
+import TotalVisit from "./components/TotalVisit";
+import Upcoming from "./components/Upcoming";
 
 const PatientDashboard = () => {
   return (
