@@ -5,6 +5,8 @@ import PatientDashboard from "../pages/Dashboard/patient/PatientDashboard";
 import Login from "../pages/login/Login";
 import NotFound from "../pages/notfound/NotFound";
 import Register from "../pages/register/Register";
+import ForgotPassword from "../pages/login/ForgotPassword";
+import DashboardLayout from "../layouts/DashboardLayout";
 import AppointmentRoute from "./AppointmentRoute";
 
 const router = createBrowserRouter([
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path:"/forgot-password",
+        element: <ForgotPassword/>
       },
       // register
       {
