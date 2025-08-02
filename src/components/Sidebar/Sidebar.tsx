@@ -1,12 +1,6 @@
+import { Calendar, Home, MessageCircle, Settings, User, X } from "lucide-react";
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
-import {
-  Home,
-  Calendar,
-  MessageCircle,
-  Settings,
-  X,
-} from "lucide-react";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -35,26 +29,44 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
       </div>
 
       {/* Optional image */}
-      <img className="absolute bottom-0 h-[60%] right-0 -translate-x-1/4" src="vector.png" alt="" />
+      <img
+        className="absolute bottom-0 h-[60%] right-0 -translate-x-1/4"
+        src="vector.png"
+        alt=""
+      />
 
       {/* Navigation */}
       <nav className="flex flex-col gap-4">
         <NavLink to="/" className="flex items-center gap-2 hover:text-gray-300">
           <Home size={20} /> Dashboard
         </NavLink>
-        <NavLink to="/appointments" className="flex items-center gap-2 hover:text-gray-300">
+        <NavLink
+          to="/appointments"
+          className="flex items-center gap-2 hover:text-gray-300"
+        >
           <Calendar size={20} /> Appointments
         </NavLink>
-        <NavLink to="/chat" className="flex items-center gap-2 hover:text-gray-300">
+        <NavLink
+          to="/chat"
+          className="flex items-center gap-2 hover:text-gray-300"
+        >
           <MessageCircle size={20} /> Chat
         </NavLink>
-        <NavLink to="/settings" className="flex items-center gap-2 hover:text-gray-300">
+        <NavLink
+          to="/profile"
+          className="flex items-center gap-2 hover:text-gray-300"
+        >
+          <User size={20} /> Profile
+        </NavLink>
+        <NavLink
+          to="/settings"
+          className="flex items-center gap-2 hover:text-gray-300"
+        >
           <Settings size={20} /> Settings
         </NavLink>
       </nav>
     </div>
   );
 };
-
 
 export default Sidebar;
