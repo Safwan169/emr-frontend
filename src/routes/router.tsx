@@ -1,46 +1,50 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
-import DoctorDashboard from "../pages/Dashboard/doctor/DoctorDashboard";
-import PatientDashboard from "../pages/Dashboard/patient/PatientDashboard";
-import Home from "../pages/home/Home";
+import DashboardLayout from "../layouts/DashboardLayout";
+import PatientDashboard from "../pages/Dashboard/patient/patientDashboard/PatientDashboard";
+import ForgotPassword from "../pages/login/ForgotPassword";
 import Login from "../pages/login/Login";
 import NotFound from "../pages/notfound/NotFound";
 import Register from "../pages/register/Register";
-import DashboardLayout from "../layouts/DashboardLayout";
+import { isAuthenticated } from "../utils/auth";
 import AppointmentRoute from "./AppointmentRoute";
 
-const router = createBrowserRouter([
+// Private routes under DashboardLayout
+const privateRoutes = {
+  path: "/",
+  element: isAuthenticated() ? (
+    <DashboardLayout pageTitle="Dashboard" />
+  ) : (
+    <Login />
+  ),
+  children: [
+    ...AppointmentRoute,
+    {
+      path: "/",
+      element: <PatientDashboard />,
+    },
+  ],
+};
+
+// Public routes (no layout)
+const publicRoutes = [
   {
-    path: "/",
-    element: <DashboardLayout pageTitle="Dashboard" />,
-    children: [
-      ...AppointmentRoute ,
-      // doctor dashboard
-      {
-        path: "/dashboard/doctor",
-        element: <DoctorDashboard />,
-      },
-      // patient dashboard
-      {
-        path: "/dashboard/patient",
-        element: <PatientDashboard />,
-      },
-      // login
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      // register
-      {
-        path: "/register",
-        element: <Register />,
-      },
-    ],
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
   },
   {
     path: "*",
     element: <NotFound />,
   },
-]);
+];
+
+const router = createBrowserRouter([privateRoutes, ...publicRoutes]);
 
 export default router;

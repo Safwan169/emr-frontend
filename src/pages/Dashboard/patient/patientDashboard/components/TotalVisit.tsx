@@ -1,3 +1,7 @@
+<<<<<<< HEAD:src/pages/Dashboard/patient/components/home/TotalVisit.tsx
+=======
+
+>>>>>>> 73273221b9cc72e2a1f577d6183f418f6e86a2b4:src/pages/Dashboard/patient/patientDashboard/components/TotalVisit.tsx
 import {
   CalendarDays,
   ChevronLeft,

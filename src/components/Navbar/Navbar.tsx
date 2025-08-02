@@ -14,19 +14,21 @@ const Navbar: FC<NavbarProps> = ({ title, onToggleSidebar }) => {
         </button>
         <h2 className="text-xl font-semibold">{title}</h2>
       </div>
-      <div className="flex items-center gap-4">
+
+      {/* Right: Search & Profile */}
+      <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full md:w-auto">
         <input
           type="text"
           placeholder="Search anything here..."
-          className="border px-3 py-1 rounded-md text-sm"
+          className="border px-3 py-1 rounded-md text-sm w-full sm:w-auto"
         />
         <div className="flex items-center gap-2">
           <img
-            src="https://i.ibb.co/Sr9bR2z/profile.jpg"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE4g-3ZH_1TjfN-zOuCRru2LrfrGtPbwaCsQ&s"
             alt="Profile"
-            className="w-8 h-8 rounded-full"
+            className="w-8 h-8 rounded-full object-cover"
           />
-          <span className="font-medium">Salil Chakma</span>
+          <span className="font-medium text-sm sm:text-base">Salil Chakma</span>
         </div>
       </div>
     </div>

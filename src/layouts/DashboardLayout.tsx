@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
-import Sidebar from "../components/Sidebar/Sidebar";
-import Navbar from "../components/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar/Navbar";
+import Sidebar from "../components/Sidebar/Sidebar";
 interface LayoutProps {
   children?: React.ReactNode;
   pageTitle: string;
@@ -25,13 +25,12 @@ const DashboardLayout: FC<LayoutProps> = ({ pageTitle }) => {
         </div>
 
         {/* Scrollable content */}
-        <main className="overflow-y-auto p-3 h-full">
+        <main className="overflow-y-auto lg:p-3 h-full">
           <Outlet />
         </main>
       </div>
     </div>
   );
 };
-
 
 export default DashboardLayout;

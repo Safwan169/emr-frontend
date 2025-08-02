@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MyDoctors = () => {
+const AdminRoute = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const MyDoctors = () => {
     );
 };
 
-export default MyDoctors;
+export default AdminRoute;
