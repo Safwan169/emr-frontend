@@ -34,10 +34,10 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex flex-col md:flex-row">
       {/* Left Side */}
       <div
-        className="w-1/2 flex items-center justify-center relative overflow-hidden bg-cover bg-center"
+        className="w-full md:w-1/2 flex items-center justify-center relative overflow-hidden bg-cover bg-center"
         style={{
           backgroundImage:
             "url('https://d1o986dsouikxg.cloudfront.net/loginLeft.png')",
@@ -58,10 +58,10 @@ const Register = () => {
       </div>
 
       {/* Right Side */}
-      <div className="w-1/2 flex items-center justify-center px-8">
+      <div className="w-full md:w-1/2 flex items-center justify-center px-4 md:px-8">
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-md bg-white p-6 rounded-md"
+          className="w-full max-w-xl sm:max-w-2xl lg:max-w-3xl xl:max-w-4xl p-8 "
         >
           <h2 className="text-2xl font-bold text-gray-800 mb-1">
             Create Account
@@ -70,55 +70,76 @@ const Register = () => {
             Create an account to explore about our services
           </p>
 
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* First Name */}
-            <input
-              type="text"
-              name="firstName"
-              placeholder="First Name"
-              className="w-full border rounded-md px-4 py-2"
-              onChange={handleInputChange}
-              required
-            />
+            <div>
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                className="w-full border rounded-md px-4 py-2"
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
+            {/* Last Name */}
+            <div>
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                className="w-full border rounded-md px-4 py-2"
+                onChange={handleInputChange}
+                required
+              />
+            </div>
 
             {/* Email */}
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter Email"
-              className="w-full border rounded-md px-4 py-2"
-              onChange={handleInputChange}
-              required
-            />
+            <div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter Email"
+                className="w-full border rounded-md px-4 py-2"
+                onChange={handleInputChange}
+                required
+              />
+            </div>
 
             {/* Gender Dropdown */}
-            <select
-              name="gender"
-              className="w-full border rounded-md px-4 py-2 text-gray-700"
-              onChange={handleInputChange}
-              required
-              defaultValue=""
-            >
-              <option value="" disabled>
-                Select Gender
-              </option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-            {/* Date Picker with placeholder */}
-            <input
-              type="text"
-              name="dob"
-              className="w-full border rounded-md px-4 py-2 text-gray-700"
-              placeholder="Choose your birthdate"
-              onFocus={(e) => (e.target.type = "date")}
-              onBlur={(e) => {
-                if (!e.target.value) e.target.type = "text";
-              }}
-              onChange={handleInputChange}
-              required
-            />
+            <div>
+              <select
+                name="gender"
+                className="w-full border rounded-md px-4 py-2 text-gray-700"
+                onChange={handleInputChange}
+                required
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Select Gender
+                </option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            {/* Date Picker */}
+            <div>
+              <input
+                type="text"
+                name="dob"
+                className="w-full border rounded-md px-4 py-2 text-gray-700"
+                placeholder="Choose your birthdate"
+                onFocus={(e) => (e.target.type = "date")}
+                onBlur={(e) => {
+                  if (!e.target.value) e.target.type = "text";
+                }}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
 
             {/* File Upload */}
             <div className="relative">
@@ -131,9 +152,7 @@ const Register = () => {
                     📎 {formData.insuranceId.name}
                   </span>
                 ) : (
-                  <span className="text-gray-400">
-                    Choose your insurance ID
-                  </span>
+                  <span className="text-gray-400">Insurance ID</span>
                 )}
                 <HiOutlineIdentification className="ml-2 text-xl text-gray-500" />
               </label>
@@ -183,8 +202,10 @@ const Register = () => {
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
+          </div>
 
-            {/* Submit Button */}
+          {/* Submit Button */}
+          <div className="mt-4">
             <button
               type="submit"
               className="w-full bg-[#1434CB] hover:bg-blue-700 text-white py-2 rounded-md font-semibold"
