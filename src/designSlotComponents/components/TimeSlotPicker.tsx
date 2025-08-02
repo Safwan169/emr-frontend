@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function TimeSlotPicker() {
   const [selectedSlot, setSelectedSlot] = useState(null);
@@ -27,21 +28,21 @@ export default function TimeSlotPicker() {
         Available Time Slots
       </h2>
 
-      <div className="grid grid-cols-3 gap-3">
+      <Link to={'/new-appointment/appoinment-details'} className="grid grid-cols-3 gap-3">
         {timeSlots.map((slot, index) => (
           <button
             key={index}
             onClick={() => handleSlotClick(index, slot)}
             disabled={slot.booked || !slot.available}
             className={`
-              px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200
+              px-4 py-3 h-14 rounded-lg text-sm font-medium transition-all duration-200
               ${
                 slot.booked
-                  ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                  ? "bg-gray-200  text-gray-400 cursor-not-allowed"
                   : slot.available
                   ? selectedSlot === index
-                    ? "bg-blue-500 text-white shadow-md"
-                    : "bg-white text-gray-700 border border-gray-300 hover:border-gray-400 hover:shadow-sm"
+                    ? "bg-[#1C3BA4] text-white shadow-md"
+                    : "bg-white text-gray-700 border border-gray-200/90 hover:border-gray-400 hover:shadow-sm"
                   : "bg-gray-100 text-gray-400 cursor-not-allowed"
               }
             `}
@@ -49,12 +50,12 @@ export default function TimeSlotPicker() {
             <div className="flex flex-col items-center">
               <span className="font-medium">{slot.time}</span>
               {slot.booked && (
-                <span className="text-xs text-gray-400 mt-1">Booked</span>
+                <span className="text-xs text-gray-400 ">Booked</span>
               )}
             </div>
           </button>
         ))}
-      </div>
+      </Link>
     </div>
   );
 }

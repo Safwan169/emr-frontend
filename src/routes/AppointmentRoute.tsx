@@ -1,6 +1,10 @@
+import AppointmentConfirmation from "../designSlotComponents/AppointmentConfirmation";
 import Appointments from "../pages/appointments/Appointments";
 import NewAppoinmentLayout from "../pages/appointments/newAppoinmentLayout/NewAppoinmentLayout";
-import SelectDoctorSectionMain from "../pages/appointments/pages/selectDoctor/SelectorDoctorMain";
+import AppointmentDetails from "../pages/appointments/pages/appointmentDetails/AppointmentDetails";
+import BookAppoinment from "../pages/appointments/pages/bookAppoinment/BookAppoinment";
+import ReviewAppointment from "../pages/appointments/pages/reviewAppoinment/ReviewAppointment";
+import SelectDoctorSectionMain from "../pages/appointments/pages/selectDoctor/SelectDoctorMain";
 import SelectTimeSlot from "../pages/appointments/pages/selectTimeSlot/SelectTimeSlot";
 // Import other child components as needed
 
@@ -22,13 +26,21 @@ const AppointmentRoute = [
         path: "select-timeSlot", 
         element: <SelectTimeSlot />,
       },
-      // Add more children routes if needed here
-      // {
-      //   path: "patient/:id",
-      //   element: <PatientAppointment />,
-      // }
+      {
+        path: "appoinment-details", 
+        element: <AppointmentDetails />,
+      },
+      {
+        path: "reviewAppointment", 
+        element: <ReviewAppointment />,
+      },
+     
     ],
-  }
+    
+  }, {
+        path: "confirm-appointment", 
+        element: <AppointmentConfirmation />,
+      }
 ];
 
 export default AppointmentRoute;

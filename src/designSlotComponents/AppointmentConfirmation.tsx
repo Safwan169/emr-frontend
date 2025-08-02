@@ -1,8 +1,9 @@
 import { Check } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function AppointmentConfirmation() {
   return (
-    <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+    <div className="max-w-3xl mx-auto bg-white p-8 mt-5 rounded-lg shadow-lg">
       {/* Success Icon */}
       <div className="flex justify-center mb-6">
         <div className="w-16 h-16 bg-[#1C3BA4] rounded-full flex items-center justify-center">
@@ -16,7 +17,7 @@ export default function AppointmentConfirmation() {
       </h1>
 
       {/* Subtitle */}
-      <p className="text-gray-600 text-center mb-8">
+      <p className="text-gray-800 text-center mb-8">
         Your appointment has been successfully booked.
       </p>
 
@@ -26,38 +27,38 @@ export default function AppointmentConfirmation() {
           Appointment Details
         </h2>
 
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <p className="text-sm font-bold text-gray-700 mb-1">Doctor Name:</p>
-            <p className="text-gray-900">Salil Chakma</p>
+        <div className="grid grid-cols-2 text-[16px] gap-4">
+          <div className="flex items-center gap-2 ">
+            <p className="text-[16px] font-bold text-gray-700 ">Doctor Name:</p>
+            <p className= "text-[16px] font-normal text-gray-900">Salil Chakma</p>
           </div>
 
-          <div>
-            <p className="text-sm font-bold text-gray-700 mb-1">Date:</p>
+          <div className="flex items-center gap-2">
+            <p className="text-sm font-bold text-gray-700 ">Date:</p>
             <p className="text-gray-900">Thursday, July 31, 2025</p>
           </div>
 
-          <div>
-            <p className="text-sm font-bold text-gray-700 mb-1">Time:</p>
-            <p className="text-gray-900">09:30 PM31</p>
+          <div className="flex items-center gap-2">
+            <p className="text-sm font-bold text-gray-700 ">Time:</p>
+            <p className="text-gray-900">09:30 PM</p>
           </div>
 
-          <div>
-            <p className="text-sm font-bold text-gray-700 mb-1">Type:</p>
+          <div className="flex items-center gap-2">
+            <p className="text-sm font-bold text-gray-700 ">Type:</p>
             <p className="text-gray-900">Consultation</p>
           </div>
         </div>
       </div>
 
       {/* Action Buttons */}
-      <div className="flex flex-col md:flex-row gap-5">
-        <button className="w-full bg-[#1C3BA4] text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+      <div className="flex flex-col md:flex-row gap-5 font-semibold">
+        <Link to={'/appointments'} className="w-full text-center bg-[#1C3BA4] text-white py-3 px-4 rounded-lg  hover:bg-blue-700 transition-colors">
           Book Another
-        </button>
+        </Link >
 
-        <button className="w-full bg-gray-100 text-gray-700 py-3 px-4 border-2 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+        <Link to={'/'} className="w-full bg-gray-100 text-center text-gray-700 py-3 px-4 border-2 rounded-lg  hover:bg-gray-200 transition-colors">
           View Appointment
-        </button>
+        </Link>
       </div>
     </div>
   );

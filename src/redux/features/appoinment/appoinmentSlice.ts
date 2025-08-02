@@ -28,7 +28,6 @@ const bookingSlice = createSlice({
   reducers: {
     setSelectedDoctor(state, action: PayloadAction<SelectedDoctor>) {
       state.selectedDoctor = action.payload;
-      state.step = state.step+1; // Go to next step when doctor is selected
     },
     setStep(state, action: PayloadAction<number>) {
       state.step = action.payload;

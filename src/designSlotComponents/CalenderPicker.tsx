@@ -172,7 +172,7 @@ const CalenderPicker = () => {
   const today = new Date();
 
   return (
-    <div className="shadow-2xl rounded-2xl bg-white w-full flex flex-col p-6">
+    <div className=" rounded-2xl bg-white w-full flex flex-col p-6">
       {/* Calendar Header */}
       <div className="flex justify-between items-center mb-4">
         <button
@@ -213,7 +213,7 @@ const CalenderPicker = () => {
               key={index}
               className={`p-2 m-1 rounded-lg flex items-center justify-center
                 ${day ? "cursor-pointer" : ""}
-                ${isToday ? "bg-blue-500 text-white" : "hover:bg-blue-100"}
+                ${isToday ? "bg-[#1C3BA4] text-white" : "hover:bg-blue-100"}
               `}
             >
               {day || ""}
