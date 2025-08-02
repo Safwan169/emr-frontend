@@ -54,7 +54,7 @@ const DetailForm = () => {
 
               <button
                 type="submit"
-                className="w-full bg-[#1C3BA4] font-bold text-white py-2 rounded-md hover:bg-blue-800 transition"
+                className="w-full bg-[#1C3BA4] font-bold text-white py-2 rounded-md mt-2 hover:bg-blue-800 transition"
               >
                 Continue
               </button>

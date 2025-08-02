@@ -3,6 +3,8 @@ import DetailForm from './componants/DetailsForm';
 import SelectedDoctorSection from '../selectTimeSlot/componats/SelectedDoctorSection';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { setStep } from '../../../../redux/features/appoinment/appoinmentSlice';
+import NeedHelpSection from '../selectDoctor/componants/NeedHelpSection';
+import SelectedTimeAndDate from '../../components/SelectedTimeAndDate';
 
 const AppointmentDetails = () => {
   const selectedDoctor = useAppSelector((state) => state.booking.selectedDoctor);
@@ -19,8 +21,11 @@ const AppointmentDetails = () => {
         <DetailForm/>
       </div>
 {/* right content */}
-      <div className='w-full max-w-[40%]'>
+      <div className='w-full space-y-2 max-w-[40%]'>
         <SelectedDoctorSection doctor={selectedDoctor}/>
+        
+        <SelectedTimeAndDate/>
+        <NeedHelpSection/>
       </div>
     </div>
   );
