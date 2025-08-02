@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { HiOutlineIdentification } from "react-icons/hi2";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -154,7 +153,7 @@ const Register = () => {
                 ) : (
                   <span className="text-gray-400">Insurance ID</span>
                 )}
-                <HiOutlineIdentification className="ml-2 text-xl text-gray-500" />
+                {/* <HiIdentification className="ml-2 text-xl text-gray-500" /> */}
               </label>
               <input
                 id="insuranceId"
@@ -181,7 +180,7 @@ const Register = () => {
                 className="absolute right-3 top-3 text-xl text-gray-500 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {showPassword ? <>{FaEyeSlash({})}</> : <>{FaEye({})}</>}
               </span>
             </div>
 
@@ -199,7 +198,7 @@ const Register = () => {
                 className="absolute right-3 top-3 text-xl text-gray-500 cursor-pointer"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               >
-                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                {showPassword ? <>{FaEyeSlash({})}</> : <>{FaEye({})}</>}
               </span>
             </div>
           </div>
