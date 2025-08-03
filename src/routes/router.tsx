@@ -7,6 +7,7 @@ import NotFound from "../pages/notfound/NotFound";
 import Register from "../pages/register/Register";
 import { isAuthenticated } from "../utils/auth";
 import AppointmentRoute from "./AppointmentRoute";
+import PatientRoute from "./PatientRoute";
 
 // Private routes under DashboardLayout
 const privateRoutes = {
@@ -18,6 +19,7 @@ const privateRoutes = {
   ),
   children: [
     ...AppointmentRoute,
+    ...PatientRoute,
     {
       path: "/",
       element: <PatientDashboard />,
