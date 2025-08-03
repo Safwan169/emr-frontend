@@ -58,4 +58,5 @@ export const {
   useCreateUserMutation,
   useDeleteUserByIdMutation,
   useGetUserByEmailQuery,
+  useGetUserByIdQuery,
 } = userApi;
