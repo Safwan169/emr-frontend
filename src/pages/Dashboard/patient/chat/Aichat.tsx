@@ -1,14 +1,14 @@
 import React from 'react';
-import ChatBot from './components/ChatBot';
-import AiHealthAssistant from './components/AiHealthAssistant';
-import ChatBox from './components/ChatBox';
+
+import AllInOne from './components/AllInOne';
 
 const Aichat = () => {
     return (
         <div>
-            <ChatBot />
+            {/* <ChatBot />
             <AiHealthAssistant />
-            <ChatBox />
+            <ChatBox /> */}
+            <AllInOne />
         </div>
     );
 };
