@@ -9,6 +9,7 @@ import { isAuthenticated } from "../utils/auth";
 import AppointmentRoute from "./AppointmentRoute";
 import OtpValidation from "../pages/register/OtpValidation";
 import LoginOtp from "../pages/login/LoginOtp";
+import PatientRoute from "./PatientRoute";
 
 // Private routes under DashboardLayout
 const privateRoutes = {
@@ -20,6 +21,7 @@ const privateRoutes = {
   ),
   children: [
     ...AppointmentRoute,
+    ...PatientRoute,
     {
       path: "/",
       element: <PatientDashboard />,
