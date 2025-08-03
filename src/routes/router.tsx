@@ -12,7 +12,6 @@ import DoctorProfile from "../testComponants/DoctorPatient";
 import DoctorRoute from "./DoctorRoute";
 import OtpValidation from "../pages/register/OtpValidation";
 import LoginOtp from "../pages/login/LoginOtp";
-import PatientRoute from "./PatientRoute";
 
 // Private routes under DashboardLayout
 const privateRoutes = {
