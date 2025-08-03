@@ -1,13 +1,17 @@
-import { Calendar, Home, MessageCircle, Settings, User, X } from "lucide-react";
+import { X } from "lucide-react";
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
+import SidebarConfig from "./SidebarConfig";
 
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  role: string; // patient | doctor | admin etc.
 }
 
-const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
+const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
+  const navItems = SidebarConfig[role] || [];
+
   return (
     <div
       className={`z-50 fixed bottom-0 my-3 ml-2 left-0 w-full md:relative md:top-0 md:left-0 
@@ -31,39 +35,21 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
       {/* Optional image */}
       <img
         className="absolute bottom-0 h-[60%] right-0 -translate-x-1/4"
-        src="vector.png"
+        src="/vector.png"
         alt=""
       />
 
       {/* Navigation */}
       <nav className="flex flex-col gap-4">
-        <NavLink to="/" className="flex items-center gap-2 hover:text-gray-300">
-          <Home size={20} /> Dashboard
-        </NavLink>
-        <NavLink
-          to="/appointments"
-          className="flex items-center gap-2 hover:text-gray-300"
-        >
-          <Calendar size={20} /> Appointments
-        </NavLink>
-        <NavLink
-          to="/chat"
-          className="flex items-center gap-2 hover:text-gray-300"
-        >
-          <MessageCircle size={20} /> Chat
-        </NavLink>
-        <NavLink
-          to="/profile"
-          className="flex items-center gap-2 hover:text-gray-300"
-        >
-          <User size={20} /> Profile
-        </NavLink>
-        <NavLink
-          to="/settings"
-          className="flex items-center gap-2 hover:text-gray-300"
-        >
-          <Settings size={20} /> Settings
-        </NavLink>
+        {navItems.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            className="flex items-center gap-2 hover:text-gray-300"
+          >
+            {item.icon && <item.icon size={20} />} {item.label}
+          </NavLink>
+        ))}
       </nav>
     </div>
   );

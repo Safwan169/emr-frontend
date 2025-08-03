@@ -1,7 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { baseApi } from "./api/baseApi";
 import authReducer from "./features/auth/authSlice";
-import bookingReducer from "./features/appoinment/bookingSlice";
+import bookingReducer from "./features/appoinment/appoinmentSlice";
 
 import {
   persistStore,
