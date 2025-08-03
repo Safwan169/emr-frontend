@@ -1,35 +1,78 @@
+// src/components/Register.tsx
 import React, { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useSignupMutation } from "../../redux/features/auth/authApi";
+import { registerSchema } from "../../schemas/register.schema";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [signup, { isLoading, isSuccess, error }] = useSignupMutation();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: "",
+    lastName: "",
     email: "",
     gender: "",
     dob: "",
-    insuranceId: null as File | null,
     password: "",
     confirmPassword: "",
   });
 
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const { name, value, type } = e.target;
-
-    if (type === "file" && e.target instanceof HTMLInputElement) {
-      const file = e.target.files?.[0] || null;
-      setFormData({ ...formData, [name]: file });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+
+    try {
+      await registerSchema.validate(formData, { abortEarly: false });
+      setValidationErrors({});
+
+      const {
+        firstName,
+        lastName,
+        email,
+        password,
+        gender,
+        dob,
+      } = formData;
+
+      const formattedData = {
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        password,
+        date_of_birth: dob,
+        gender: gender.toLowerCase(),
+      };
+
+      const result = await signup(formattedData).unwrap();
+      console.log("Registration success:", result);
+
+      // Redirect to OTP page
+      navigate("/otp-validation", {
+        state: { email: formData.email },
+      });
+    } catch (err: any) {
+      if (err.name === "ValidationError") {
+        const errs: Record<string, string> = {};
+        err.inner.forEach((validationError: any) => {
+          if (validationError.path) errs[validationError.path] = validationError.message;
+        });
+        setValidationErrors(errs);
+      } else {
+        console.error("Registration error:", err);
+      }
+    }
   };
 
   return (
@@ -38,8 +81,7 @@ const Register = () => {
       <div
         className="w-full md:w-1/2 flex items-center justify-center relative overflow-hidden bg-cover bg-center"
         style={{
-          backgroundImage:
-            "url('https://d1o986dsouikxg.cloudfront.net/loginLeft.png')",
+          backgroundImage: "url('https://d1o986dsouikxg.cloudfront.net/loginLeft.png')",
         }}
       >
         <div className="text-white text-center z-10">
@@ -60,11 +102,10 @@ const Register = () => {
       <div className="w-full md:w-1/2 flex items-center justify-center px-4 md:px-8">
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-xl sm:max-w-2xl lg:max-w-3xl xl:max-w-4xl p-8 "
+          className="w-full max-w-xl sm:max-w-2xl lg:max-w-3xl xl:max-w-4xl p-8"
+          noValidate
         >
-          <h2 className="text-2xl font-bold text-gray-800 mb-1">
-            Create Account
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-1">Create Account</h2>
           <p className="text-sm text-gray-500 mb-6">
             Create an account to explore about our services
           </p>
@@ -76,10 +117,15 @@ const Register = () => {
                 type="text"
                 name="firstName"
                 placeholder="First Name"
-                className="w-full border rounded-md px-4 py-2"
+                className={`w-full border rounded-md px-4 py-2 ${
+                  validationErrors.firstName ? "border-red-500" : ""
+                }`}
                 onChange={handleInputChange}
                 required
               />
+              {validationErrors.firstName && (
+                <p className="text-red-500 text-xs mt-1">{validationErrors.firstName}</p>
+              )}
             </div>
 
             {/* Last Name */}
@@ -88,10 +134,15 @@ const Register = () => {
                 type="text"
                 name="lastName"
                 placeholder="Last Name"
-                className="w-full border rounded-md px-4 py-2"
+                className={`w-full border rounded-md px-4 py-2 ${
+                  validationErrors.lastName ? "border-red-500" : ""
+                }`}
                 onChange={handleInputChange}
                 required
               />
+              {validationErrors.lastName && (
+                <p className="text-red-500 text-xs mt-1">{validationErrors.lastName}</p>
+              )}
             </div>
 
             {/* Email */}
@@ -100,17 +151,24 @@ const Register = () => {
                 type="email"
                 name="email"
                 placeholder="Enter Email"
-                className="w-full border rounded-md px-4 py-2"
+                className={`w-full border rounded-md px-4 py-2 ${
+                  validationErrors.email ? "border-red-500" : ""
+                }`}
                 onChange={handleInputChange}
                 required
               />
+              {validationErrors.email && (
+                <p className="text-red-500 text-xs mt-1">{validationErrors.email}</p>
+              )}
             </div>
 
-            {/* Gender Dropdown */}
+            {/* Gender */}
             <div>
               <select
                 name="gender"
-                className="w-full border rounded-md px-4 py-2 text-gray-700"
+                className={`w-full border rounded-md px-4 py-2 text-gray-700 ${
+                  validationErrors.gender ? "border-red-500" : ""
+                }`}
                 onChange={handleInputChange}
                 required
                 defaultValue=""
@@ -122,14 +180,19 @@ const Register = () => {
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
               </select>
+              {validationErrors.gender && (
+                <p className="text-red-500 text-xs mt-1">{validationErrors.gender}</p>
+              )}
             </div>
 
-            {/* Date Picker */}
+            {/* DOB */}
             <div>
               <input
                 type="text"
                 name="dob"
-                className="w-full border rounded-md px-4 py-2 text-gray-700"
+                className={`w-full border rounded-md px-4 py-2 text-gray-700 ${
+                  validationErrors.dob ? "border-red-500" : ""
+                }`}
                 placeholder="Choose your birthdate"
                 onFocus={(e) => (e.target.type = "date")}
                 onBlur={(e) => {
@@ -138,32 +201,9 @@ const Register = () => {
                 onChange={handleInputChange}
                 required
               />
-            </div>
-
-            {/* File Upload */}
-            <div className="relative">
-              <label
-                htmlFor="insuranceId"
-                className="w-full flex items-center justify-between border rounded-md px-4 py-2 cursor-pointer text-gray-700 bg-white hover:bg-gray-50"
-              >
-                {formData.insuranceId ? (
-                  <span className="truncate">
-                    📎 {formData.insuranceId.name}
-                  </span>
-                ) : (
-                  <span className="text-gray-400">Insurance ID</span>
-                )}
-                {/* <HiIdentification className="ml-2 text-xl text-gray-500" /> */}
-              </label>
-              <input
-                id="insuranceId"
-                type="file"
-                name="insuranceId"
-                accept=".jpg,.png,.pdf"
-                className="hidden"
-                onChange={handleInputChange}
-                required
-              />
+              {validationErrors.dob && (
+                <p className="text-red-500 text-xs mt-1">{validationErrors.dob}</p>
+              )}
             </div>
 
             {/* Password */}
@@ -172,16 +212,19 @@ const Register = () => {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="Password"
-                className="w-full border rounded-md px-4 py-2 pr-10"
+                className={`w-full border rounded-md px-4 py-2 pr-10 ${
+                  validationErrors.password ? "border-red-500" : ""
+                }`}
                 onChange={handleInputChange}
                 required
               />
               <span
-                className="absolute right-3 top-3 text-xl text-gray-500 cursor-pointer"
+                className="absolute right-3 top-3 cursor-pointer select-none"
                 onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <>{FaEyeSlash({})}</> : <>{FaEye({})}</>}
-              </span>
+              />
+              {validationErrors.password && (
+                <p className="text-red-500 text-xs mt-1">{validationErrors.password}</p>
+              )}
             </div>
 
             {/* Confirm Password */}
@@ -190,27 +233,38 @@ const Register = () => {
                 type={showConfirmPassword ? "text" : "password"}
                 name="confirmPassword"
                 placeholder="Confirm Password"
-                className="w-full border rounded-md px-4 py-2 pr-10"
+                className={`w-full border rounded-md px-4 py-2 pr-10 ${
+                  validationErrors.confirmPassword ? "border-red-500" : ""
+                }`}
                 onChange={handleInputChange}
                 required
               />
               <span
-                className="absolute right-3 top-3 text-xl text-gray-500 cursor-pointer"
+                className="absolute right-3 top-3 cursor-pointer select-none"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              >
-                {showPassword ? <>{FaEyeSlash({})}</> : <>{FaEye({})}</>}
-              </span>
+              />
+              {validationErrors.confirmPassword && (
+                <p className="text-red-500 text-xs mt-1">
+                  {validationErrors.confirmPassword}
+                </p>
+              )}
             </div>
           </div>
 
-          {/* Submit Button */}
           <div className="mt-4">
             <button
               type="submit"
-              className="w-full bg-[#1434CB] hover:bg-blue-700 text-white py-2 rounded-md font-semibold"
+              className="w-full bg-[#1C3BA4] hover:bg-blue-700 text-white py-2 rounded-md font-semibold"
+              disabled={isLoading}
             >
-              Sign up
+              {isLoading ? "Sending OTP to your mail...." : "Sign up"}
             </button>
+
+            {error && (
+              <p className="mt-2 text-red-500">
+                Error: {(error as any)?.data?.message || "Something went wrong"}
+              </p>
+            )}
           </div>
         </form>
       </div>
