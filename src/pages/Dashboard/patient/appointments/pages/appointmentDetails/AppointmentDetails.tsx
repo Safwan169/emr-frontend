@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import DetailForm from './componants/DetailsForm';
 import SelectedDoctorSection from '../selectTimeSlot/componats/SelectedDoctorSection';
-import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import { setStep } from '../../../../redux/features/appoinment/appoinmentSlice';
+import { useAppDispatch, useAppSelector } from '../../../../../../redux/hooks';
+import { setStep } from '../../../../../../redux/features/appoinment/appoinmentSlice';
 import NeedHelpSection from '../selectDoctor/componants/NeedHelpSection';
 import SelectedTimeAndDate from '../../components/SelectedTimeAndDate';
 

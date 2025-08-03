@@ -1,5 +1,5 @@
 import React from 'react';
-import AppointmentConfirmation from '../../../../designSlotComponents/AppointmentConfirmation';
+import AppointmentConfirmation from '../../components/AppointmentConfirmation';
 
 const BookAppoinment = () => {
     return (

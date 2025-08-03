@@ -7,6 +7,9 @@ import NotFound from "../pages/notfound/NotFound";
 import Register from "../pages/register/Register";
 import { isAuthenticated } from "../utils/auth";
 import AppointmentRoute from "./AppointmentRoute";
+import PatientRoute from "./PatientRoute";
+import DoctorProfile from "../testComponants/DoctorPatient";
+import DoctorRoute from "./DoctorRoute";
 
 // Private routes under DashboardLayout
 const privateRoutes = {
@@ -18,6 +21,8 @@ const privateRoutes = {
   ),
   children: [
     ...AppointmentRoute,
+    ...PatientRoute,
+    ...DoctorRoute,
     {
       path: "/",
       element: <PatientDashboard />,
@@ -39,6 +44,7 @@ const publicRoutes = [
     path: "/forgot-password",
     element: <ForgotPassword />,
   },
+  
   {
     path: "*",
     element: <NotFound />,

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../../../redux/hooks';
 import NeedHelpSection from './componants/NeedHelpSection';
 import SelectDoctorSection from './componants/SelectDoctorSection';
-import { setStep } from '../../../../redux/features/appoinment/appoinmentSlice';
+import { setStep } from '../../../../../../redux/features/appoinment/appoinmentSlice';
 
 const SelectDoctorSectionMain = () => {
 

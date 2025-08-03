@@ -1,5 +1,5 @@
 import React from "react";
-import { RecentActivityCardProps } from "../../../types/global";
+import { RecentActivityCardProps } from "../../../../../types/global";
 
 const RecentActivityCard: React.FC<RecentActivityCardProps> = ({ data }) => {
   return (

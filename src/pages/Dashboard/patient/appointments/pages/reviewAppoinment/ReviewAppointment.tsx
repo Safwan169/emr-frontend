@@ -6,9 +6,9 @@ import {
     Stethoscope,
 } from "lucide-react";
 import SelectedDoctorSection from "../selectTimeSlot/componats/SelectedDoctorSection";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
 import { useEffect } from "react";
-import { setStep } from "../../../../redux/features/appoinment/appoinmentSlice";
+import { setStep } from "../../../../../../redux/features/appoinment/appoinmentSlice";
 import { Link } from "react-router-dom";
 import Summary from "./componants/Summary";
 import NeedHelpSection from "../selectDoctor/componants/NeedHelpSection";

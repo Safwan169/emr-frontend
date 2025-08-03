@@ -1,6 +1,6 @@
 import { Star, CheckCircle } from "lucide-react";
-import { useAppDispatch } from "../../../../../redux/hooks";
-import { setSelectedDoctor } from "../../../../../redux/features/appoinment/appoinmentSlice";
+import { useAppDispatch } from "../../../../../../../redux/hooks";
+import { setSelectedDoctor } from "../../../../../../../redux/features/appoinment/appoinmentSlice";
 import { useNavigate } from "react-router-dom";
 
 

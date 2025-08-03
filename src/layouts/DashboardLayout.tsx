@@ -10,13 +10,18 @@ interface LayoutProps {
 const DashboardLayout: FC<LayoutProps> = ({ pageTitle }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
+  // Example role fetched from auth (Firebase/NextAuth/your backend)
+  const userRole = "doctor"; // or "doctor", "admin"
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar fixed */}
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-
+  <Sidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        role={userRole}
+      />
       {/* Main content */}
       <div className="flex-1 ml-1   flex flex-col my-3">
         {/* Navbar (sticky top) */}
