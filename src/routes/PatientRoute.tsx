@@ -1,3 +1,4 @@
+
 import PatientProfile from "../pages/Dashboard/patient/patientProfile/PatientProfile";
 
 const PatientRoute = [

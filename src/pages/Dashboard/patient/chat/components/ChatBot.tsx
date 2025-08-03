@@ -11,17 +11,17 @@ const questions: string[] = [
 
 const ChatBot: React.FC = () => {
   return (
-    <div className="w-full max-w-[1376px] h-[345px] border border-gray-200 rounded-xl p-6 mx-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid-rows-6 sm:grid-rows-3 gap-4 h-full place-content-center">
+    <div className="w-full  h-fit border bg-white border-gray-200 rounded-xl p-6 mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 h-fit  place-content-center">
         {questions.map((question, index) => (
           <div
             key={index}
             className="flex flex-col justify-center rounded-lg border border-gray-200 p-4 bg-white hover:shadow-xl transition"
           >
             <img
-              src="/public/messages.png"
+              src="/message.png"
               alt="Question Icon"
-              className="w-8 h-8 mb-5 object-cover"
+              className="w-10 h-10 mb-5 object-cover"
             />
             <p className="text-gray-700 text-sm">{question}</p>
           </div>

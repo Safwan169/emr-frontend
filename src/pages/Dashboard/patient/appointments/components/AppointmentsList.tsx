@@ -1,6 +1,6 @@
 import React from "react";
 import DoctorAppointmentCard from "./DoctorAppointmentCard";
-import { Appointment } from "../../../types/global";
+import { Appointment } from "../../../../../types/global";
 
 const appointments: Appointment[] = [
   {

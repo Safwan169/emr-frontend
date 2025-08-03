@@ -1,7 +1,11 @@
-import Appointments from "../pages/appointments/Appointments";
-import NewAppoinmentLayout from "../pages/appointments/newAppoinmentLayout/NewAppoinmentLayout";
-import SelectDoctorSectionMain from "../pages/appointments/pages/selectDoctor/SelectorDoctorMain";
-import SelectTimeSlot from "../pages/appointments/pages/selectTimeSlot/SelectTimeSlot";
+import AppointmentConfirmation from "../pages/Dashboard/patient/appointments/components/AppointmentConfirmation";
+import Appointments from "../pages/Dashboard/patient/appointments/Appointments";
+import NewAppoinmentLayout from "../pages/Dashboard/patient/appointments/newAppoinmentLayout/NewAppoinmentLayout";
+import AppointmentDetails from "../pages/Dashboard/patient/appointments/pages/appointmentDetails/AppointmentDetails";
+import BookAppoinment from "../pages/Dashboard/patient/appointments/pages/bookAppoinment/BookAppoinment";
+import ReviewAppointment from "../pages/Dashboard/patient/appointments/pages/reviewAppoinment/ReviewAppointment";
+import SelectDoctorSectionMain from "../pages/Dashboard/patient/appointments/pages/selectDoctor/SelectDoctorMain";
+import SelectTimeSlot from "../pages/Dashboard/patient/appointments/pages/selectTimeSlot/SelectTimeSlot";
 // Import other child components as needed
 
 const AppointmentRoute = [
@@ -22,13 +26,21 @@ const AppointmentRoute = [
         path: "select-timeSlot", 
         element: <SelectTimeSlot />,
       },
-      // Add more children routes if needed here
-      // {
-      //   path: "patient/:id",
-      //   element: <PatientAppointment />,
-      // }
+      {
+        path: "appoinment-details", 
+        element: <AppointmentDetails />,
+      },
+      {
+        path: "reviewAppointment", 
+        element: <ReviewAppointment />,
+      },
+     
     ],
-  }
+    
+  }, {
+        path: "confirm-appointment", 
+        element: <AppointmentConfirmation />,
+      }
 ];
 
 export default AppointmentRoute;

@@ -1,6 +1,6 @@
 import { Calendar, Clock, MapPin, Star } from "lucide-react";
 import React from "react";
-import { Appointment } from "../../../types/global";
+import { Appointment } from "../../../../../types/global";
 
 interface Props {
   data: Appointment;

@@ -1,7 +1,7 @@
 // src/schemas/auth.schema.ts
 import * as Yup from "yup";
 
-// ✅ Register Schema
+//  Register Schema
 export const registerSchema = Yup.object().shape({
   firstName: Yup.string().required("First name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -13,7 +13,7 @@ export const registerSchema = Yup.object().shape({
     .required("Confirm password is required"),
 });
 
-// ✅ Login Schema
+//  Login Schema
 export const loginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string().required("Password is required"),

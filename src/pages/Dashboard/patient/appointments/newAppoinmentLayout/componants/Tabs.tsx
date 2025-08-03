@@ -40,8 +40,8 @@ export default function StepTabsExact({ currentStep }: Props) {
 
             {/* Label */}
             <div
-              className={`text-base font-semibold
-                ${isActive?'text-black' : isDone ? 'text-blue-800' : 'text-gray-400'}`}
+              className={`text-base font-semibold transition duration-500 ease-in-out
+                ${isActive?'text-black font-bold text-[20px]' : isDone ? 'text-blue-800 font-bold text-[20px]' : 'text-gray-400 font-bold'}`}
             >
               {step.label}
             </div>

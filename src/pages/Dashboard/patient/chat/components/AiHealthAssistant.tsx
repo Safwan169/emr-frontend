@@ -10,14 +10,14 @@ const categories: string[] = [
 
 const AiHealthAssistant: React.FC = () => {
   return (
-    <div className="w-full max-w-[1376px] bg-[#f9f9ff] p-4 sm:p-5 rounded-xl flex flex-col space-y-4 mx-auto">
+    <div className="w-full  bg-[#f9f9ff] mt-16 rounded-xl flex flex-col space-y-4 mx-auto">
       {/* Header */}
       <div className="flex items-center space-x-2">
-        <div className="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-full overflow-hidden">
+        <div className="w-10 h-10 flex items-center justify-center rounded-full overflow-hidden">
           <img
-            src="/path/to/your/image.png" // replace with your image path
+            src="/star.png" // replace with your image path
             alt="AI Assistant"
-            className="w-5 h-5 object-contain"
+            className="w-8 h-8 object-contain"
           />
         </div>
         <h2 className="text-gray-800 font-semibold text-lg">AI Health Assistance</h2>

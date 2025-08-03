@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../../redux/hooks';
+import { useAppSelector } from '../../../../../redux/hooks';
 import StepTabsExact from './componants/Tabs';
 import { Outlet } from 'react-router-dom';
 

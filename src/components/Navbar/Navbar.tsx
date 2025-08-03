@@ -7,15 +7,12 @@ interface NavbarProps {
 
 const Navbar: FC<NavbarProps> = ({ title, onToggleSidebar }) => {
   return (
-    <div className="flex flex-col md:flex-row justify-between rounded-lg mx-2 items-center bg-white px-4 py-3 shadow-md gap-3 md:gap-0">
-      {/* Left: Title & Menu */}
-      <div className="flex w-full md:w-auto justify-between items-center">
-        <div className="flex items-center gap-4">
-          <button onClick={onToggleSidebar} className="md:hidden text-2xl">
-            ☰
-          </button>
-          <h2 className="text-lg md:text-xl font-semibold">{title}</h2>
-        </div>
+    <div className="flex justify-between rounded-lg mx-2  items-center bg-white px-6 py-4 ">
+      <div className="flex items-center gap-4">
+        <button onClick={onToggleSidebar} className="md:hidden text-2xl">
+          ☰
+        </button>
+        <h2 className="text-xl font-semibold">{title}</h2>
       </div>
 
       {/* Right: Search & Profile */}
