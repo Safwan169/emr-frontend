@@ -9,6 +9,7 @@ import { isAuthenticated } from "../utils/auth";
 import AppointmentRoute from "./AppointmentRoute";
 import OtpValidation from "../pages/register/OtpValidation";
 import LoginOtp from "../pages/login/LoginOtp";
+import DoctorDashboard from "../pages/Dashboard/doctor/DoctorDashboard";
 
 // Private routes under DashboardLayout
 const privateRoutes = {
@@ -52,6 +53,10 @@ const publicRoutes = [
   {
     path: "*",
     element: <NotFound />,
+  },
+  {
+    path: "/doctor-dashboard",
+    element: <DoctorDashboard/>,
   },
 ];
 

@@ -3,6 +3,7 @@ import { baseApi } from "../../api/baseApi";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    // 🔐 Login
     loginUser: builder.mutation({
       query: (userInfo) => ({
         url: "/auth/login",
@@ -17,6 +18,15 @@ export const authApi = baseApi.injectEndpoints({
         body: payload,
       }),
     }),
+    resendLoginOtp: builder.mutation({
+      query: (body: { email: string }) => ({
+        url: "/auth/resend-login-otp", // ✅ Login-specific
+        method: "POST",
+        body,
+      }),
+    }),
+
+    // 📝 Registration
     signup: builder.mutation({
       query: (formData: any) => ({
         url: "/auth/register",
@@ -31,6 +41,13 @@ export const authApi = baseApi.injectEndpoints({
         body: payload,
       }),
     }),
+    resendRegisterOtp: builder.mutation({
+      query: (body: { email: string }) => ({
+        url: "/auth/register/resend-otp", // ✅ Registration-specific
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -38,5 +55,7 @@ export const {
   useLoginUserMutation,
   useSignupMutation,
   useVerifyOtpMutation,
-  useVerifyLoginOtpMutation, // export this hook
+  useVerifyLoginOtpMutation,
+  useResendLoginOtpMutation,
+  useResendRegisterOtpMutation,
 } = authApi;
