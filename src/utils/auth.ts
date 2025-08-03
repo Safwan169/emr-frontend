@@ -1,3 +1,3 @@
 export const isAuthenticated = (): boolean => {
-  return !!localStorage.getItem("token");
+  return !!localStorage.getItem("EMRtoken");
 };

@@ -1,12 +1,18 @@
 import React from 'react';
-import DoctorProfile from '../testComponants/DoctorPatient';
+import DoctorProfile from '../pages/Dashboard/doctor/profile/components/DoctorProfile';
+import Profile from '../pages/Dashboard/doctor/profile/Profile';
+import DoctorDashboard from '../pages/Dashboard/doctor/dashboard/DoctorDashboard';
 
 const DoctorRoute = [
 
 
     {
         path: "doctor/profile",
-        element: <DoctorProfile />,
+        element: <Profile/>,
+    },
+    {
+        path: "doctor/dashboard",
+        element: <DoctorDashboard/>,
     }
 ]
 
