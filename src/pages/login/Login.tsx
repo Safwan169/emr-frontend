@@ -1,9 +1,38 @@
 import { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useLoginUserMutation } from "../../redux/features/auth/authApi";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const [loginUser, { isLoading, error }] = useLoginUserMutation();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const res = await loginUser(formData).unwrap();
+      console.log("Login success:", res);
+
+      navigate("/login-otp", {
+        state: {
+          email: formData.email,
+          token: res.token,
+        },
+      });
+    } catch (err) {
+      console.error("Login error:", err);
+    }
+  };
 
   return (
     <div className="min-h-screen flex">
@@ -19,7 +48,6 @@ const Login = () => {
           <div className="absolute top-10 w-full left-1/2 transform -translate-x-1/2 z-10 text-white text-center">
             <h1 className="text-3xl font-bold">Welcome to Our Platform</h1>
           </div>
-          {/* Image centered vertically and horizontally */}
           <div className="flex items-center justify-center h-full z-10 relative pt-20">
             <img
               src="https://d1o986dsouikxg.cloudfront.net/doctors.png"
@@ -34,55 +62,68 @@ const Login = () => {
       <div className="w-1/2 flex items-center justify-center px-8">
         <div className="w-full max-w-md">
           <h2 className="text-3xl font-bold text-gray-800 mb-2">Welcome!</h2>
-          <p className="text-gray-500 mb-6">
-            Please login to continue our apps
-          </p>
+          <p className="text-gray-500 mb-6">Please login to continue our apps</p>
 
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            {/* Email */}
             <div>
               <input
                 type="email"
+                name="email"
+                value={formData.email}
                 placeholder="Enter Email"
+                onChange={handleChange}
                 className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
               />
             </div>
 
-            <div className="relative">
+            {/* Password */}
+            <div>
               <input
-                type={showPassword ? "text" : "password"}
+                type="password"
+                name="password"
+                value={formData.password}
                 placeholder="Password"
-                className="w-full border rounded-md px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={handleChange}
+                className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
               />
-              <span
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 text-lg"
-                onClick={() => setShowPassword((prev) => !prev)}
-              >
-                {showPassword ? <>{FaEyeSlash({})}</> : <>{FaEye({})}</>}
-              </span>
             </div>
 
+            {/* Remember & Forgot */}
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2">
                 <input type="checkbox" className="form-checkbox" />
                 Remember me
               </label>
-              <Link
-                to="/forgot-password"
-                className="text-orange-400 hover:underline"
-              >
-                Forget password?
+              <Link to="/forgot-password" className="text-orange-400 hover:underline">
+                Forgot password?
               </Link>
             </div>
 
+            {/* Submit Button */}
             <button
               type="submit"
               className="w-full bg-[#1434CB] hover:bg-blue-700 text-white py-2 rounded-md font-semibold"
+              disabled={isLoading}
             >
-              Login
+              {isLoading ? "Sending OTP to your mail ..." : "Login"}
             </button>
 
+            {/* Error message */}
+            {error && (
+              <p className="text-red-500 text-sm mt-2">
+                {(error as any)?.data?.message || "Login failed. Please try again."}
+              </p>
+            )}
+
+            {/* Google Button */}
             <div className="w-full text-center">
-              <button className="w-full border border-gray-300 flex items-center justify-center py-2 rounded-md gap-2">
+              <button
+                type="button"
+                className="w-full border border-gray-300 flex items-center justify-center py-2 rounded-md gap-2"
+              >
                 <img
                   src="https://www.svgrepo.com/show/475656/google-color.svg"
                   alt="Google Icon"
@@ -92,12 +133,10 @@ const Login = () => {
               </button>
             </div>
 
+            {/* Signup Link */}
             <p className="text-sm text-center text-gray-500">
-              Don’t have any account?{" "}
-              <Link
-                to="/register"
-                className="text-blue-500 font-semibold hover:underline"
-              >
+              Don’t have an account?{" "}
+              <Link to="/register" className="text-blue-500 font-semibold hover:underline">
                 Sign Up Here
               </Link>
             </p>

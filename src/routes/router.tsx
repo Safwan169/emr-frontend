@@ -7,6 +7,8 @@ import NotFound from "../pages/notfound/NotFound";
 import Register from "../pages/register/Register";
 import { isAuthenticated } from "../utils/auth";
 import AppointmentRoute from "./AppointmentRoute";
+import OtpValidation from "../pages/register/OtpValidation";
+import LoginOtp from "../pages/login/LoginOtp";
 import PatientRoute from "./PatientRoute";
 
 // Private routes under DashboardLayout
@@ -34,8 +36,16 @@ const publicRoutes = [
     element: <Login />,
   },
   {
+    path: "/login-otp", 
+    element: <LoginOtp />,
+  },
+  {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/otp-validation",
+    element: <OtpValidation />,
   },
   {
     path: "/forgot-password",

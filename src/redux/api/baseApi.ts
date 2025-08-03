@@ -39,6 +39,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   BaseQueryApi,
   DefinitionType
 > = async (arg, api, extraOptions): Promise<any> => {
+  console.log("tinotda",arg,api,extraOptions)
   let result = (await baseQuery(arg, api, extraOptions)) as TResponse<TUser>;
 
   console.log("result fo custom base query", result);

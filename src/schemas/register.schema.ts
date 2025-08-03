@@ -1,20 +1,18 @@
-// src/schemas/auth.schema.ts
-import * as Yup from "yup";
+// src/schemas/register.schema.ts
+import * as yup from "yup";
 
-// ✅ Register Schema
-export const registerSchema = Yup.object().shape({
-  firstName: Yup.string().required("First name is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string()
-    .min(6, "Minimum 6 characters")
-    .required("Password is required"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords must match")
-    .required("Confirm password is required"),
-});
-
-// ✅ Login Schema
-export const loginSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string().required("Password is required"),
+export const registerSchema = yup.object().shape({
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  gender: yup.string().required("Gender is required"),
+  dob: yup.string().required("Date of birth is required"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(6, "Password must be at least 6 characters"),
+  confirmPassword: yup
+    .string()
+    .required("Please confirm your password")
+    .oneOf([yup.ref("password")], "Passwords must match"),
 });
