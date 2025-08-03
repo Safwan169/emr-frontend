@@ -11,6 +11,7 @@ export const authApi = baseApi.injectEndpoints({
         body: userInfo,
       }),
     }),
+
     verifyLoginOtp: builder.mutation({
       query: (payload: { otp_code: string }) => ({
         url: "/auth/verify-otp",
@@ -18,11 +19,21 @@ export const authApi = baseApi.injectEndpoints({
         body: payload,
       }),
     }),
+
     resendLoginOtp: builder.mutation({
       query: (body: { email: string }) => ({
-        url: "/auth/resend-login-otp", // ✅ Login-specific
+        url: "/auth/resend-login-otp",
         method: "POST",
         body,
+      }),
+    }),
+
+    // 🔓 Logout
+    logoutUser: builder.mutation({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST", // or "GET" if your backend uses GET for logout
+        credentials: "include", // required if logout relies on cookies/session
       }),
     }),
 
@@ -34,6 +45,7 @@ export const authApi = baseApi.injectEndpoints({
         body: formData,
       }),
     }),
+
     verifyOtp: builder.mutation({
       query: (payload: { email: string; otp: string }) => ({
         url: "/auth/register/verify-otp",
@@ -41,9 +53,10 @@ export const authApi = baseApi.injectEndpoints({
         body: payload,
       }),
     }),
+
     resendRegisterOtp: builder.mutation({
       query: (body: { email: string }) => ({
-        url: "/auth/register/resend-otp", // ✅ Registration-specific
+        url: "/auth/register/resend-otp",
         method: "POST",
         body,
       }),
@@ -58,4 +71,5 @@ export const {
   useVerifyLoginOtpMutation,
   useResendLoginOtpMutation,
   useResendRegisterOtpMutation,
+  useLogoutUserMutation, // ✅ export logout hook
 } = authApi;

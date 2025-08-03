@@ -28,10 +28,8 @@ const LoginOtp = () => {
 
   const [verifyLoginOtp, { isLoading }] = useVerifyLoginOtpMutation();
 
-  const [
-    resendLoginOtp,
-    { isLoading: isResending },
-  ] = useResendLoginOtpMutation();
+  const [resendLoginOtp, { isLoading: isResending }] =
+    useResendLoginOtpMutation();
 
   // Timer countdown effect
   useEffect(() => {
@@ -100,7 +98,8 @@ const LoginOtp = () => {
     }
 
     try {
-      await verifyLoginOtp({ otp_code }).unwrap();
+      const res = await verifyLoginOtp({ otp_code }).unwrap();
+      localStorage.setItem("EMRtoken", res.access_token);
       toast.success("Login successful!");
       setTimeout(() => {
         navigate("/");
@@ -145,11 +144,15 @@ const LoginOtp = () => {
               alt="OTP Illustration"
               className="mx-auto w-40 h-40 mb-6"
             />
-            <h2 className="text-xl sm:text-2xl font-bold mb-2">OTP Verification</h2>
+            <h2 className="text-xl sm:text-2xl font-bold mb-2">
+              OTP Verification
+            </h2>
             <p className="text-gray-600 mb-2">
               Please complete the OTP verification. ⏱️ {formatTime()}
             </p>
-            <p className="text-gray-500 mb-6">An OTP has been sent to your email.</p>
+            <p className="text-gray-500 mb-6">
+              An OTP has been sent to your email.
+            </p>
 
             {/* OTP Inputs */}
             <div className="flex justify-between gap-2 mb-6">
@@ -179,7 +182,10 @@ const LoginOtp = () => {
               >
                 {isResending ? "Resending..." : "Resend OTP"}
               </button>
-              <button onClick={handleCancel} className="text-gray-500 hover:underline">
+              <button
+                onClick={handleCancel}
+                className="text-gray-500 hover:underline"
+              >
                 Cancel
               </button>
             </div>
