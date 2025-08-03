@@ -11,7 +11,7 @@ const DashboardLayout: FC<LayoutProps> = ({ pageTitle }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   // Example role fetched from auth (Firebase/NextAuth/your backend)
-  const userRole = "doctor"; // or "doctor", "admin"
+  const userRole = "patient"; // or "doctor", "admin"
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   return (
