@@ -1,33 +1,19 @@
 import { useState } from "react";
+import { UserDataType } from "../../../../../../../types/userData";
 import { ModalFormFields } from "./ModalFormFields";
 
-const PersonalInfo = () => {
+interface PersonalInfoProps {
+  userData: UserDataType;
+}
+
+const PersonalInfo: React.FC<PersonalInfoProps> = ({ userData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    firstName: "Salil",
-    lastName: "Salil",
-    dateOfBirth: "1989-03-15",
-    gender: "Male",
-    phone: "+8801234567890",
-    email: "salilchakma5@gmail.com",
-    address: "5123 Medical Center Drive,Dhaka",
-    country: "Bangladesh",
-    bloodGroup: "A+",
-    height: "5'4\"",
-    weight: "175 lbs",
-    emergencyContact: "+8809876543321",
-  });
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
   };
 
   const handleSubmit = () => {
-    console.log("Updated data:", formData);
     alert("Information updated successfully!");
     setIsModalOpen(false);
   };
@@ -61,7 +47,7 @@ const PersonalInfo = () => {
                 First Name
               </label>
               <div className="text-gray-900 font-medium">
-                {formData.firstName}
+                {userData?.first_name}
               </div>
             </div>
             <div>
@@ -69,7 +55,7 @@ const PersonalInfo = () => {
                 Last Name
               </label>
               <div className="text-gray-900 font-medium">
-                {formData.lastName}
+                {userData?.last_name}
               </div>
             </div>
             <div>
@@ -77,7 +63,7 @@ const PersonalInfo = () => {
                 Date of Birth
               </label>
               <div className="text-gray-900 font-medium">
-                {new Date(formData.dateOfBirth).toLocaleDateString("en-US", {
+                {new Date(userData?.date_of_birth).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
@@ -88,7 +74,9 @@ const PersonalInfo = () => {
               <label className="block text-sm font-medium text-gray-600 mb-1">
                 Gender
               </label>
-              <div className="text-gray-900 font-medium">{formData.gender}</div>
+              <div className="text-gray-900 font-medium">
+                {userData?.gender}
+              </div>
             </div>
           </div>
         </div>
@@ -102,20 +90,20 @@ const PersonalInfo = () => {
               <label className="block text-sm font-medium text-gray-600 mb-1">
                 Phone
               </label>
-              <div className="text-gray-900 font-medium">{formData.phone}</div>
+              <div className="text-gray-900 font-medium">00000</div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-600 mb-1">
                 Email
               </label>
-              <div className="text-gray-900 font-medium">{formData.email}</div>
+              <div className="text-gray-900 font-medium">{userData?.email}</div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-600 mb-1">
                 Address
               </label>
               <div className="text-gray-900 font-medium">
-                {formData.address}
+                {userData?.address}
               </div>
             </div>
             <div>
@@ -123,7 +111,7 @@ const PersonalInfo = () => {
                 Country
               </label>
               <div className="text-gray-900 font-medium">
-                {formData.country}
+                {/* {userData?.} */}ddd
               </div>
             </div>
           </div>
@@ -139,27 +127,31 @@ const PersonalInfo = () => {
                 Blood Group
               </label>
               <div className="text-gray-900 font-medium">
-                {formData.bloodGroup}
+                {userData?.blood_group}
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-600 mb-1">
                 Height
               </label>
-              <div className="text-gray-900 font-medium">{formData.height}</div>
+              <div className="text-gray-900 font-medium">
+                {userData?.height_cm}
+              </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-600 mb-1">
                 Weight
               </label>
-              <div className="text-gray-900 font-medium">{formData.weight}</div>
+              <div className="text-gray-900 font-medium">
+                {userData?.weight_lbs}
+              </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-600 mb-1">
                 Emergency Contact
               </label>
               <div className="text-gray-900 font-medium">
-                {formData.emergencyContact}
+                {/* {userData?.} */}eme
               </div>
             </div>
           </div>
@@ -185,7 +177,7 @@ const PersonalInfo = () => {
 
               {/* Using the separated ModalFormFields component */}
               <ModalFormFields
-                formData={formData}
+                formData={userData}
                 handleInputChange={handleInputChange}
               />
 

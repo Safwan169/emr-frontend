@@ -105,10 +105,10 @@ export default function PatientProfileCard() {
               </div>
 
               {/* Using the separated ModalFormFields component */}
-              <ModalFormFields
+              {/* <ModalFormFields
                 formData={formData}
                 handleInputChange={handleInputChange}
-              />
+              /> */}
 
               {/* Modal Footer */}
               <div className="flex justify-end space-x-4 mt-8 pt-6 border-t">

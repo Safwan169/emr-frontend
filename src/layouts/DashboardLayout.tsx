@@ -16,7 +16,6 @@ const DashboardLayout: FC<LayoutProps> = ({ pageTitle }) => {
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar fixed */}
       <Sidebar
-        role="doctor"
         isOpen={isSidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />

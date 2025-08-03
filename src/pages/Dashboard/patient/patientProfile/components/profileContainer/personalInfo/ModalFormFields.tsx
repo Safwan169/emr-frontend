@@ -1,25 +1,10 @@
 /* eslint-disable @typescript-eslint/no-redeclare */
 
 import { ChangeEvent } from "react";
-
-// Types
-interface FormData {
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  gender: string;
-  phone: string;
-  email: string;
-  address: string;
-  country: string;
-  bloodGroup: string;
-  height: string;
-  weight: string;
-  emergencyContact: string;
-}
+import { UserDataType } from "../../../../../../../types/userData";
 
 interface ModalFormFieldsProps {
-  formData: FormData;
+  formData: UserDataType;
   handleInputChange: (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => void;
@@ -44,7 +29,7 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
           <input
             type="text"
             name="firstName"
-            value={formData.firstName}
+            value={formData.first_name}
             onChange={handleInputChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             required
@@ -58,7 +43,7 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
           <input
             type="text"
             name="lastName"
-            value={formData.lastName}
+            value={formData.last_name}
             onChange={handleInputChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             required
@@ -72,7 +57,7 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
           <input
             type="date"
             name="dateOfBirth"
-            value={formData.dateOfBirth}
+            value={formData.date_of_birth}
             onChange={handleInputChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             required
@@ -110,7 +95,7 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
           <input
             type="tel"
             name="phone"
-            value={formData.phone}
+            // value={formData.}
             onChange={handleInputChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             required
@@ -152,7 +137,7 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
           <input
             type="text"
             name="country"
-            value={formData.country}
+            // value={formData.}
             onChange={handleInputChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             required
@@ -172,7 +157,7 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
           </label>
           <select
             name="bloodGroup"
-            value={formData.bloodGroup}
+            value={formData.blood_group}
             onChange={handleInputChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             required
@@ -195,7 +180,7 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
           <input
             type="text"
             name="height"
-            value={formData.height}
+            value={formData.height_cm}
             onChange={handleInputChange}
             placeholder="e.g., 5'4\"
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -210,7 +195,7 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
           <input
             type="text"
             name="weight"
-            value={formData.weight}
+            value={formData.weight_lbs}
             onChange={handleInputChange}
             placeholder="e.g., 175 lbs or 80 kg"
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -225,7 +210,7 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
           <input
             type="tel"
             name="emergencyContact"
-            value={formData.emergencyContact}
+            // value={formData.em}
             onChange={handleInputChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             required
