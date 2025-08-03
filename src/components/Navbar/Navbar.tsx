@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Logout from "../../pages/logout/Logout";
 
 interface NavbarProps {
   title: string;
@@ -30,6 +31,7 @@ const Navbar: FC<NavbarProps> = ({ title, onToggleSidebar }) => {
           />
           <span className="font-medium text-sm sm:text-base">Salil Chakma</span>
         </div>
+        <Logout/>
       </div>
     </div>
   );
