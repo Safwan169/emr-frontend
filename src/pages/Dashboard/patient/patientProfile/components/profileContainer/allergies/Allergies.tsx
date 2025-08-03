@@ -1,4 +1,6 @@
 import { AlertTriangle, Phone } from "lucide-react";
+import { useState } from "react";
+import AllergyModal from "../../../../../../../components/modals/AllergyModal";
 
 const allergies = [
   {
@@ -37,14 +39,23 @@ const allergies = [
 ];
 
 const Allergies = () => {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
+
     <div className="mx-auto p-6 min-h-screen">
+      <AllergyModal userId="123" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-xl font-semibold text-gray-800">
           Allergies & Sensitivities
         </h1>
-        <button className="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700">
+        <button
+          onClick={() => setIsModalOpen(true)}
+
+          className="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700">
           + Add Allergies
         </button>
       </div>
@@ -75,32 +86,29 @@ const Allergies = () => {
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center space-x-2">
                 <div
-                  className={`bg-${
-                    allergy.severity === "Severe"
+                  className={`bg-${allergy.severity === "Severe"
                       ? "red"
                       : allergy.severity === "Moderate"
-                      ? "orange"
-                      : "green"
-                  }-600 text-white rounded-full p-1`}
+                        ? "orange"
+                        : "green"
+                    }-600 text-white rounded-full p-1`}
                 >
                   <AlertTriangle className="w-4 h-4" />
                 </div>
                 <h3 className="font-semibold text-gray-800">{allergy.name}</h3>
               </div>
               <span
-                className={`bg-${
-                  allergy.severity === "Severe"
+                className={`bg-${allergy.severity === "Severe"
                     ? "red"
                     : allergy.severity === "Moderate"
-                    ? "orange"
-                    : "green"
-                }-100 text-${
-                  allergy.severity === "Severe"
+                      ? "orange"
+                      : "green"
+                  }-100 text-${allergy.severity === "Severe"
                     ? "red"
                     : allergy.severity === "Moderate"
-                    ? "orange"
-                    : "green"
-                }-800 px-2 py-1 rounded-full text-xs font-medium`}
+                      ? "orange"
+                      : "green"
+                  }-800 px-2 py-1 rounded-full text-xs font-medium`}
               >
                 {allergy.severity}
               </span>
