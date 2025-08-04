@@ -19,23 +19,26 @@ export const chronicApi = baseApi.injectEndpoints({
     }),
 
     createChronicCondition: builder.mutation({
-      query: ({ formData, id }) => {
-        console.log("Creating chronic condition with:", { formData, id });
+      query: ({ data, id }) => {
+        console.log("Creating chronic condition with:", { data, id });
         return {
           method: "POST",
           url: `/medicalHistory/chronic/${id}`,
-          body: formData,
+          body: data,
         };
       },
       invalidatesTags: ["chronic"],
     }),
 
     updateChronicConditionById: builder.mutation({
-      query: ({ id, data }) => ({
-        method: "PUT",
-        url: `/medicalHistory/chronic/${id}`,
-        body: data,
-      }),
+      query: ({ id, data }) => {
+        console.log("Updating chronic condition with:", { id, data });
+        return {
+          method: "PUT",
+          url: `/medicalHistory/chronic/${id}`,
+          body: data,
+        };
+      },
       invalidatesTags: ["chronic"],
     }),
 
