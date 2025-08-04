@@ -12,13 +12,14 @@ const DashboardLayout: FC<LayoutProps> = ({ pageTitle }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 const [role,setRole]=useState<any>('')
 
+
  useEffect(() => {
     const token = localStorage.getItem("EMRtoken");
     const decoded = decodeToken(token);
     console.log(decoded,'this is decode role ')
 
     if (decoded?.role_name) {
-      setRole("doctor")
+      setRole("patient")
     }
   }, []);
 

@@ -19,8 +19,11 @@ const privateRoutes = {
   path: "/",
   element: isAuthenticated() ? (
     <DashboardLayout pageTitle="Dashboard" />
+
   ) : (
     <Login />
+
+
   ),
   children: [
     ...AppointmentRoute,
