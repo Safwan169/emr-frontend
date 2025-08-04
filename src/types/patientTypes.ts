@@ -23,13 +23,22 @@ export interface TImmunizationHistory {
   vaccine_provider: string;
 }
 
-
 export interface TPrevious {
   id: number;
   description: string;
   file_url: string;
   created_at: string;
   updated_at?: string;
+}
+
+export interface UploadedImage {
+  id: number;
+  description: string;
+  url: string;
+  file_url: string;
+  created_at: string;
+  updated_at?: string;
+  uploadDate?: string;
 }
 
 export interface PaginationProps {
