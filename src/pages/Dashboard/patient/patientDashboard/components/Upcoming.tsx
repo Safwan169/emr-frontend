@@ -1,4 +1,4 @@
-import { CalendarDays } from "lucide-react";
+
 import React from "react";
 
 // Define the Appointment type
@@ -52,9 +52,9 @@ const Upcoming: React.FC = () => {
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 w-full">
-      <div className="w-full bg-white max-h-[450px] overflow-y-auto border rounded-2xl shadow-2xl p-4 sm:p-5">
+      <div className="w-full bg-white max-h-[450px] overflow-y-auto  rounded-2xl  p-4 sm:p-5">
         <h2 className="text-lg sm:text-xl font-bold mb-4 flex items-center gap-2">
-          <CalendarDays className="text-blue-600 w-5 h-5 sm:w-6 sm:h-6" />{" "}
+          {" "}
           Upcoming Appointments
         </h2>
 
@@ -62,7 +62,7 @@ const Upcoming: React.FC = () => {
           {upcomingAppointments.map((appt, index) => (
             <div
               key={index}
-              className="relative p-3 sm:p-4 rounded-lg shadow-md hover:shadow-lg transition flex flex-col sm:flex-row items-start sm:items-center gap-4"
+              className="relative p-3 sm:p-4 rounded-lg border border-gray-200 hover:shadow-lg transition flex flex-col sm:flex-row items-start sm:items-center gap-4"
             >
               <img
                 src={appt.image}
@@ -74,8 +74,8 @@ const Upcoming: React.FC = () => {
                 <p className="font-semibold text-blue-900 border-b border-gray-300 pb-1 text-sm sm:text-base">
                   {appt.patientName}
                 </p>
-                <p className="text-sm text-gray-600">{appt.doctor}</p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm ">{appt.doctor}</p>
+                <p className="text-lg  font-bold mt-1">
                   {appt.date} at {appt.time}
                 </p>
               </div>

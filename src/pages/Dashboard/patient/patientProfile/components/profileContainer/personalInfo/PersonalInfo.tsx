@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { useUpdateUserByIdMutation } from "../../../../../../../redux/features/user/userApi";
 import { UserDataType } from "../../../../../../../types/userData";
 import { ModalFormFields } from "./ModalFormFields";
 
@@ -8,18 +10,181 @@ interface PersonalInfoProps {
 
 const PersonalInfo: React.FC<PersonalInfoProps> = ({ userData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [updateUser, { isLoading }] = useUpdateUserByIdMutation();
 
-  const handleInputChange = (e: any) => {
+  // State to manage form data
+  const [formData, setFormData] = useState<UserDataType>(userData);
+
+  // const handleInputChange = (
+  //   e: React.ChangeEvent<
+  //     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  //   >
+  // ) => {
+  //   const { name, value } = e.target;
+
+  //   // Map form field names to userData properties
+  //   const fieldMapping: { [key: string]: keyof UserDataType } = {
+  //     firstName: "first_name",
+  //     lastName: "last_name",
+  //     dateOfBirth: "date_of_birth",
+  //     gender: "gender",
+  //     phone: "phone_number",
+  //     email: "email",
+  //     address: "address",
+  //     country: "country",
+  //     bloodGroup: "blood_group",
+  //     height: "height_cm", // 👈 expects number
+  //     weight: "weight_lbs", // 👈 expects number
+  //     emergencyContact: "phone_number",
+  //   };
+  //   const dataKey = fieldMapping[name] || (name as keyof UserDataType);
+
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [dataKey]: value,
+  //   }));
+  // };
+
+  // const handleSubmit = async () => {
+  //   try {
+  //     // Destructure only the allowed fields
+  //     const {
+  //       first_name,
+  //       last_name,
+  //       date_of_birth,
+  //       gender,
+  //       phone_number,
+  //       email,
+  //       address,
+  //       country,
+  //       blood_group,
+  //       height_cm,
+  //       weight_lbs,
+  //     } = formData;
+
+  //     const filteredData = {
+  //       first_name,
+  //       last_name,
+  //       date_of_birth,
+  //       gender,
+  //       phone_number,
+  //       email,
+  //       address,
+  //       country,
+  //       blood_group,
+  //       height_cm,
+  //       weight_lbs,
+  //     };
+
+  //     const result = await updateUser({
+  //       id: userData.id,
+  //       data: filteredData,
+  //     }).unwrap();
+
+  //     toast.success("Information updated successfully!");
+  //     setIsModalOpen(false);
+  //     console.log("Update successful:", result);
+  //   } catch (error) {
+  //     console.error("Update failed:", error);
+  //     alert("Failed to update information. Please try again.");
+  //   }
+  // };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { name, value } = e.target;
+
+    // Map form field names to userData properties
+    const fieldMapping: { [key: string]: keyof UserDataType } = {
+      firstName: "first_name",
+      lastName: "last_name",
+      dateOfBirth: "date_of_birth",
+      gender: "gender",
+      phone: "phone_number",
+      email: "email",
+      address: "address",
+      country: "country",
+      bloodGroup: "blood_group",
+      height: "height_cm", // 👈 expects number
+      weight: "weight_lbs", // 👈 expects number
+      emergencyContact: "phone_number",
+    };
+
+    const dataKey = fieldMapping[name] || (name as keyof UserDataType);
+
+    // Convert to number for height and weight fields
+    let processedValue: string | number = value;
+
+    if (dataKey === "height_cm" || dataKey === "weight_lbs") {
+      // Convert to number, but handle empty string case
+      processedValue = value === "" ? "" : Number(value);
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      [dataKey]: processedValue,
+    }));
   };
 
-  const handleSubmit = () => {
-    alert("Information updated successfully!");
-    setIsModalOpen(false);
+  // Updated handleSubmit function
+  const handleSubmit = async () => {
+    try {
+      // Destructure only the allowed fields
+      const {
+        first_name,
+        last_name,
+        date_of_birth,
+        gender,
+        phone_number,
+        email,
+        address,
+        country,
+        blood_group,
+        height_cm,
+        weight_lbs,
+      } = formData;
+
+      const filteredData = {
+        first_name,
+        last_name,
+        date_of_birth,
+        gender,
+        phone_number,
+        email,
+        address,
+        country,
+        blood_group,
+        height_cm: Number(height_cm), // Ensure it's a number or null
+        weight_lbs: Number(weight_lbs), // Ensure it's a number or null
+      };
+
+      const result = await updateUser({
+        id: userData.id,
+        data: filteredData,
+      }).unwrap();
+
+      toast.success("Information updated successfully!");
+      setIsModalOpen(false);
+      console.log("Update successful:", result);
+    } catch (error) {
+      console.error("Update failed:", error);
+      alert("Failed to update information. Please try again.");
+    }
   };
 
   const handleCancel = () => {
+    // Reset form data to original userData
+    setFormData(userData);
     setIsModalOpen(false);
+  };
+
+  // Open modal and initialize form data
+  const handleEditClick = () => {
+    setFormData(userData);
+    setIsModalOpen(true);
   };
 
   return (
@@ -29,7 +194,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ userData }) => {
           Personal Information
         </h1>
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={handleEditClick}
           className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors font-medium"
         >
           Edit ✏️
@@ -63,11 +228,12 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ userData }) => {
                 Date of Birth
               </label>
               <div className="text-gray-900 font-medium">
-                {new Date(userData?.date_of_birth).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
+                {userData?.date_of_birth &&
+                  new Date(userData.date_of_birth).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
               </div>
             </div>
             <div>
@@ -90,7 +256,9 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ userData }) => {
               <label className="block text-sm font-medium text-gray-600 mb-1">
                 Phone
               </label>
-              <div className="text-gray-900 font-medium">00000</div>
+              <div className="text-gray-900 font-medium">
+                {userData?.phone_number || "Not provided"}
+              </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-600 mb-1">
@@ -111,7 +279,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ userData }) => {
                 Country
               </label>
               <div className="text-gray-900 font-medium">
-                {/* {userData?.} */}ddd
+                {userData?.country}
               </div>
             </div>
           </div>
@@ -151,7 +319,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ userData }) => {
                 Emergency Contact
               </label>
               <div className="text-gray-900 font-medium">
-                {/* {userData?.} */}eme
+                {userData?.phone_number}
               </div>
             </div>
           </div>
@@ -170,6 +338,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ userData }) => {
                 <button
                   onClick={handleCancel}
                   className="text-gray-400 hover:text-gray-600 text-2xl"
+                  disabled={isLoading}
                 >
                   ×
                 </button>
@@ -177,7 +346,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ userData }) => {
 
               {/* Using the separated ModalFormFields component */}
               <ModalFormFields
-                formData={userData}
+                formData={formData}
                 handleInputChange={handleInputChange}
               />
 
@@ -187,15 +356,17 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ userData }) => {
                   type="button"
                   onClick={handleCancel}
                   className="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors font-medium"
+                  disabled={isLoading}
                 >
                   Cancel
                 </button>
                 <button
                   type="button"
                   onClick={handleSubmit}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-medium"
+                  className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-medium disabled:opacity-50"
+                  disabled={isLoading}
                 >
-                  Save Changes
+                  {isLoading ? "Saving..." : "Save Changes"}
                 </button>
               </div>
             </div>

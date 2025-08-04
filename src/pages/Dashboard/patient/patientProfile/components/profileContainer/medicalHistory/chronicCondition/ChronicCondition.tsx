@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { toast } from "sonner";
+import { toast } from "react-hot-toast";
 import {
   useCreateChronicConditionMutation,
   useDeleteChronicConditionByIdMutation,
@@ -36,6 +36,8 @@ const ChronicConditions = () => {
     return data.slice(startIndex, endIndex);
   };
 
+  console.log("formData", formData);
+
   const getTotalPages = (data: any[]) => Math.ceil(data.length / itemsPerPage);
 
   // Handle form input changes
@@ -51,10 +53,12 @@ const ChronicConditions = () => {
     e.preventDefault();
     try {
       const result = await createChronic({
-        ...formData,
+        data: {
+          ...formData,
+          diagnosed: new Date(formData.diagnosed).toISOString(),
+          last_updated: new Date().toISOString(),
+        },
         id: 1,
-        diagnosed: new Date(formData.diagnosed).toISOString(),
-        last_updated: new Date().toISOString(),
       }).unwrap();
 
       console.log("my c result", result);
@@ -75,16 +79,18 @@ const ChronicConditions = () => {
     try {
       const result = await updateChronic({
         id: editingCondition.id,
-        ...formData,
-        diagnosed: new Date(formData.diagnosed).toISOString(),
-        last_updated: new Date().toISOString(),
+        data: {
+          ...formData,
+          diagnosed: new Date(formData.diagnosed).toISOString(),
+          last_updated: new Date().toISOString(),
+        },
       }).unwrap();
 
       console.log("update r", result);
 
       setFormData({ name: "", diagnosed: "", treating_physician: "" });
       setEditingCondition(null);
-      toast.success("✅ Chronic condition updated successfully!");
+      // toast.success("✅ Chronic condition updated successfully!");
     } catch (error) {
       console.error("Failed to update chronic condition:", error);
       toast.error("❌ Failed to update chronic condition. Please try again.");
@@ -131,7 +137,7 @@ const ChronicConditions = () => {
           onClick={() => setShowCreateForm(true)}
           className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
         >
-          Add New Condition
+          Add New
         </button>
       </div>
 

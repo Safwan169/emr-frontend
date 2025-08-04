@@ -28,7 +28,7 @@ const [role,setRole]=useState<any>('')
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar fixed */}
-  <Sidebar
+      <Sidebar
         isOpen={isSidebarOpen}
         onClose={() => setSidebarOpen(false)}
         role={role}
