@@ -6,11 +6,10 @@ const PatientRoute = [
   {
     path: "profile",
     element: <PatientProfile />,
-  },
-  {
+  },{
     path: "chat",
     element: <Aichat />,
-  },
+  }
 ];
 
 export default PatientRoute;
