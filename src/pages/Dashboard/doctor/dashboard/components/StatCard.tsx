@@ -117,34 +117,35 @@ const PatientStatsCard: React.FC<PatientStatsCardProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100 w-80">
+    <div className="bg-white rounded-lg p-2 shadow-sm border border-gray-100 w-full ">
       {/* Header with icon and title */}
-      <div className="flex items-center gap-3 mb-6">
-        <div className={`w-12 h-12 ${colors.bg} rounded-lg flex items-center justify-center`}>
-          <IconComponent className="w-6 h-6 text-white" />
+      <div className="flex items-center gap-3 mb-4">
+        <div className={`w-10 h-10 ${colors.bg} rounded-lg flex items-center justify-center`}>
+          <IconComponent className="w-5 h-5 text-white" />
         </div>
-        <h3 className="text-gray-700 font-medium text-lg">{title}</h3>
+        <h3 className="text-gray-700 font-medium text-base">{title}</h3>
       </div>
       
       {/* Content row: Count + Text and Graph */}
       <div className="flex items-center justify-between">
         {/* Left side: Count and text - smaller section */}
-        <div className="flex flex-col flex-shrink-0 w-24">
-          <div className="text-3xl font-bold text-gray-900 mb-1">
+        <div className="flex flex-col flex-shrink-0 w-20">
+          <div className="text-2xl font-bold text-gray-900 mb-1">
             {totalCount.toLocaleString()}
           </div>
-          <div className="text-xs text-gray-600">
-            Last 7 days data
+          <div className="text-xs text-gray-500">
+            Last 7 days
           </div>
         </div>
         
         {/* Right side: Trend chart - larger section */}
-        <div className="relative flex-1 ml-4">
-          <div className="h-16">
+        <div className="relative flex-1 ml-1 min-w-0">
+          <div className="h-14">
             <svg
-              width="200"
+              width="100%"
               height="60"
               viewBox="0 0 200 60"
+              preserveAspectRatio="none"
               className="w-full h-full"
             >
               <defs>
@@ -164,7 +165,7 @@ const PatientStatsCard: React.FC<PatientStatsCardProps> = ({
               <path
                 d={generateSmoothPath(trendData)}
                 stroke={colors.gradient}
-                strokeWidth="3"
+                strokeWidth="2.5"
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -211,8 +212,8 @@ const PatientDashboard: React.FC = () => {
   ];
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="p-3 sm:p-4 bg-gray-50">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {dashboardData.map((card, index) => (
           <PatientStatsCard
             key={index}
