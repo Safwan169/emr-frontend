@@ -12,10 +12,10 @@ const data = [
 
 const PatientTracking = () => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-white p-2 rounded-lg shadow-sm border border-gray-200 w-1/2">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-lg font-medium text-gray-900">Patient Traking</h2>
+        <h2 className="text-lg font-medium text-gray-900">Patient Tracking</h2>
         <div className="flex items-center gap-4">
           <button className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 border border-gray-300 rounded-md bg-white hover:bg-gray-50">
             <span>Day</span>
@@ -41,7 +41,7 @@ const PatientTracking = () => {
         </div>
         
         {/* Chart area */}
-        <div className="ml-12 mr-8 h-full flex items-end justify-center gap-8 pt-4 pb-8">
+        <div className="ml-12 mr-8 h-full flex items-end justify-center gap-5 pt-4 pb-10"> {/* Increased pb-8 to pb-10 */}
           {data.map((item, index) => (
             <div key={index} className="flex flex-col items-center">
               {/* 3D Cylinder/Barrel */}
@@ -81,8 +81,8 @@ const PatientTracking = () => {
                 ></div>
               </div>
               
-              {/* X-axis label */}
-              <span className="text-sm text-gray-500">{item.day}</span>
+              {/* X-axis label - moved down with mt-2 */}
+              <span className="text-sm text-gray-500 mt-2">{item.day}</span>
             </div>
           ))}
         </div>
