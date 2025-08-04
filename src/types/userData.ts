@@ -13,6 +13,8 @@ export interface UserDataType {
   date_of_birth: string;
   gender: string;
   address?: string;
+  country: string;
+  phone_number: string;
 
   role_id: number;
   role: TRole;

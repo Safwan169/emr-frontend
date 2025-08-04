@@ -7,7 +7,7 @@ import {
   FetchArgs,
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
-import { toast } from "sonner";
+import { toast } from "react-hot-toast";
 import { TResponse } from "../../types/global";
 import { logout, setUser, TUser } from "../features/auth/authSlice";
 import { RootState } from "../store";
@@ -91,6 +91,13 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithRefreshToken,
-  tagTypes: ["users", "chronic", "allergies","doctorProfile","userProfile"],
+  tagTypes: [
+    "users",
+    "chronic",
+    "surgical",
+    "immunization",
+    "previousPrescription",
+    "previousLabReport",
+  , "allergies","doctorProfile","userProfile"],
   endpoints: () => ({}),
 });
