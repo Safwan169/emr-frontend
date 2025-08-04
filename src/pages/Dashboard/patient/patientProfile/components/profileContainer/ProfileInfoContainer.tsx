@@ -6,7 +6,7 @@ import {
   User,
 } from "lucide-react";
 import { useState } from "react";
-import { useGetUserByIdQuery } from "../../../../../../redux/features/user/userApi";
+import useGetUserData from "../../../../../../hooks/useGetUserData";
 import Allergies from "./allergies/Allergies";
 import LabReports from "./labReport/LabReport";
 import MedicalHistory from "./medicalHistory/MedicalHistory";
@@ -16,7 +16,7 @@ import Prescription from "./prescription/Prescription";
 export default function MedicalInfoInterface() {
   const [activeTab, setActiveTab] = useState(0);
 
-  const { data: userData, isLoading } = useGetUserByIdQuery(1);
+  const { data } = useGetUserData();
 
   const navItems = [
     { icon: User, label: "Personal Info" },
@@ -29,7 +29,7 @@ export default function MedicalInfoInterface() {
   const renderContent = () => {
     switch (activeTab) {
       case 0:
-        return <PersonalInfo userData={userData?.data} />;
+        return <PersonalInfo userData={data} />;
       case 1:
         return <MedicalHistory />;
       case 2:

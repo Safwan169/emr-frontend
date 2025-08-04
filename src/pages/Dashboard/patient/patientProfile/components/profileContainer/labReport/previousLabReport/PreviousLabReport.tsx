@@ -3,29 +3,35 @@ import { Calendar, Edit, Eye, FileText, Plus, Save, X } from "lucide-react";
 import React, { useCallback, useMemo, useState } from "react";
 import Swal from "sweetalert2";
 import {
-  useCreatePreviousPrescriptionMutation,
-  useDeletePreviousPrescriptionByIdMutation,
-  useGetPreviousPrescriptionByIdQuery,
-  useUpdatePreviousPrescriptionByIdMutation,
-} from "../../../../../../../../redux/features/previousPrescription/previousPrescriptionApi";
-import {
-  TPrevious,
-  UploadedImage,
-} from "../../../../../../../../types/patientTypes";
+  useCreatePreviousLabReportMutation,
+  useDeletePreviousLabReportByIdMutation,
+  useGetPreviousLabReportByIdQuery,
+  useUpdatePreviousLabReportByIdMutation,
+} from "../../../../../../../../redux/features/previousLabReport/previousLabReport";
+
+export interface TLabReportImage {
+  id: number;
+  description: string;
+  file_url: string;
+  created_at: string;
+  updated_at: string;
+  user_id: number;
+  url: string;
+}
 
 interface ImageModalProps {
-  image: UploadedImage | null;
+  image: TLabReportImage | null;
   onClose: () => void;
 }
 
 interface CreateModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: PrescriptionFormData) => void;
+  onSubmit: (data: LabReportFormData) => void;
   isCreating: boolean;
 }
 
-interface PrescriptionFormData {
+interface LabReportFormData {
   description: string;
   file: File | null;
 }
@@ -42,7 +48,7 @@ const ImageModal: React.FC<ImageModalProps> = React.memo(
         <div className="bg-white rounded-lg max-w-full sm:max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-auto w-full mx-2 sm:mx-0">
           <div className="flex justify-between items-center p-3 sm:p-4 border-b">
             <h3 className="text-sm sm:text-lg font-semibold truncate pr-2">
-              Prescription Details
+              Lab Report Details
             </h3>
             <button
               onClick={onClose}
@@ -54,12 +60,12 @@ const ImageModal: React.FC<ImageModalProps> = React.memo(
           <div className="p-3 sm:p-4">
             <img
               src={`${process.env.REACT_APP_API_BASE_URL}${image.url}`}
-              alt="prescription"
+              alt="lab report"
               className="max-w-full h-auto mx-auto"
             />
             <div className="mt-4 text-xs sm:text-sm text-gray-600">
               <p>
-                <strong>Uploaded:</strong> {image.uploadDate}
+                <strong>Uploaded:</strong> {image.created_at}
               </p>
               {image.description && (
                 <p>
@@ -77,10 +83,8 @@ const ImageModal: React.FC<ImageModalProps> = React.memo(
 // Move CreateModal outside and memoize it
 const CreateModal: React.FC<
   CreateModalProps & {
-    createFormData: PrescriptionFormData;
-    setCreateFormData: React.Dispatch<
-      React.SetStateAction<PrescriptionFormData>
-    >;
+    createFormData: LabReportFormData;
+    setCreateFormData: React.Dispatch<React.SetStateAction<LabReportFormData>>;
     formErrors: { [key: string]: string };
     setFormErrors: React.Dispatch<
       React.SetStateAction<{ [key: string]: string }>
@@ -158,7 +162,7 @@ const CreateModal: React.FC<
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded-lg max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
           <div className="flex justify-between items-center p-4 border-b">
-            <h3 className="text-lg font-semibold">Add New Prescription</h3>
+            <h3 className="text-lg font-semibold">Add New Lab Report</h3>
             <button
               onClick={handleClose}
               className="p-2 hover:bg-gray-100 rounded-full"
@@ -182,7 +186,7 @@ const CreateModal: React.FC<
                       : "border-gray-300"
                   }`}
                   rows={3}
-                  placeholder="Enter prescription description..."
+                  placeholder="Enter lab report description..."
                 />
                 {formErrors.description && (
                   <p className="text-red-500 text-sm mt-1">
@@ -193,7 +197,7 @@ const CreateModal: React.FC<
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Prescription Image *
+                  Lab Report Image *
                 </label>
                 <input
                   type="file"
@@ -232,7 +236,7 @@ const CreateModal: React.FC<
                 >
                   <Save className="w-4 h-4" />
                   <span>
-                    {isCreating ? "Uploading..." : "Upload Prescription"}
+                    {isCreating ? "Uploading..." : "Upload Lab Report"}
                   </span>
                 </button>
                 <button
@@ -252,56 +256,58 @@ const CreateModal: React.FC<
   }
 );
 
-const PreviousPrescription: React.FC = () => {
+const PreviousLabReport: React.FC = () => {
   // States
-  const [viewingImage, setViewingImage] = useState<UploadedImage | null>(null);
+  const [viewingImage, setViewingImage] = useState<TLabReportImage | null>(
+    null
+  );
   const [editingId, setEditingId] = useState<number | null>(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   // RTK Query hooks
   const {
-    data: prescriptionData,
+    data: labReportData,
     isLoading,
     isError,
     refetch,
-  } = useGetPreviousPrescriptionByIdQuery(1);
+  } = useGetPreviousLabReportByIdQuery(1);
 
-  const [deletePrescription, { isLoading: isDeleting }] =
-    useDeletePreviousPrescriptionByIdMutation();
+  const [deleteLabReport, { isLoading: isDeleting }] =
+    useDeletePreviousLabReportByIdMutation();
 
-  const [updatePrescription, { isLoading: isUpdating }] =
-    useUpdatePreviousPrescriptionByIdMutation();
+  const [updateLabReport, { isLoading: isUpdating }] =
+    useUpdatePreviousLabReportByIdMutation();
 
-  const [createPrescription, { isLoading: isCreating }] =
-    useCreatePreviousPrescriptionMutation();
+  const [createLabReport, { isLoading: isCreating }] =
+    useCreatePreviousLabReportMutation();
 
   // Form states
-  const [createFormData, setCreateFormData] = useState<PrescriptionFormData>({
+  const [createFormData, setCreateFormData] = useState<LabReportFormData>({
     description: "",
     file: null,
   });
 
-  const [updateFormData, setUpdateFormData] = useState<PrescriptionFormData>({
+  const [updateFormData, setUpdateFormData] = useState<LabReportFormData>({
     description: "",
     file: null,
   });
 
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
 
-  console.log("prescriptionData", prescriptionData);
+  console.log("labReportData", labReportData);
 
   // Memoize transformed data to prevent unnecessary re-renders
-  const transformedData: UploadedImage[] = useMemo(
+  const transformedData: TLabReportImage[] = useMemo(
     () =>
-      prescriptionData?.map((item: TPrevious) => ({
+      labReportData?.map((item: TLabReportImage) => ({
         id: item.id,
-        name: `Prescription ${item.id}`,
+        name: `Lab Report ${item.id}`,
         uploadDate: new Date(item.created_at).toLocaleDateString("en-GB"),
         url: item.file_url,
         description: item.description,
         created_at: new Date(item.created_at).toLocaleDateString("en-GB"),
       })) || [],
-    [prescriptionData]
+    [labReportData]
   );
 
   // Memoize utility functions
@@ -323,7 +329,7 @@ const PreviousPrescription: React.FC = () => {
   );
 
   const validateForm = useCallback(
-    (data: PrescriptionFormData): { [key: string]: string } => {
+    (data: LabReportFormData): { [key: string]: string } => {
       const errors: { [key: string]: string } = {};
 
       if (!data.description.trim()) {
@@ -395,9 +401,9 @@ const PreviousPrescription: React.FC = () => {
           createFormData.description
         );
 
-        console.log("pppp formData", formData);
+        console.log("lab report formData", formData);
 
-        const result = await createPrescription({
+        const result = await createLabReport({
           id: userId,
           data: formData,
         }).unwrap();
@@ -423,19 +429,19 @@ const PreviousPrescription: React.FC = () => {
         Swal.fire({
           icon: "success",
           title: "Success!",
-          text: "Prescription uploaded successfully!",
+          text: "Lab report uploaded successfully!",
           confirmButtonColor: "#7c3aed",
           timer: 3000,
           timerProgressBar: true,
         });
       }
     } catch (error: any) {
-      console.error("Error creating prescription:", error);
+      console.error("Error creating lab report:", error);
 
       const errorMessage =
         error?.data?.message ||
         error?.message ||
-        "Failed to create prescription. Please try again.";
+        "Failed to create lab report. Please try again.";
 
       Swal.fire({
         icon: "error",
@@ -444,13 +450,7 @@ const PreviousPrescription: React.FC = () => {
         confirmButtonColor: "#7c3aed",
       });
     }
-  }, [
-    createFormData,
-    validateForm,
-    buildFormData,
-    createPrescription,
-    refetch,
-  ]);
+  }, [createFormData, validateForm, buildFormData, createLabReport, refetch]);
 
   const onUpdateSubmit = useCallback(async () => {
     if (!editingId) return;
@@ -463,7 +463,7 @@ const PreviousPrescription: React.FC = () => {
         formData.append("file", updateFormData.file);
       }
 
-      await updatePrescription({
+      await updateLabReport({
         id: editingId,
         data: formData,
       }).unwrap();
@@ -479,18 +479,18 @@ const PreviousPrescription: React.FC = () => {
       Swal.fire({
         icon: "success",
         title: "Updated!",
-        text: "Prescription updated successfully!",
+        text: "Lab report updated successfully!",
         confirmButtonColor: "#7c3aed",
         timer: 3000,
         timerProgressBar: true,
       });
     } catch (error: any) {
-      console.error("Error updating prescription:", error);
+      console.error("Error updating lab report:", error);
 
       const errorMessage =
         error?.data?.message ||
         error?.message ||
-        "Failed to update prescription. Please try again.";
+        "Failed to update lab report. Please try again.";
 
       Swal.fire({
         icon: "error",
@@ -499,7 +499,7 @@ const PreviousPrescription: React.FC = () => {
         confirmButtonColor: "#7c3aed",
       });
     }
-  }, [editingId, updateFormData, updatePrescription, refetch]);
+  }, [editingId, updateFormData, updateLabReport, refetch]);
 
   const handleDelete = useCallback(
     async (id: number) => {
@@ -517,24 +517,24 @@ const PreviousPrescription: React.FC = () => {
       if (!result.isConfirmed) return;
 
       try {
-        await deletePrescription(id).unwrap();
+        await deleteLabReport(id).unwrap();
         refetch();
 
         Swal.fire({
           icon: "success",
           title: "Deleted!",
-          text: "Prescription deleted successfully!",
+          text: "Lab report deleted successfully!",
           confirmButtonColor: "#7c3aed",
           timer: 3000,
           timerProgressBar: true,
         });
       } catch (error: any) {
-        console.error("Error deleting prescription:", error);
+        console.error("Error deleting lab report:", error);
 
         const errorMessage =
           error?.data?.message ||
           error?.message ||
-          "Failed to delete prescription. Please try again.";
+          "Failed to delete lab report. Please try again.";
 
         Swal.fire({
           icon: "error",
@@ -544,10 +544,10 @@ const PreviousPrescription: React.FC = () => {
         });
       }
     },
-    [deletePrescription, refetch]
+    [deleteLabReport, refetch]
   );
 
-  const startEdit = useCallback((image: UploadedImage) => {
+  const startEdit = useCallback((image: TLabReportImage) => {
     setEditingId(image.id);
     setUpdateFormData({
       description: image.description || "",
@@ -589,10 +589,10 @@ const PreviousPrescription: React.FC = () => {
       <div className="mb-8">
         <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
           <h3 className="text-lg font-medium text-red-800 mb-2">
-            Error Loading Prescriptions
+            Error Loading Lab Reports
           </h3>
           <p className="text-red-600 mb-4">
-            Failed to load your prescriptions. Please try again.
+            Failed to load your lab reports. Please try again.
           </p>
           <button
             onClick={() => refetch()}
@@ -609,7 +609,7 @@ const PreviousPrescription: React.FC = () => {
     <div className="mb-8">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 space-y-4 sm:space-y-0">
         <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
-          Previous Prescriptions
+          Previous Lab Reports
         </h2>
         <button
           onClick={() => setShowCreateModal(true)}
@@ -623,7 +623,7 @@ const PreviousPrescription: React.FC = () => {
       {transformedData.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {transformedData.map((image) => {
-            console.log("prevvv imag", image);
+            console.log("lab report image", image);
             return (
               <div
                 key={image.id}
@@ -632,7 +632,7 @@ const PreviousPrescription: React.FC = () => {
                 <div className="aspect-video bg-gray-100 relative">
                   <img
                     src={`${process.env.REACT_APP_API_BASE_URL}${image.url}`}
-                    alt="prescription"
+                    alt="lab report"
                     className="w-full h-full object-cover"
                   />
                   <button
@@ -731,18 +731,18 @@ const PreviousPrescription: React.FC = () => {
         <div className="bg-white rounded-lg border-2 border-dashed border-gray-300 p-6 sm:p-8 text-center">
           <FileText className="w-10 h-10 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-4" />
           <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">
-            No previous prescriptions uploaded
+            No previous lab reports uploaded
           </h3>
           <p className="text-sm sm:text-base text-gray-600 mb-4 px-2">
-            Upload images of your past prescriptions to keep track of your
-            medical history
+            Upload images of your past lab reports to keep track of your medical
+            test results
           </p>
           <button
             onClick={() => setShowCreateModal(true)}
             className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors text-sm"
           >
             <Plus className="w-4 h-4" />
-            <span>Add First Prescription</span>
+            <span>Add First Lab Report</span>
           </button>
         </div>
       )}
@@ -765,4 +765,4 @@ const PreviousPrescription: React.FC = () => {
   );
 };
 
-export default PreviousPrescription;
+export default PreviousLabReport;

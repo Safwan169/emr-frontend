@@ -1,4 +1,5 @@
 import CurrentPrescription from "./currentPrescription/CurrentPrescription";
+import PreferredPharmacy from "./preferredPharmacy/PreferredPharmacy";
 import PreviousPrescription from "./previousPrescription/PreviousPrescription";
 
 const Prescription = () => {
@@ -6,6 +7,7 @@ const Prescription = () => {
     <div>
       <CurrentPrescription />
       <PreviousPrescription />
+      <PreferredPharmacy />
     </div>
   );
 };
