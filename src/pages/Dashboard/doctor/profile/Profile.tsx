@@ -3,7 +3,7 @@ import DoctorProfile from './components/DoctorProfile';
 
 const Profile = () => {
     return (
-        <div>
+        <div className='max-w-6xl w-full'>
             <DoctorProfile/>
         </div>
     );

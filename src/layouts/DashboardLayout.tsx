@@ -18,7 +18,7 @@ const [role,setRole]=useState<any>('')
     console.log(decoded,'this is decode role ')
 
     if (decoded?.role_name) {
-      setRole("doctor")
+      setRole(decoded.role_name);
     }
   }, []);
 

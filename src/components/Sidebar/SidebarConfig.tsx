@@ -18,10 +18,9 @@ export interface NavItem {
   ],
   doctor: [
     { label: "Dashboard", path: "/doctor/dashboard", icon: Home },
-    { label: "Patients", path: "/patients", icon: Users },
-    { label: "Appointments", path: "/appointments", icon: Calendar },
+    // { label: "Patients", path: "/patients", icon: Users },
+    { label: "Appointments", path: "doctor/appoinment", icon: Calendar },
     { label: "Profile", path: "/doctor/profile", icon: User },
-    { label: "Settings", path: "/settings", icon: Settings },
   ],
   admin: [
     { label: "Dashboard", path: "/", icon: Home },

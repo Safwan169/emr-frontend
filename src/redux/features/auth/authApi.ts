@@ -6,7 +6,7 @@ export const authApi = baseApi.injectEndpoints({
     // 🔐 Login
     loginUser: builder.mutation({
       query: (userInfo) => ({
-        url: "/auth/login",
+        url: "/Auth/Login",
         method: "POST",
         body: userInfo,
       }),
@@ -14,7 +14,7 @@ export const authApi = baseApi.injectEndpoints({
 
     verifyLoginOtp: builder.mutation({
       query: (payload: { otp_code: string }) => ({
-        url: "/auth/verify-otp",
+        url: "/Auth/VerifyOTP",
         method: "POST",
         body: payload,
       }),
@@ -31,7 +31,7 @@ export const authApi = baseApi.injectEndpoints({
     // 🔓 Logout
     logoutUser: builder.mutation({
       query: () => ({
-        url: "/auth/logout",
+        url: "/Auth/Logout",
         method: "POST", // or "GET" if your backend uses GET for logout
         credentials: "include", // required if logout relies on cookies/session
       }),
@@ -40,7 +40,7 @@ export const authApi = baseApi.injectEndpoints({
     // 📝 Registration
     signup: builder.mutation({
       query: (formData: any) => ({
-        url: "/auth/register",
+        url: "/Auth/Register",
         method: "POST",
         body: formData,
       }),
@@ -48,7 +48,7 @@ export const authApi = baseApi.injectEndpoints({
 
     verifyOtp: builder.mutation({
       query: (payload: { email: string; otp: string }) => ({
-        url: "/auth/register/verify-otp",
+        url: "/Auth/Register/VerifyOTP",
         method: "POST",
         body: payload,
       }),

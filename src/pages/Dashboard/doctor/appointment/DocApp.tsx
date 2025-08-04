@@ -1,9 +1,14 @@
 import React from 'react';
+import AppointDet from './components/AppointDet';
+import ConsultationN from './components/ConsultationN';
+import PatientVital from './components/PatientVital';
 
 const DocApp = () => {
     return (
         <div>
-            <h1>DocApp</h1>
+         <AppointDet/>
+         <PatientVital/>
+         <ConsultationN/>
         </div>
     );
 };
