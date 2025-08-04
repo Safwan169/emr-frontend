@@ -16,9 +16,7 @@ const refreshTokenUrl = `${process.env.REACT_APP_API_BASE_URL}/auth/refresh-toke
 // pass token for every request to server
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
+
   credentials: "include",
 
   // we can sent accessToken per request to backend
@@ -93,6 +91,6 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithRefreshToken,
-  tagTypes: ["users", "chronic", "allergies"],
+  tagTypes: ["users", "chronic", "allergies","doctorProfile","userProfile"],
   endpoints: () => ({}),
 });

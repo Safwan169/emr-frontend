@@ -4,7 +4,7 @@ import { useCreateAllergyMutation } from "../../redux/features/allergies/allergi
 interface AllergyModalProps {
   isOpen: boolean;
   onClose: () => void;
-  userId: string; // passed from parent
+  userId: Number; // passed from parent
 }
 
 const AllergyModal: React.FC<AllergyModalProps> = ({ isOpen, onClose, userId }) => {

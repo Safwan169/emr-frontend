@@ -21,14 +21,18 @@ export const allergiesApi = baseApi.injectEndpoints({
     }),
 
     // Create a new allergy for a user
-    createAllergy: builder.mutation({
-      query: ({ userId, allergyData }) => ({
-        method: "POST",
-        url: `/Patient/allergies/${userId}`,
-        body: allergyData,
-      }),
-      invalidatesTags: ["allergies"],
-    }),
+createAllergy: builder.mutation({
+  query: ({ userId, allergyData }) => {
+    console.log("allergyData:", allergyData);
+    return {
+      method: "POST",
+      url: `/Patient/Allergies/${userId}`,
+      body: allergyData,
+    };
+  },
+  invalidatesTags: ["allergies"],
+}),
+
 
     // Update an existing allergy by ID
     updateAllergy: builder.mutation({
