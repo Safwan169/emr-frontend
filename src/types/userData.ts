@@ -3,6 +3,13 @@ export interface TRole {
   name: string;
 }
 
+export interface EmergencyContact {
+  first_name: string;
+  last_name: string;
+  phone: string;
+  relationship: string;
+}
+
 // Updated UserDataType interface based on your database schema
 export interface UserDataType {
   // Required fields from database
@@ -15,6 +22,7 @@ export interface UserDataType {
   date_of_birth: string; // DateTime from DB, stored as ISO string
   gender: string;
   role_id: number;
+  emergency_contact: EmergencyContact;
 
   // Optional fields from database
   profile_image_id?: number | null;

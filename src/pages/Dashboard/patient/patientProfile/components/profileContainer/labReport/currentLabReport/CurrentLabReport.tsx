@@ -1,4 +1,4 @@
-import { Download, Eye, Share2 } from "lucide-react";
+import { Download, Eye } from "lucide-react";
 
 const CurrentLabReport = () => {
   const testResults = [
@@ -143,9 +143,6 @@ const CurrentLabReport = () => {
                     </button>
                     <button className="p-2 text-[#1C3BA4] hover:bg-gray-50 rounded-lg transition-colors">
                       <Download size={16} />
-                    </button>
-                    <button className="p-2 text-[#1C3BA4] hover:bg-gray-50 rounded-lg transition-colors">
-                      <Share2 size={16} />
                     </button>
                   </div>
                 </td>
