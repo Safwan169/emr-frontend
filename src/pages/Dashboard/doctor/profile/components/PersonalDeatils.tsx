@@ -75,8 +75,8 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({ image, personalInfo }
             </div>
           </div>
           <div>
-            <h1 className="text-2xl font-bold">{formData.first_name}</h1>
-            <h1 className="text-2xl font-bold">{formData.last_name}</h1>
+            <h1 className="text-2xl font-bold">{formData.first_name}+{formData.last_name}</h1>
+         
             <p className="text-blue-600 text-gray-500/95 font-medium">
               {formData.specialization}
             </p>
