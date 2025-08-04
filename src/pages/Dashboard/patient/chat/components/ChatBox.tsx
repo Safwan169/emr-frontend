@@ -44,7 +44,7 @@ const ChatBox: React.FC = () => {
   }, [messages]);
 
   return (
-   <div className="fixed bottom-0 left-0 w-full  shadow-lg ">
+   <div className="fixed bottom-0 mt-10 left-0 w-full  shadow-lg ">
      <div className=" w-full max-w-7xl mx-auto bottom-4    ">
       {/* Chat Messages Container (Hidden until first message) */}
       {messages.length > 0 && (
