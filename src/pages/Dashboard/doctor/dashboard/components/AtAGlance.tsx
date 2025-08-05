@@ -1,5 +1,6 @@
 import React from 'react';
 import { Shield, Calendar, FileText, Pill } from 'lucide-react';
+import { useGetDoctorPatientCountQuery, useGetTodaysAppointmentsQuery } from '../api/dashboardApi';
 
 type ColorVariant = 'blue' | 'green' | 'orange' | 'purple';
 
@@ -9,14 +10,16 @@ interface PatientStatsCardProps {
   trendData?: number[];
   colorVariant?: ColorVariant;
   icon?: 'shield' | 'calendar' | 'fileText' | 'pill';
+  isLoading?: boolean;
 }
 
 const PatientStatsCard: React.FC<PatientStatsCardProps> = ({
   title = "Total Patient",
-  totalCount = 2098,
+  totalCount = 0,
   trendData = [0.3, 0.5, 0.2, 0.4, 0.8, 0.6, 0.9, 0.7, 0.8, 0.9, 1.0, 0.85, 0.95],
   colorVariant = 'blue',
-  icon = 'shield'
+  icon = 'shield',
+  isLoading = false
 }) => {
   // Color configurations
   const colorConfig = {
@@ -117,7 +120,7 @@ const PatientStatsCard: React.FC<PatientStatsCardProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg p-2 shadow-sm border border-gray-100 w-full ">
+    <div className="bg-white rounded-lg p-2 shadow-sm border border-gray-100 w-full">
       {/* Header with icon and title */}
       <div className="flex items-center gap-3 mb-4">
         <div className={`w-10 h-10 ${colors.bg} rounded-lg flex items-center justify-center`}>
@@ -131,46 +134,54 @@ const PatientStatsCard: React.FC<PatientStatsCardProps> = ({
         {/* Left side: Count and text - smaller section */}
         <div className="flex flex-col flex-shrink-0 w-20">
           <div className="text-2xl font-bold text-gray-900 mb-1">
-            {totalCount.toLocaleString()}
+            {isLoading ? (
+              <div className="bg-gray-200 animate-pulse h-8 w-16 rounded"></div>
+            ) : (
+              totalCount.toLocaleString()
+            )}
           </div>
           <div className="text-xs text-gray-500">
-            Last 7 days
+            Last 7 days graph
           </div>
         </div>
         
         {/* Right side: Trend chart - larger section */}
         <div className="relative flex-1 ml-1 min-w-0">
           <div className="h-14">
-            <svg
-              width="100%"
-              height="60"
-              viewBox="0 0 200 60"
-              preserveAspectRatio="none"
-              className="w-full h-full"
-            >
-              <defs>
-                <linearGradient id={`areaGradient-${colorVariant}`} x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor={colors.gradient} stopOpacity="0.3" />
-                  <stop offset="100%" stopColor={colors.gradient} stopOpacity="0.05" />
-                </linearGradient>
-              </defs>
-              
-              {/* Area fill */}
-              <path
-                d={generateSmoothAreaPath(trendData)}
-                fill={`url(#areaGradient-${colorVariant})`}
-              />
-              
-              {/* Trend line */}
-              <path
-                d={generateSmoothPath(trendData)}
-                stroke={colors.gradient}
-                strokeWidth="2.5"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            {isLoading ? (
+              <div className="bg-gray-200 animate-pulse h-full w-full rounded"></div>
+            ) : (
+              <svg
+                width="100%"
+                height="60"
+                viewBox="0 0 200 60"
+                preserveAspectRatio="none"
+                className="w-full h-full"
+              >
+                <defs>
+                  <linearGradient id={`areaGradient-${colorVariant}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor={colors.gradient} stopOpacity="0.3" />
+                    <stop offset="100%" stopColor={colors.gradient} stopOpacity="0.05" />
+                  </linearGradient>
+                </defs>
+                
+                {/* Area fill */}
+                <path
+                  d={generateSmoothAreaPath(trendData)}
+                  fill={`url(#areaGradient-${colorVariant})`}
+                />
+                
+                {/* Trend line */}
+                <path
+                  d={generateSmoothPath(trendData)}
+                  stroke={colors.gradient}
+                  strokeWidth="2.5"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            )}
           </div>
         </div>
       </div>
@@ -178,32 +189,36 @@ const PatientStatsCard: React.FC<PatientStatsCardProps> = ({
   );
 };
 
-// Dashboard component that uses the PatientStatsCard
-const PatientDashboard: React.FC = () => {
-  const dashboardData = [
+// At a glance component that uses the PatientStatsCard with API integration
+interface AtAGlanceProps {
+  doctorId: string;
+}
+
+const AtAGlance: React.FC<AtAGlanceProps> = ({ doctorId }) => {
+  // API calls
+  const { 
+    data: patientCountData, 
+    isLoading: isPatientCountLoading, 
+    error: patientCountError 
+  } = useGetDoctorPatientCountQuery(doctorId);
+
+  const { 
+    data: todaysAppointmentsData, 
+    isLoading: isTodaysAppointmentsLoading, 
+    error: todaysAppointmentsError 
+  } = useGetTodaysAppointmentsQuery(doctorId);
+
+  // Static data for cards that don't have API endpoints yet
+  const staticCardsData = [
     {
-      title: "Total Patient",
-      totalCount: 2098,
-      colorVariant: 'blue' as ColorVariant,
-      icon: 'shield' as const,
-      trendData: [0.3, 0.5, 0.2, 0.4, 0.8, 0.6, 0.9]
-    },
-    {
-      title: "Today's Appointment",
-      totalCount: 140,
-      colorVariant: 'green' as ColorVariant,
-      icon: 'calendar' as const,
-      trendData: [0.2, 0.4, 0.3, 0.6, 0.5, 0.8, 0.9]
-    },
-    {
-      title: "Pending Reports",
+      title: "Total Pending Reports",
       totalCount: 54,
       colorVariant: 'orange' as ColorVariant,
       icon: 'fileText' as const,
       trendData: [0.4, 0.3, 0.5, 0.2, 0.6, 0.7, 0.8]
     },
     {
-      title: "Prescriptions Issued",
+      title: "Total Prescriptions Issued",
       totalCount: 196,
       colorVariant: 'purple' as ColorVariant,
       icon: 'pill' as const,
@@ -214,19 +229,52 @@ const PatientDashboard: React.FC = () => {
   return (
     <div className="p-3 sm:p-4 bg-gray-50">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        {dashboardData.map((card, index) => (
+        {/* Total Patients - from API */}
+        <PatientStatsCard
+          title="Total Patient"
+          totalCount={patientCountData?.patientCount || 0}
+          colorVariant="blue"
+          icon="shield"
+          trendData={[0.3, 0.5, 0.2, 0.4, 0.8, 0.6, 0.9]}
+          isLoading={isPatientCountLoading}
+        />
+
+        {/* Today's Appointments - from API */}
+        <PatientStatsCard
+          title="Today's Appointment"
+          totalCount={todaysAppointmentsData?.total || 0}
+          colorVariant="green"
+          icon="calendar"
+          trendData={[0.2, 0.4, 0.3, 0.6, 0.5, 0.8, 0.9]}
+          isLoading={isTodaysAppointmentsLoading}
+        />
+
+        {/* Static cards */}
+        {staticCardsData.map((card, index) => (
           <PatientStatsCard
-            key={index}
+            key={index + 2}
             title={card.title}
             totalCount={card.totalCount}
             colorVariant={card.colorVariant}
             icon={card.icon}
             trendData={card.trendData}
+            isLoading={false}
           />
         ))}
       </div>
+
+      {/* Error handling - you can customize this based on your UI patterns */}
+      {(patientCountError || todaysAppointmentsError) && (
+        <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-red-700 text-sm">
+            {patientCountError && "Failed to load patient count. "}
+            {todaysAppointmentsError && "Failed to load today's appointments. "}
+            Please try refreshing the page.
+          </p>
+        </div>
+      )}
     </div>
   );
 };
 
-export default PatientDashboard;
+export default AtAGlance;
