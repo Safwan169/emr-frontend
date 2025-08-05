@@ -111,8 +111,16 @@ const Certifications: React.FC<Props> = ({ certifications, userId }) => {
           </button>
         </div>
 
+        
+   <div className="space-y-4">
+        {certifications?.length === 0 && (
+          <p className="text-gray-500">No Certifications found.</p>
+        )}
+
+        </div>
+
         <div className="grid grid-cols-2 gap-4 mb-6">
-          {certificationList.map((cert) => (
+          {certifications.map((cert) => (
             <div
               key={cert.id}
               className="p-4 flex justify-between border border-gray-200/70 rounded-lg bg-white relative group"

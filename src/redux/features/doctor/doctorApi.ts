@@ -11,15 +11,26 @@ export const doctorProfileApi = baseApi.injectEndpoints({
       providesTags: ["doctorProfile"],
     }),
 
+    getAllDoctors: builder.query({
+      query: () => ({
+        method: "GET",
+        url: "/DoctorProfile",
+        credentials: "include",
+      }),
+      providesTags: ["doctors"],
+      
+    }),
+
     // ✅ Create Education
     createEducation: builder.mutation({
-      query: ({ userId, educationData }) => ({
-        method: "POST",
-        url: `/DoctorProfile/${userId}/Education`,
-        body: educationData,
-      }),
-      invalidatesTags: ["doctorProfile"],
-    }),
+      query: ({ userId, educationData }) => {
+        console.log("Education Data:", educationData);
+        return {
+          method: "POST",
+          url: `/DoctorProfile/${userId}/Education`,
+          body: educationData,
+        };
+      },}),
 
     // ✅ Delete Education by ID
     deleteEducation: builder.mutation({
@@ -112,5 +123,6 @@ export const {
   useCreateResearchMutation,
   useDeleteResearchMutation,
   useUpdateDoctorProfileMutation,
-  useUpdateUserProfileMutation 
+  useUpdateUserProfileMutation,
+  useGetAllDoctorsQuery
 } = doctorProfileApi;

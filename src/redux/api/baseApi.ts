@@ -99,7 +99,8 @@ tagTypes: ["users",
     "previousLabReport",
     "allergies",
     "doctorProfile",
-    "userProfile"
+    "userProfile",
+    "doctors"
 ],
 
   endpoints: () => ({}),

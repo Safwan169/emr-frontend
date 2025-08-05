@@ -9,7 +9,7 @@ import { useGetDoctorProfileQuery } from "../../../../../redux/features/doctor/d
 const DoctorProfile: React.FC = () => {
   const { userId } = JSON.parse(localStorage.getItem("profileInfo") || "{}");
 
-  const { data: doctorData, isLoading, isError } = useGetDoctorProfileQuery(userId);
+  const { data: doctorData,refetch, isLoading, isError, } = useGetDoctorProfileQuery(userId);
 
   console.log("Doctor Data:", doctorData);
 
@@ -22,6 +22,7 @@ const DoctorProfile: React.FC = () => {
   }
 
   const doctor = doctorData.data;
+const     image = doctor?.profile_image?.file_URL || "";
 
   const personalInfo = {
     first_name: `${doctor?.user?.first_name || ""} `,
@@ -41,9 +42,9 @@ const DoctorProfile: React.FC = () => {
 
   return (
     <div className="max-w-5xl mx-auto">
-      <PersonalDetails image="ad" personalInfo={personalInfo} />
+      <PersonalDetails reftch={refetch} image={image} personalInfo={personalInfo} />
       <Contact personalInfo={personalInfo} />
-      <Education userId={userId} education={educationList} />
+      <Education reftch={refetch} userId={userId} education={educationList} />
       <Certifications userId={userId} certifications={certifications} />
       <Publication_Research
         userId={userId}

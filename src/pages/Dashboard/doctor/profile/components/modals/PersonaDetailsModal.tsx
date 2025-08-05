@@ -26,8 +26,8 @@ const PersonaDetailsModal: React.FC<PersonaDetailsModalProps> = ({
 
 
   return (
-    <div className="fixed  inset-0 py-3 bg-black/50 flex justify-center items-center z-50">
-      <div className="bg-white h-fit scroll-smooth overflow-y-auto rounded-lg shadow-lg w-full max-w-lg p-6">
+    <div className="fixed  inset-0 py-3 bg-black/50  flex justify-center items-center z-50">
+      <div className="bg-white  overflow-y-auto max-h-[90vh]  my-5 rounded-lg shadow-lg w-full max-w-lg p-6">
         {/* Header */}
         <div className="flex justify-between items-center border-b pb-3 mb-4">
           <h2 className="text-xl font-bold text-gray-800">Edit Personal Details</h2>

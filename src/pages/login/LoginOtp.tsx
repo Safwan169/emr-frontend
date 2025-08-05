@@ -99,6 +99,8 @@ const LoginOtp = () => {
 
     try {
       const res = await verifyLoginOtp({ otp_code }).unwrap();
+
+      console.log("Login success response:", res);
       localStorage.setItem("EMRtoken", res.access_token);
       toast.success("Login successful!");
       setTimeout(() => {

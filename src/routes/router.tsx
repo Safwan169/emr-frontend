@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import DashboardLayout from "../layouts/DashboardLayout";
 import DoctorDashboard from "../pages/Dashboard/doctor/dashboard/DoctorDashboard";
 import PatientDashboard from "../pages/Dashboard/patient/patientDashboard/PatientDashboard";
@@ -12,14 +12,15 @@ import { isAuthenticated } from "../utils/auth";
 import AppointmentRoute from "./AppointmentRoute";
 import DoctorRoute from "./DoctorRoute";
 import PatientRoute from "./PatientRoute";
+import CenterDashboard from "../pages/Dashboard/CenterDashboard";
 
 // Private routes under DashboardLayout
 const privateRoutes = {
   path: "/",
-  element: isAuthenticated() ? (
-    <Login />
-  ) : (
+  element: isAuthenticated() ?  (
     <DashboardLayout pageTitle="Dashboard" />
+  ) : (
+ <Navigate to="/login"   />
   ),
   children: [
     ...AppointmentRoute,
@@ -27,7 +28,7 @@ const privateRoutes = {
     ...DoctorRoute,
     {
       path: "/",
-      element: <PatientDashboard />,
+      element: <CenterDashboard />,
     },
   ],
 };
