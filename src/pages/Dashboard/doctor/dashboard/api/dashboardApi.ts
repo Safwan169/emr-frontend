@@ -1,9 +1,19 @@
 // src/pages/Dashboard/doctor/dashboard/dashboardAPI/dashboardApi.ts
 import { baseApi } from "../../../../../redux/api/baseApi";
 
+interface AppointmentPatient {
+  user_id: number;
+  name: string;
+  gender: string;
+  age: number;
+  appointment_date: string;
+  condition: string;
+  status: string;
+}
+
 interface TodaysAppointmentsResponse {
   total: number;
-  appointments: any[]; // You can replace `any` with a proper Appointment type later
+  appointments: any[]; // Replace later with Appointment type if needed
 }
 
 export const dashboardApi = baseApi.injectEndpoints({
@@ -20,10 +30,18 @@ export const dashboardApi = baseApi.injectEndpoints({
         url: `/Appointments/Today/${doctorId}`,
       }),
     }),
+
+    // 🧑‍🤝‍🧑 Patients list
+    getPatientsList: builder.query<AppointmentPatient[], string>({
+      query: (doctorId: string) => ({
+        url: `/Appointments/Doctor/${doctorId}/Patients`,
+      }),
+    }),
   }),
 });
 
 export const {
   useGetDoctorPatientCountQuery,
   useGetTodaysAppointmentsQuery,
+  useGetPatientsListQuery,
 } = dashboardApi;
