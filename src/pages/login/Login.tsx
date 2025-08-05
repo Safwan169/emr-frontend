@@ -24,8 +24,12 @@ const Login = () => {
     try {
       const res = await loginUser(formData).unwrap();
 
-            localStorage.setItem("EMRtoken", res.access_token);
-navigate("/");
+      if (res.message ===
+        "Login successful") {
+          localStorage.setItem("EMRtoken", res.access_token);
+          navigate("/");
+        }
+        
       toast.success("Login successful! Sending OTP...");
       console.log("Login success response:", res);
       // navigate("/login-otp", {

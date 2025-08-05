@@ -55,7 +55,7 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({ reftch, image, person
       alert("Failed to update profile");
     }
   };
-
+console.log(image, 'this is image')
   return (
     <>
       {/* Profile Card */}

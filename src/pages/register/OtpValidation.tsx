@@ -3,6 +3,7 @@ import { useVerifyOtpMutation, useResendRegisterOtpMutation } from "../../redux/
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 const OtpValidation = () => {
   const location = useLocation();
@@ -82,8 +83,15 @@ const OtpValidation = () => {
     }
 
     try {
-      await verifyOtp({ email, otp: otpString }).unwrap();
+      const res = await verifyOtp({ email, otp: otpString }).unwrap();
+      console.log(res, 'register otp response');
+
       setOtp(["", "", "", "", "", ""]);
+      if (res.message === "User registered successfully") {
+
+        navigate("/login");
+        toast.success("Registration successful!");
+      }
       // Success message shown inline below
     } catch {
       // Error message shown inline below
@@ -151,16 +159,18 @@ const OtpValidation = () => {
             <div className="flex justify-between items-center text-sm mb-4">
               <button
                 onClick={handleResend}
-                className={`text-sm font-medium ${
-                  timer > 0 || isResending ? "text-gray-400 cursor-not-allowed" : "text-blue-600 hover:underline"
-                }`}
+                className={`text-sm font-medium ${timer > 0 || isResending ? "text-gray-400 cursor-not-allowed" : "text-blue-600 hover:underline"
+                  }`}
                 disabled={timer > 0 || isResending}
               >
                 {isResending ? "Resending..." : "Resend OTP"}
               </button>
+              <Link to="/register" >
+              
               <button onClick={() => setOtp(["", "", "", "", "", ""])} className="text-gray-500 hover:underline">
                 Cancel
               </button>
+              </Link>
             </div>
 
             <button

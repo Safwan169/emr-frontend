@@ -11,6 +11,16 @@ export const doctorProfileApi = baseApi.injectEndpoints({
       providesTags: ["doctorProfile"],
     }),
 
+    getAllDoctors: builder.query({
+      query: () => ({
+        method: "GET",
+        url: "/DoctorProfile",
+        credentials: "include",
+      }),
+      providesTags: ["doctors"],
+      
+    }),
+
     // ✅ Create Education
     createEducation: builder.mutation({
       query: ({ userId, educationData }) => {
@@ -113,5 +123,6 @@ export const {
   useCreateResearchMutation,
   useDeleteResearchMutation,
   useUpdateDoctorProfileMutation,
-  useUpdateUserProfileMutation 
+  useUpdateUserProfileMutation,
+  useGetAllDoctorsQuery
 } = doctorProfileApi;

@@ -1,53 +1,39 @@
 import React from "react";
 import DoctorAppointmentCard from "./DoctorAppointmentCard";
 import { Appointment } from "../../../../../types/global";
+import { useGetAllDoctorsQuery } from "../../../../../redux/features/doctor/doctorApi";
 
-const appointments: Appointment[] = [
-  {
-    id: "1",
-    doctorName: "Dr. Salil Chakma",
-    department: "Orthopedic Surgery",
-    visitType: "Regular Checkup",
-    date: "August 22, 2025",
-    time: "10:30 AM",
-    room: "Room No: 430, Main Building",
-    rating: 4.7,
-    experience: 15,
-    imageUrl: "https://randomuser.me/api/portraits/men/11.jpg"
-  },
-  {
-    id: "1",
-    doctorName: "Dr. Salil Chakma",
-    department: "Orthopedic Surgery",
-    visitType: "Regular Checkup",
-    date: "August 22, 2025",
-    time: "10:30 AM",
-    room: "Room No: 430, Main Building",
-    rating: 4.7,
-    experience: 15,
-    imageUrl: "https://randomuser.me/api/portraits/men/11.jpg"
-  },
-  {
-    id: "1",
-    doctorName: "Dr. Salil Chakma",
-    department: "Orthopedic Surgery",
-    visitType: "Regular Checkup",
-    date: "August 22, 2025",
-    time: "10:30 AM",
-    room: "Room No: 430, Main Building",
-    rating: 4.7,
-    experience: 15,
-    imageUrl: "https://randomuser.me/api/portraits/men/11.jpg"
-  },
-  // Add more items here...
-];
+const AppointmentsList: React.FC = () => {
+  const { data, isLoading, isError } = useGetAllDoctorsQuery(null);
 
-const AppointmentsList = () => {
+  if (isLoading) return <p className="text-center">Loading...</p>;
+  if (isError || !data) return <p className="text-center text-red-500">Failed to load</p>;
+
+  // Transform API data into Appointment[]
+  const appointments: Appointment[] = data?.data?.map((doctor: any) => ({
+    id: String(doctor.id),
+    doctorName: `${doctor.user?.first_name || ""} ${doctor.user?.last_name || ""}`.trim(),
+    department: doctor.specialization || "Unknown",
+    visitType: "Physical", // Hardcoded or use logic if available
+    date: new Date(doctor.created_at).toLocaleDateString(), // Format as needed
+    time: new Date(doctor.created_at).toLocaleTimeString(), // Format as needed
+    room: "Room 101", // Hardcoded (change if data available)
+    rating: doctor.rating || 0,
+    experience: doctor.years_of_experience || 0,
+    imageUrl: doctor.user?.profile_image_id
+      ? `/images/${doctor.user.profile_image_id}.jpg` // Example path
+      : "/images/default-doctor.jpg"
+  })) || [];
+
   return (
     <div className="space-y-4">
-      {appointments.map((appt) => (
-        <DoctorAppointmentCard key={appt.id} data={appt} />
-      ))}
+      {appointments.length > 0 ? (
+        appointments.map((appt) => (
+          <DoctorAppointmentCard key={appt.id} data={appt} />
+        ))
+      ) : (
+        <p className="text-center">No appointments available</p>
+      )}
     </div>
   );
 };

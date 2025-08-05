@@ -22,6 +22,7 @@ const DoctorProfile: React.FC = () => {
   }
 
   const doctor = doctorData.data;
+const     image = doctor?.profile_image?.file_URL || "";
 
   const personalInfo = {
     first_name: `${doctor?.user?.first_name || ""} `,
@@ -41,7 +42,7 @@ const DoctorProfile: React.FC = () => {
 
   return (
     <div className="max-w-5xl mx-auto">
-      <PersonalDetails reftch={refetch} image="ad" personalInfo={personalInfo} />
+      <PersonalDetails reftch={refetch} image={image} personalInfo={personalInfo} />
       <Contact personalInfo={personalInfo} />
       <Education reftch={refetch} userId={userId} education={educationList} />
       <Certifications userId={userId} certifications={certifications} />

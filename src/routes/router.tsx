@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import DashboardLayout from "../layouts/DashboardLayout";
 import PatientDashboard from "../pages/Dashboard/patient/patientDashboard/PatientDashboard";
 import ForgotPassword from "../pages/login/ForgotPassword";
@@ -21,7 +21,7 @@ const privateRoutes = {
   element: isAuthenticated() ? (
     <DashboardLayout pageTitle="Dashboard" />
   ) : (
-    <Login />
+ <Navigate to="/login"   />
   ),
   children: [
     ...AppointmentRoute,
