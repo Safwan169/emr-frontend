@@ -38,6 +38,7 @@ export default function PatientProfileCard() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  console.log(data,'thsi is data');
 
   return (
     <div className="bg-white mt-5 lg:mt-0 rounded-lg shadow-sm border border-gray-200 p-6">
@@ -48,8 +49,7 @@ export default function PatientProfileCard() {
           <div className="w-20 h-20 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
             <img
               src={
-                data?.profile_image ||
-                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face"
+                `${process.env.REACT_APP_API_BASE_URL}${data?.profile_image?.file_URL}` ||''
               }
               alt="Patient Avatar"
               className="w-full h-full object-cover"
