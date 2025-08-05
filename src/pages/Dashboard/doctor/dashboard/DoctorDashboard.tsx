@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AtAGlance from "./components/AtAGlance";
+import AtAGlance from "./components/StatCard";
 import PatientTracking from "./components/PatientTracking";
 import AppointmentList from "./components/AppointmentList";
 import PatientList from "./components/PatientList ";
@@ -22,7 +22,7 @@ const DoctorDashboard = () => {
       <AtAGlance doctorId={userId} />
       <div className="flex flex-row w-full gap-4">
         <PatientTracking />
-        <AppointmentList />
+        <AppointmentList doctorId={userId} />
       </div>
       <PatientList doctorId={userId} />
     </>

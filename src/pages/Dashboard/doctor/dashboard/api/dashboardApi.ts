@@ -11,9 +11,19 @@ interface AppointmentPatient {
   status: string;
 }
 
+interface TodaysAppointment {
+  user_id: number;
+  name: string;
+  gender: string;
+  age: number;
+  appointment_time: string;  // notice this is appointment_time in your example, not appointment_date
+  condition: string;
+  status: string;
+}
+
 interface TodaysAppointmentsResponse {
   total: number;
-  appointments: any[]; // Replace later with Appointment type if needed
+  appointments: TodaysAppointment[];
 }
 
 export const dashboardApi = baseApi.injectEndpoints({
@@ -37,6 +47,13 @@ export const dashboardApi = baseApi.injectEndpoints({
         url: `/Appointments/Doctor/${doctorId}/Patients`,
       }),
     }),
+
+    // Todays appointment list (same as getTodaysAppointments)
+    getTodaysAppoimentList: builder.query<TodaysAppointmentsResponse, string>({
+      query: (doctorId: string) => ({
+        url: `/Appointments/Today/${doctorId}`,
+      }),
+    }),
   }),
 });
 
@@ -44,4 +61,5 @@ export const {
   useGetDoctorPatientCountQuery,
   useGetTodaysAppointmentsQuery,
   useGetPatientsListQuery,
+  useGetTodaysAppoimentListQuery,
 } = dashboardApi;
