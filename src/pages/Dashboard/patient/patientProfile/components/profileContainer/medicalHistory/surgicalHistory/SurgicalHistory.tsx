@@ -1,4 +1,4 @@
-import { Edit, MapPin, Plus, Trash2, User, X } from "lucide-react";
+import { Edit, MapPin, Trash2, User, X } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast"; // Changed from react-toastify
 import {
@@ -227,10 +227,9 @@ const SurgicalHistory = () => {
         </h2>
         <button
           onClick={handleCreate}
-          className="flex items-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
         >
-          <Plus className="w-4 h-4 mr-1" />
-          Add Surgery
+          Add New
         </button>
       </div>
 

@@ -32,7 +32,7 @@ export const previousPrescriptionApi = baseApi.injectEndpoints({
 
     updatePreviousPrescriptionById: builder.mutation({
       query: ({ id, data }) => ({
-        method: "PUT",
+        method: "PATCH",
         url: `/MedicalHistory/PreviousPrescription/${id}`,
         body: data,
       }),

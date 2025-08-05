@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-redeclare */
-
 import { ChangeEvent } from "react";
 import { UserDataType } from "../../../../../../../types/userData";
 
@@ -24,7 +22,7 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            First Name
+            First Name *
           </label>
           <input
             type="text"
@@ -38,7 +36,7 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Last Name
+            Last Name *
           </label>
           <input
             type="text"
@@ -52,12 +50,16 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Date of Birth
+            Date of Birth *
           </label>
           <input
             type="date"
             name="dateOfBirth"
-            value={formData?.date_of_birth || ""}
+            value={
+              formData?.date_of_birth
+                ? formData.date_of_birth.split("T")[0]
+                : ""
+            }
             onChange={handleInputChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             required
@@ -66,7 +68,7 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Gender
+            Gender *
           </label>
           <select
             name="gender"
@@ -81,6 +83,20 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
             <option value="Other">Other</option>
           </select>
         </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Age
+          </label>
+          <input
+            type="text"
+            name="age"
+            value={formData?.age || ""}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="e.g., 25 years"
+          />
+        </div>
       </div>
 
       {/* Contact Information Section */}
@@ -91,21 +107,7 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Phone
-          </label>
-          <input
-            type="tel"
-            name="phone"
-            value={formData?.phone_number || ""}
-            onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Enter phone number"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Email
+            Email *
           </label>
           <input
             type="email"
@@ -114,6 +116,20 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
             onChange={handleInputChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             required
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            name="phone"
+            value={formData?.phone_number || ""}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Enter phone number"
           />
         </div>
 
@@ -146,10 +162,10 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
         </div>
       </div>
 
-      {/* Medical & Emergency Section */}
+      {/* Medical & Health Information Section */}
       <div className="space-y-4">
         <h3 className="text-lg font-medium text-gray-900 border-b pb-2">
-          Medical & Emergency
+          Medical & Health Information
         </h3>
 
         <div>
@@ -176,42 +192,74 @@ export const ModalFormFields: React.FC<ModalFormFieldsProps> = ({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Height
+            Height (cm)
           </label>
           <input
             type="number"
             name="height"
             value={formData?.height_cm || ""}
             onChange={handleInputChange}
-            placeholder="e.g., 170 cm"
+            placeholder="e.g., 170"
+            step="0.1"
+            min="0"
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Weight
+            Weight (lbs)
           </label>
           <input
             type="number"
             name="weight"
             value={formData?.weight_lbs || ""}
             onChange={handleInputChange}
-            placeholder="e.g., 70 kg or 154 lbs"
+            placeholder="e.g., 154"
+            step="0.1"
+            min="0"
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Emergency Contact
+            Temperature
           </label>
           <input
-            type="tel"
-            name="emergencyContact"
-            value={formData?.phone_number || ""}
+            type="text"
+            name="temperature"
+            value={formData?.temperature || ""}
             onChange={handleInputChange}
-            placeholder="Emergency contact number"
+            placeholder="e.g., 98.6°F or 37°C"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Blood Pressure
+          </label>
+          <input
+            type="text"
+            name="bloodPressure"
+            value={formData?.blood_pressure || ""}
+            onChange={handleInputChange}
+            placeholder="e.g., 120/80 mmHg"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Heart Rate (bpm)
+          </label>
+          <input
+            type="text"
+            name="heartBitRate"
+            value={formData?.heart_bit_rate || ""}
+            onChange={handleInputChange}
+            placeholder="e.g., 72 bpm"
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
