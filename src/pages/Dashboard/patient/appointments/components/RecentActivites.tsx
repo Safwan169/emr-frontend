@@ -24,7 +24,7 @@ const RecentActivites = () => {
     
     ]
     return (
-        <div className="bottom-0 w-full bg-white rounded-lg shadow-md">
+        <div className="bottom-0 w-full bg-white rounded-lg ">
             {
                 <RecentActivityCard data={activityData } />
             }
