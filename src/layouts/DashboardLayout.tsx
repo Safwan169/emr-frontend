@@ -18,7 +18,7 @@ const [role,setRole]=useState<any>('')
     console.log(decoded,'this is decode role ')
 
     if (decoded?.role_name) {
-      setRole("doctor")
+      setRole(decoded.role_name);
     }
   }, []);
 
@@ -27,7 +27,7 @@ const [role,setRole]=useState<any>('')
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar fixed */}
-  <Sidebar
+      <Sidebar
         isOpen={isSidebarOpen}
         onClose={() => setSidebarOpen(false)}
         role={role}

@@ -7,7 +7,7 @@ import {
   FetchArgs,
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
-import { toast } from "sonner";
+import { toast } from "react-hot-toast";
 import { TResponse } from "../../types/global";
 import { logout, setUser, TUser } from "../features/auth/authSlice";
 import { RootState } from "../store";
@@ -16,9 +16,7 @@ const refreshTokenUrl = `${process.env.REACT_APP_API_BASE_URL}/auth/refresh-toke
 // pass token for every request to server
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
+
   credentials: "include",
 
   // we can sent accessToken per request to backend
@@ -93,6 +91,17 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithRefreshToken,
-  tagTypes: ["users", "chronic"],
+tagTypes: ["users",
+    "chronic",
+    "surgical",
+    "immunization",
+    "previousPrescription",
+    "previousLabReport",
+    "allergies",
+    "doctorProfile",
+    "userProfile",
+    "doctors"
+],
+
   endpoints: () => ({}),
 });

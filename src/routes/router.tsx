@@ -1,26 +1,26 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import DashboardLayout from "../layouts/DashboardLayout";
+import DoctorDashboard from "../pages/Dashboard/doctor/dashboard/DoctorDashboard";
 import PatientDashboard from "../pages/Dashboard/patient/patientDashboard/PatientDashboard";
 import ForgotPassword from "../pages/login/ForgotPassword";
 import Login from "../pages/login/Login";
+import LoginOtp from "../pages/login/LoginOtp";
 import NotFound from "../pages/notfound/NotFound";
+import OtpValidation from "../pages/register/OtpValidation";
 import Register from "../pages/register/Register";
 import { isAuthenticated } from "../utils/auth";
 import AppointmentRoute from "./AppointmentRoute";
-import PatientRoute from "./PatientRoute";
-import DoctorProfile from "../pages/Dashboard/doctor/profile/components/DoctorProfile";
 import DoctorRoute from "./DoctorRoute";
-import OtpValidation from "../pages/register/OtpValidation";
-import LoginOtp from "../pages/login/LoginOtp";
-import DoctorDashboard from "../pages/Dashboard/doctor/dashboard/DoctorDashboard";
+import PatientRoute from "./PatientRoute";
+import CenterDashboard from "../pages/Dashboard/CenterDashboard";
 
 // Private routes under DashboardLayout
 const privateRoutes = {
   path: "/",
-  element: isAuthenticated() ? (
+  element: isAuthenticated() ?  (
     <DashboardLayout pageTitle="Dashboard" />
   ) : (
-    <Login />
+ <Navigate to="/login"   />
   ),
   children: [
     ...AppointmentRoute,
@@ -28,7 +28,7 @@ const privateRoutes = {
     ...DoctorRoute,
     {
       path: "/",
-      element: <PatientDashboard />,
+      element: <CenterDashboard />,
     },
   ],
 };
@@ -40,7 +40,7 @@ const publicRoutes = [
     element: <Login />,
   },
   {
-    path: "/login-otp", 
+    path: "/login-otp",
     element: <LoginOtp />,
   },
   {
@@ -55,14 +55,14 @@ const publicRoutes = [
     path: "/forgot-password",
     element: <ForgotPassword />,
   },
-  
+
   {
     path: "*",
     element: <NotFound />,
   },
   {
     path: "/doctor-dashboard",
-    element: <DoctorDashboard/>,
+    element: <DoctorDashboard />,
   },
 ];
 
