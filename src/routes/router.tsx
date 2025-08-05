@@ -12,19 +12,12 @@ import { isAuthenticated } from "../utils/auth";
 import AppointmentRoute from "./AppointmentRoute";
 import DoctorRoute from "./DoctorRoute";
 import PatientRoute from "./PatientRoute";
-import DoctorProfile from "../pages/Dashboard/doctor/profile/components/DoctorProfile";
-import DoctorRoute from "./DoctorRoute";
-import OtpValidation from "../pages/register/OtpValidation";
-import LoginOtp from "../pages/login/LoginOtp";
-import DoctorDashboard from "../pages/Dashboard/doctor/dashboard/DoctorDashboard";
 import CenterDashboard from "../pages/Dashboard/CenterDashboard";
 
 // Private routes under DashboardLayout
 const privateRoutes = {
   path: "/",
-  element: isAuthenticated() ? (
-    <Login />
-  ) : (
+  element: isAuthenticated() ?  (
     <DashboardLayout pageTitle="Dashboard" />
   ) : (
  <Navigate to="/login"   />
