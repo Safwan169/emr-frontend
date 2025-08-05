@@ -14,8 +14,8 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
 
   return (
     <div
-      className={`z-50 fixed bottom-0 my-3 ml-2 left-0 w-full md:relative md:top-0 md:left-0 
-        md:w-64  bg-[#1A3EAB] text-white p-4 transform 
+      className={`z-50 fixed bottom-0 my-3 ml-2 left-0 min-w-[13rem]   md:relative md:top-0 md:left-0 
+         bg-[#1A3EAB] text-white p-4 transform 
         ${isOpen ? "translate-y-0" : "translate-y-full"} 
         transition-transform duration-300 
         md:translate-y-0 rounded-t-xl md:rounded-xl`}

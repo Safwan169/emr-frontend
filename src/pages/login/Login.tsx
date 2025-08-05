@@ -23,13 +23,17 @@ const Login = () => {
 
     try {
       const res = await loginUser(formData).unwrap();
+
+            localStorage.setItem("EMRtoken", res.access_token);
+navigate("/");
       toast.success("Login successful! Sending OTP...");
-      navigate("/login-otp", {
-        state: {
-          email: formData.email,
-          token: res.token,
-        },
-      });
+      console.log("Login success response:", res);
+      // navigate("/login-otp", {
+      //   state: {
+      //     email: formData.email,
+      //     token: res.token,
+      //   },
+      // });
     } catch (err: any) {
       const msg =
         err?.data?.message ||

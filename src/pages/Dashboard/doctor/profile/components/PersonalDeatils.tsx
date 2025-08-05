@@ -4,7 +4,7 @@ import { PersonalDetailsProps, PersonalInfo } from "../../../../../types/doctorT
 import PersonaDetailsModal from "./modals/PersonaDetailsModal";
 import { useUpdateDoctorProfileMutation, useUpdateUserProfileMutation } from "../../../../../redux/features/doctor/doctorApi";
 
-const PersonalDetails: React.FC<PersonalDetailsProps> = ({ image, personalInfo }) => {
+const PersonalDetails: React.FC<PersonalDetailsProps> = ({ reftch, image, personalInfo }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState<PersonalInfo>(personalInfo);
 
@@ -46,8 +46,8 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({ image, personalInfo }
 
 
       await updateUserProfile({ userId, profileData: userData }).unwrap();
-      await updateDoctorProfile({ userId, profileData: Details }).unwrap();
-
+    const res=  await updateDoctorProfile({ userId, profileData: Details }).unwrap();
+   reftch()
       setIsModalOpen(false);
       alert("Profile updated successfully!");
     } catch (error) {
@@ -76,7 +76,7 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({ image, personalInfo }
           </div>
           <div>
             <h1 className="text-2xl font-bold">{formData.first_name}+{formData.last_name}</h1>
-         
+
             <p className="text-blue-600 text-gray-500/95 font-medium">
               {formData.specialization}
             </p>

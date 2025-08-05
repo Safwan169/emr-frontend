@@ -11,10 +11,7 @@ const DoctorRoute = [
         path: "doctor/profile",
         element: <Profile/>,
     },
-    {
-        path: "doctor/dashboard",
-        element: <DoctorDashboard/>,
-    },
+   
     {
         path: "doctor/appoinment",
         element: <DocApp/>,

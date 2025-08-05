@@ -5,7 +5,7 @@ import { EducationProps, EducationItem } from "../../../../../types/doctorTypes"
 import EducationModal from "./modals/EducationModal";
 import { useCreateEducationMutation, useDeleteEducationMutation } from "../../../../../redux/features/doctor/doctorApi";
 
-const Education: React.FC<EducationProps & { userId: number }> = ({ education, userId }) => {
+const Education: React.FC<EducationProps & { userId: number }> = ({ reftch, education, userId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentEducation, setCurrentEducation] = useState<EducationItem>({
     id: 0,
@@ -52,10 +52,24 @@ const Education: React.FC<EducationProps & { userId: number }> = ({ education, u
       if (mode === "edit") {
         // TODO: Implement update API call here if available
         // For now just show success toast
+        const res = await createEducation({ userId, educationData: currentEducation }).unwrap();
         toast.success("Education updated successfully!");
-      } else {
-        await createEducation({ userId, educationData: currentEducation }).unwrap();
+        if (res.statusCode == 201) {
 
+          console.log(res, 'thsi sis response')
+          reftch()
+
+          console.log(education, 'thsi is educatoin')
+        }
+      } else {
+        const res = await createEducation({ userId, educationData: currentEducation }).unwrap();
+        if (res.statusCode == 201) {
+
+          console.log(res, 'thsi sis response')
+          reftch()
+
+          console.log(education, 'thsi is educatoin')
+        }
         console.log("New education added:", currentEducation);
         toast.success("New education added!");
       }
@@ -92,9 +106,15 @@ const Education: React.FC<EducationProps & { userId: number }> = ({ education, u
             <Plus size={18} />
           </button>
         </div>
+           <div className="space-y-4">
+        {education?.length === 0 && (
+          <p className="text-gray-500">No education found.</p>
+        )}
+        </div>
+
 
         <div className="space-y-3 mb-6">
-          {educationList.map((edu) => (
+          {education?.map((edu) => (
             <div
               key={edu.id}
               className="group flex gap-3 p-4 border border-gray-200/70 rounded-lg bg-white items-center"

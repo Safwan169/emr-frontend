@@ -17,6 +17,7 @@ export interface Certification {
 }
 
 export interface EducationProps {
+  reftch: () => void;
   userId: number;
   education: EducationItem[];
 }
@@ -65,6 +66,7 @@ export interface PersonalInfo {
 }
 
 export interface PersonalDetailsProps {
+  reftch: () => void;
     image: string;
 
   personalInfo: PersonalInfo;

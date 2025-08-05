@@ -13,6 +13,7 @@ import DoctorRoute from "./DoctorRoute";
 import OtpValidation from "../pages/register/OtpValidation";
 import LoginOtp from "../pages/login/LoginOtp";
 import DoctorDashboard from "../pages/Dashboard/doctor/dashboard/DoctorDashboard";
+import CenterDashboard from "../pages/Dashboard/CenterDashboard";
 
 // Private routes under DashboardLayout
 const privateRoutes = {
@@ -28,7 +29,7 @@ const privateRoutes = {
     ...DoctorRoute,
     {
       path: "/",
-      element: <PatientDashboard />,
+      element: <CenterDashboard />,
     },
   ],
 };
