@@ -1,12 +1,30 @@
-import { Calendar, Mail, Phone } from "lucide-react";
-import { useState } from "react";
+import { Calendar, Mail, Phone, Pencil } from "lucide-react";
+import { ChangeEvent, useState } from "react";
 import useGetUserData from "../../../../../hooks/useGetUserData";
+import { useUpdateUserProfileMutation } from "../../../../../redux/features/doctor/doctorApi";
+
+interface FormDataType {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  gender: string;
+  phone: string;
+  email: string;
+  address: string;
+  country: string;
+  bloodGroup: string;
+  height: string;
+  weight: string;
+  emergencyContact: string;
+}
 
 export default function PatientProfileCard() {
-  const { data } = useGetUserData();
+  const { data } = useGetUserData(); // ✅ refetch after update
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
+  const [formData, setFormData] = useState<FormDataType>({
     firstName: data?.first_name || "",
     lastName: data?.last_name || "",
     dateOfBirth: data?.date_of_birth || "",
@@ -21,7 +39,7 @@ export default function PatientProfileCard() {
     emergencyContact: data?.emergency_contact || "",
   });
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -29,34 +47,76 @@ export default function PatientProfileCard() {
     }));
   };
 
-  const handleSubmit = () => {
-    console.log("Updated data:", formData);
-    alert("Information updated successfully!");
-    setIsModalOpen(false);
+  const { userId } = JSON.parse(localStorage.getItem("profileInfo") || "{}");
+  const [updateUserProfile, { isLoading }] = useUpdateUserProfileMutation();
+
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setImageFile(file);
+
+      const payload = new FormData();
+      payload.append("profile_image", file);
+
+      try {
+        const res = await updateUserProfile({ userId, profileData: payload }).unwrap();
+        console.log(res, "Profile Image Updated");
+        alert("Profile image updated successfully!");
+      } catch (err) {
+        console.error("Update failed", err);
+        alert("Failed to update profile image.");
+      }
+    }
+  };
+
+  const handleSubmit = async () => {
+    const payload = new FormData();
+
+    for (const key in formData) {
+      payload.append(key, formData[key as keyof FormDataType]);
+    }
+
+    try {
+      const res = await updateUserProfile({ userId, profileData: payload }).unwrap();
+      console.log(res, "Profile Updated");
+      alert("Information updated successfully!");
+      setIsModalOpen(false);
+    } catch (err) {
+      console.error("Update failed", err);
+      alert("Failed to update information.");
+    }
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  console.log(data,'thsi is data');
 
   return (
     <div className="bg-white mt-5 lg:mt-0 rounded-lg shadow-sm border border-gray-200 p-6">
       <div className="flex flex-col lg:flex-row items-start justify-between space-y-6 lg:space-y-0">
-        {/* Left section with avatar and info */}
+        {/* Avatar */}
         <div className="flex items-start space-x-4">
-          {/* Avatar */}
-          <div className="w-20 h-20 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+          <div className="relative w-20 h-20 rounded-full overflow-hidden bg-gray-200 flex-shrink-0 group">
             <img
               src={
-                `${process.env.REACT_APP_API_BASE_URL}${data?.profile_image?.file_URL}` ||''
+                imageFile
+                  ? URL.createObjectURL(imageFile)
+                  : `${process.env.REACT_APP_API_BASE_URL}${data?.profile_image?.file_URL}` || ""
               }
               alt="Patient Avatar"
               className="w-full h-full object-cover"
             />
+            <label className="absolute inset-0 bg-black bg-opacity-40 hidden group-hover:flex items-center justify-center cursor-pointer">
+              <Pencil className="text-white w-4 h-4" />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+              />
+            </label>
           </div>
 
-          {/* Patient Info */}
           <div className="flex-1">
             <h2 className="text-xl font-bold text-gray-900 mb-1">
               {data?.first_name} {data?.last_name}
@@ -65,7 +125,6 @@ export default function PatientProfileCard() {
               Patient ID: {data?.display_user_id}
             </p>
 
-            {/* Contact Information */}
             <div className="flex flex-wrap items-center gap-6">
               <div className="flex items-center space-x-2 text-sm text-gray-600">
                 <Calendar className="w-4 h-4" />
@@ -83,21 +142,19 @@ export default function PatientProfileCard() {
               </div>
             </div>
 
-            {/* Address */}
             <p className="mt-3 text-sm text-gray-500">{data?.address}</p>
           </div>
         </div>
 
-        {/* Edit Button */}
-        {/* <button
+        <button
           onClick={() => setIsModalOpen(true)}
           className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md transition-colors duration-200"
         >
-          <Edit className="w-4 h-4" />
-        </button> */}
+          {isLoading ? "Updating..." : "Edit Info"}
+        </button>
       </div>
 
-      {/* Modal */}
+      {/* ✅ Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -114,7 +171,6 @@ export default function PatientProfileCard() {
                 </button>
               </div>
 
-              {/* Modal Form */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {Object.entries(formData).map(([key, value]) => (
                   <div key={key} className="flex flex-col">
@@ -132,7 +188,6 @@ export default function PatientProfileCard() {
                 ))}
               </div>
 
-              {/* Modal Footer */}
               <div className="flex justify-end space-x-4 mt-8 pt-6 border-t">
                 <button
                   type="button"
@@ -146,7 +201,7 @@ export default function PatientProfileCard() {
                   onClick={handleSubmit}
                   className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-medium"
                 >
-                  Save Changes
+                  {isLoading ? "Saving..." : "Save Changes"}
                 </button>
               </div>
             </div>

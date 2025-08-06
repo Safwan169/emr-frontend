@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import TypingLoader from './components/TypingLoader';
 import ChatBubble from './components/ChatBubble';
-
+import MessageCircle, { MessageCircleCode, Send } from 'lucide-react';
 const quickQuestions = [
   "What are the symptoms of flu?",
   "How to reduce fever?",
@@ -76,7 +76,7 @@ const Chat: React.FC = () => {
               onClick={() => handleQuickClick(q)}
               className="p-3 border rounded-lg text-left hover:bg-blue-50 transition text-sm"
             >
-              💬 {q}
+              <MessageCircleCode className='text-blue-700 mb-2' />{q}
             </button>
           ))}
         </div>
@@ -99,7 +99,7 @@ const Chat: React.FC = () => {
           placeholder="Type a message"
         />
         <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow">
-          Send
+          <Send size={20} />
         </button>
       </form>
     </div>

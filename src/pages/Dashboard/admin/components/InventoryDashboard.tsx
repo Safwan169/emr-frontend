@@ -15,7 +15,7 @@ import {
 interface Stat {
   title: string;
   value: string;
-  icon: JSX.Element;
+  icon: any;
   bg: string;
   textColor: string;
   subText: string;
