@@ -42,6 +42,7 @@ const Summary: React.FC = () => {
       slot_id: Number(selectedDoctor.slotId),
       doctor_id: Number(selectedDoctor.id),
       notes: appointmentDetails?.reason || "",
+      type: appointmentDetails?.appointmentType || "",
     };
 
 
@@ -53,7 +54,7 @@ const Summary: React.FC = () => {
       patientId: userId,
       slotData: payload,
     }).unwrap();
-        navigate("/confirm-appointment"); // ✅ Navigate after success
+        navigate("/confirm-appointment"); 
     } catch (error) {
       console.error("Booking failed:", error);
       alert("Failed to book appointment. Please try again.");

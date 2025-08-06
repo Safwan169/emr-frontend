@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import { PersonalDetailsProps, PersonalInfo } from "../../../../../types/doctorTypes";
 import PersonaDetailsModal from "./modals/PersonaDetailsModal";
 import { useUpdateDoctorProfileMutation, useUpdateUserProfileMutation } from "../../../../../redux/features/doctor/doctorApi";
+import useGetUserData from "../../../../../hooks/useGetUserData";
 
 const PersonalDetails: React.FC<PersonalDetailsProps> = ({ reftch, image, personalInfo }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState<PersonalInfo>(personalInfo);
 
-  const [updateDoctorProfile, { isLoading, isSuccess, isError }] = useUpdateDoctorProfileMutation();
-  const [updateUserProfile, { isLoading: isLoading1, isSuccess: isSuccess1, isError: isError1 }] = useUpdateUserProfileMutation();
+  const [updateDoctorProfile] = useUpdateDoctorProfileMutation();
+  const [updateUserProfile] = useUpdateUserProfileMutation();
   const { userId } = JSON.parse(localStorage.getItem("profileInfo") || "{}");
 
   useEffect(() => {
@@ -56,33 +57,52 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({ reftch, image, person
     }
   };
 console.log(image, 'this is image')
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const { data, refetch } = useGetUserData();
+
+  const handleImageChange = async (e:any) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setImageFile(file);
+      refetch()
+      const payload = new FormData();
+      payload.append("profile_image", file);
+
+      try {
+        const res = await updateUserProfile({ userId, profileData: payload }).unwrap();
+        console.log(res, "Profile Image Updated");
+        refetch()
+        // alert("Profile image updated successfully!");
+      } catch (err) {
+        console.error("Update failed", err);
+        alert("Failed to update profile image.");
+      }
+    }
+  };
   return (
     <>
       {/* Profile Card */}
       <div className="flex bg-white p-6 shadow rounded-lg justify-between border-b pb-4">
-        <div className="flex items-center">
-          <div className="relative">
+       <div className="relative w-20 h-20 rounded-full overflow-hidden bg-gray-200 flex-shrink-0 group">
             <img
-              src={image}
-              alt="Doctor"
-              className="w-20 h-20 rounded-full object-cover mr-4"
+              src={
+                imageFile
+                  ? URL.createObjectURL(imageFile)
+                  : `${process.env.REACT_APP_API_BASE_URL}${data?.profile_image?.file_URL}` || ""
+              }
+              alt="Patient Avatar"
+              className="w-full h-full object-cover"
             />
-            <div
-              className="bg-[#1C3BA4] absolute bottom-1 right-3 text-white w-6 h-6 rounded-lg flex items-center justify-center cursor-pointer"
-              onClick={() => setIsModalOpen(true)}
-            >
-              <Pencil size={10} />
-            </div>
+            <label className="absolute inset-0 bg-black bg-opacity-40 hidden group-hover:flex items-center justify-center cursor-pointer">
+              <Pencil className="text-white w-4 h-4" />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+              />
+            </label>
           </div>
-          <div>
-            <h1 className="text-2xl font-bold">{formData.first_name}+{formData.last_name}</h1>
-
-            <p className="text-blue-600 text-gray-500/95 font-medium">
-              {formData.specialization}
-            </p>
-            <p className="text-gray-500">License #: {formData.license_number}</p>
-          </div>
-        </div>
         <div
           className="bg-[#1C3BA4] text-white w-8 h-8 rounded-lg flex items-center justify-center cursor-pointer"
           onClick={() => setIsModalOpen(true)}
@@ -100,10 +120,6 @@ console.log(image, 'this is image')
         onSave={handleSave}
       />
 
-      {/* Status Messages */}
-      {/* {isLoading && <p className="text-blue-500 text-center mt-2">Updating profile...</p>}
-      {isSuccess && <p className="text-green-500 text-center mt-2">Profile updated!</p>}
-      {isError && <p className="text-red-500 text-center mt-2">Update failed!</p>} */}
     </>
   );
 };
