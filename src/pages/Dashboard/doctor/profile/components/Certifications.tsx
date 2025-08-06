@@ -6,6 +6,7 @@ import { CertificationProps, Certification } from "../../../../../types/doctorTy
 import {
   useCreateCertificationMutation,
   useDeleteCertificationMutation,
+  useUpdateCertificationMutation,
 } from "../../../../../redux/features/doctor/doctorApi";
 
 interface Props extends CertificationProps {
@@ -15,6 +16,8 @@ interface Props extends CertificationProps {
 const Certifications: React.FC<Props> = ({ certifications, userId }) => {
   const [certificationList, setCertificationList] = useState<Certification[]>(certifications);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [updateCertification] = useUpdateCertificationMutation();
   const [currentCertification, setCurrentCertification] = useState<Certification>({
     id: 0,
     name: "",
@@ -59,23 +62,38 @@ const Certifications: React.FC<Props> = ({ certifications, userId }) => {
     }));
   };
 
+
+
   // ✅ Save (Add or Edit)
   const handleSave = async () => {
     try {
       if (mode === "edit" && currentCertification.id) {
-        // For now: delete old, add new (since update API is missing)
-        await deleteCertification({ userId, certificationId: currentCertification.id }).unwrap();
-      }
 
-      await createCertification({
-        userId,
-        certificationData: {
+        // For now: delete old, add new (since update API is missing)
+        console.log(currentCertification);
+        const data={
+          id: currentCertification.id,
           name: currentCertification.name,
           certified_year: Number(currentCertification.certified_year),
           validation_year: Number(currentCertification.validation_year),
           institution: currentCertification.institution,
-        },
-      }).unwrap();
+
+        }
+        console.log(data)
+        await updateCertification({ userId,  certificationData: data }).unwrap();
+      }
+      else {
+
+        await createCertification({
+          userId,
+          certificationData: {
+            name: currentCertification.name,
+            certified_year: Number(currentCertification.certified_year),
+            validation_year: Number(currentCertification.validation_year),
+            institution: currentCertification.institution,
+          },
+        }).unwrap();
+      }
 
       toast.success(mode === "edit" ? "Certification updated successfully!" : "Certification added successfully!");
 
@@ -111,11 +129,11 @@ const Certifications: React.FC<Props> = ({ certifications, userId }) => {
           </button>
         </div>
 
-        
-   <div className="space-y-4">
-        {certifications?.length === 0 && (
-          <p className="text-gray-500">No Certifications found.</p>
-        )}
+
+        <div className="space-y-4">
+          {certifications?.length === 0 && (
+            <p className="text-gray-500">No Certifications found.</p>
+          )}
 
         </div>
 

@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 interface ResearchItem {
   id: number;
   research_name: string;
-  publication_year: number;
+  publication_year: string;
   published_by: string;
 }
 

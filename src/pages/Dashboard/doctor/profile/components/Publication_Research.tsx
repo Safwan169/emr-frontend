@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import toast from "react-hot-toast";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import ResearchModal from "./modals/ResearchModal";
@@ -9,6 +9,7 @@ import {
 import {
   useCreateResearchMutation,
   useDeleteResearchMutation,
+  useUpdateResearchMutation,
 } from "../../../../../redux/features/doctor/doctorApi";
 
 interface Props extends PublicationResearchProps {
@@ -24,7 +25,7 @@ const Publication_Research: React.FC<Props> = ({
   const [currentResearch, setCurrentResearch] = useState<Research>({
     id: 0,
     research_name: "",
-    publication_year: 0,
+    publication_year: '',
     published_by: "",
   });
   const [mode, setMode] = useState<"add" | "edit">("add");
@@ -32,11 +33,13 @@ const Publication_Research: React.FC<Props> = ({
   const [createResearch] = useCreateResearchMutation();
   const [deleteResearch] = useDeleteResearchMutation();
 
+  const [updateResearch] = useUpdateResearchMutation();
+
   const handleAddClick = () => {
     setCurrentResearch({
       id: 0,
       research_name: "",
-      publication_year: 0,
+      publication_year: "",
       published_by: "",
     });
     setMode("add");
@@ -69,20 +72,28 @@ const Publication_Research: React.FC<Props> = ({
 
     try {
       if (mode === "edit") {
-        await deleteResearch({
-          userId,
-          researchId: currentResearch.id,
-        }).unwrap();
-      }
-
-      await createResearch({
-        userId,
-        researchData: {
+        const data = {
+          id: currentResearch.id,
           research_name: currentResearch.research_name,
           publication_year: currentResearch.publication_year,
-          published_by: currentResearch.published_by,
-        },
-      }).unwrap();
+          published_by: currentResearch.published_by
+        }
+        await updateResearch({
+          userId,
+          researchData: data,
+        }).unwrap();
+      }
+      else {
+
+        await createResearch({
+          userId,
+          researchData: {
+            research_name: currentResearch.research_name,
+            publication_year: currentResearch.publication_year,
+            published_by: currentResearch.published_by,
+          },
+        }).unwrap();
+      }
 
       toast.success(
         mode === "edit"
@@ -116,7 +127,7 @@ const Publication_Research: React.FC<Props> = ({
           onClick={handleAddClick}
           className="text-white bg-[#1C3BA4] rounded-full p-2 hover:bg-[#163185]"
         >
-            <Plus size={18} />
+          <Plus size={18} />
         </button>
       </div>
 
