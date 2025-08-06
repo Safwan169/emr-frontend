@@ -1,6 +1,7 @@
 import React from "react";
-import { CalendarDays, Phone } from "lucide-react";
-
+import { CalendarDays, Link, Phone } from "lucide-react";
+import { useGetSpecificPatientsForDoctorQuery } from "../../../../../redux/features/doctor/doctorApi";
+import {Link as RouterLink} from "react-router-dom";
 // Define the appointment type
 interface Appointment {
   doctorName: string;
@@ -19,7 +20,7 @@ const statusColors: Record<Appointment["status"], string> = {
   Canceled: "bg-red-100 text-red-700",
 };
 
-const DoctorAp: React.FC = () => {
+const DoctorAppoinment: React.FC = () => {
   const appointments: Appointment[] = [
     {
       doctorName: "Sabit",
@@ -63,6 +64,10 @@ const DoctorAp: React.FC = () => {
     },
   ];
 
+  const {userId}=JSON.parse(localStorage.getItem("profileInfo") || "{}");
+  const {data}=useGetSpecificPatientsForDoctorQuery(userId);
+  console.log(data,'this si for patient doct  patient list');
+
   return (
     <div className="w-full h-auto bg-white">
       <div className="py-5 px-5">
@@ -78,20 +83,20 @@ const DoctorAp: React.FC = () => {
               </span>
             </div>
             <div className="border border-gray-200 w-full sm:w-52 h-12 rounded-md flex items-center justify-center bg-white">
-              <span className="text-blue-900 font-medium">
+              <span className="text-[#1C3BA4] font-medium">
                 {appointments.length} Appointments Upcoming
               </span>
             </div>
           </div>
           <div>
-            <button className="w-full sm:w-auto px-3 py-2 bg-blue-900 text-white rounded-md">
+            <button className="w-full sm:w-auto px-3 py-2 bg-[#1C3BA4] text-white rounded-md">
               + Create Appointment
             </button>
           </div>
         </div>
 
         {/* Appointment cards */}
-        <div className="border border-gray-200 w-full h-auto mt-2 p-4 bg-gray-50 rounded-lg flex flex-wrap gap-4 justify-center">
+        <div className="border border-gray-200 grid grid-cols-1  md:grid-cols-2 2xl:grid-cols-3 w-full h-auto mt-2 p-4 bg-gray-50 rounded-lg  flex-wrap gap-4 justify-center">
           {appointments.map((ap, index) => (
             <div
               key={index}
@@ -99,7 +104,7 @@ const DoctorAp: React.FC = () => {
             >
               <div className="space-y-4 flex-1">
                 <div className="flex justify-between items-center">
-                  <h2 className="text-lg font-bold">{ap.doctorName}</h2>
+                  <h2 className="text-lg font-bold">{data?.name}</h2>
                   <span
                     className={`px-3 py-1 text-sm rounded-md font-medium ${statusColors[ap.status]}`}
                   >
@@ -126,18 +131,21 @@ const DoctorAp: React.FC = () => {
                   <p className="text-gray-400">
                     Contact:
                     <br />
-                    <span className="text-gray-800 font-semibold">{ap.contact}</span>
+                    <span className="text-gray-800 font-semibold">{data?.contact|| "N/A"}</span>
                   </p>
                 </div>
               </div>
+               <RouterLink  to={`/doctor/appoinment-details`}>
               <div className="flex items-center space-x-2 mt-4">
-                <button className="flex-1 py-2 bg-blue-900 text-white rounded-md">
+
+                <button className="flex-1 py-2 bg-[#1C3BA4] text-white rounded-md">
                   Start Consultation
                 </button>
                 <button className="p-2 bg-gray-300 text-gray-800 rounded-md">
                   <Phone className="w-4 h-4" />
                 </button>
               </div>
+               </RouterLink>
             </div>
           ))}
         </div>
@@ -146,4 +154,4 @@ const DoctorAp: React.FC = () => {
   );
 };
 
-export default DoctorAp;
+export default DoctorAppoinment;

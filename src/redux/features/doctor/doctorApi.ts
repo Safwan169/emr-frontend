@@ -18,7 +18,7 @@ export const doctorProfileApi = baseApi.injectEndpoints({
         credentials: "include",
       }),
       providesTags: ["doctors"],
-      
+
     }),
 
     // ✅ Create Education
@@ -30,7 +30,18 @@ export const doctorProfileApi = baseApi.injectEndpoints({
           url: `/DoctorProfile/${userId}/Education`,
           body: educationData,
         };
-      },}),
+      },
+    }),
+    updateEducation: builder.mutation({
+      query: ({ userId, educationData }) => {
+        console.log("Education Data:",userId, educationData);
+        return {
+          method: "PUT",
+          url: `/DoctorProfile/${userId}/Education/${educationData.id}`,
+          body: educationData,
+        };
+      },
+    }),
 
     // ✅ Delete Education by ID
     deleteEducation: builder.mutation({
@@ -48,6 +59,16 @@ export const doctorProfileApi = baseApi.injectEndpoints({
         url: `/DoctorProfile/${userId}/Certification`,
         body: certificationData,
       }),
+      invalidatesTags: ["doctorProfile"],
+    }),
+   updateCertification: builder.mutation({
+      query: ({ userId, certificationData }) => {
+        console.log(userId,certificationData,'apiiiiiiiiiiii')
+        return {
+        method: "PUT",
+        url: `/DoctorProfile/${userId}/Certification/${certificationData.id}`,
+        body: certificationData,
+      }},
       invalidatesTags: ["doctorProfile"],
     }),
 
@@ -69,6 +90,14 @@ export const doctorProfileApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["doctorProfile"],
     }),
+    updateResearch: builder.mutation({
+      query: ({ userId, researchData }) => ({
+        method: "PUT",
+        url: `/DoctorProfile/${userId}/Research/${researchData.id}`,
+        body: researchData,
+      }),
+      invalidatesTags: ["doctorProfile"],
+    }),
 
     // ✅ Delete Research by ID
     deleteResearch: builder.mutation({
@@ -80,36 +109,40 @@ export const doctorProfileApi = baseApi.injectEndpoints({
     }),
 
     // ✅ Update Doctor Profile (PUT /users/:id)
-   updateDoctorProfile: builder.mutation({
-  query: ({ userId, profileData }) => {
-    console.log("Updating doctor profile with data:", profileData);
+    updateDoctorProfile: builder.mutation({
+      query: ({ userId, profileData }) => {
 
+        return {
+          method: "POST",
+          url: `/DoctorProfile/${userId}`,
+          body: profileData,
+          credentials: "include",
+        };
+      },
+      invalidatesTags: ["doctorProfile"],
+    }),
 
-    const dd={
-     specialization:"ddd"
-    }
-    return {
-      method: "POST",
-      url: `/DoctorProfile/${userId}`,
-      body: profileData,
-      credentials: "include",
-    };
-  },
-  invalidatesTags: ["doctorProfile"],
-}),
+    getSpecificPatientsForDoctor: builder.query({
+      query: (doctorId) => ({
+        method: "GET",
+        url: `/Appointments/Doctor/${doctorId}/Patients`,
+      }),
+      providesTags: ["doctorProfile"],
+    }),
+  
 
-updateUserProfile: builder.mutation({
-  query: ({ userId, profileData }) => {
-    console.log("Updating user profile with data:", profileData);
-    return {
-      method: "PUT",
-      url: `/users/${userId}`,
-      body: profileData,
-      credentials: "include",
-    };
-  },
-  invalidatesTags: ["userProfile"],
-}),
+    updateUserProfile: builder.mutation({
+      query: ({ userId, profileData }) => {
+        console.log("Updating user profile with data:", profileData);
+        return {
+          method: "PUT",
+          url: `/Users/${userId}`,
+          body: profileData,
+          credentials: "include",
+        };
+      },
+      invalidatesTags: ["userProfile"],
+    }),
 
   }),
 });
@@ -124,5 +157,9 @@ export const {
   useDeleteResearchMutation,
   useUpdateDoctorProfileMutation,
   useUpdateUserProfileMutation,
-  useGetAllDoctorsQuery
+  useGetAllDoctorsQuery,
+  useGetSpecificPatientsForDoctorQuery,
+  useUpdateEducationMutation,
+  useUpdateCertificationMutation,
+  useUpdateResearchMutation
 } = doctorProfileApi;

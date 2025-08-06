@@ -3,9 +3,11 @@ import { toast } from "react-hot-toast";
 import { useUpdateUserEmergencyContactMutation } from "../../../../../../../redux/features/UserEmergencyContact/userEmergencyContactApi";
 import { UserDataType } from "../../../../../../../types/userData";
 import { ModalFormFields } from "./ModalFormFields";
+import { useUpdateUserProfileMutation } from "../../../../../../../redux/features/doctor/doctorApi";
 
 interface PersonalInfoProps {
   userData: UserDataType;
+  refetch: () => void
 }
 
 interface EmergencyContactData {
@@ -15,14 +17,15 @@ interface EmergencyContactData {
   relationship: string;
 }
 
-const PersonalInfo: React.FC<PersonalInfoProps> = ({ userData }) => {
+const PersonalInfo: React.FC<PersonalInfoProps> = ({refetch, userData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState(false);
-  const [updateUser, { isLoading }] = useUpdateUserEmergencyContactMutation();
-  const [updateEmergencyContact, { isLoading: isEmergencyLoading }] =
-    useUpdateUserEmergencyContactMutation();
+  const [updateEmergencyContact, { isLoading: isEmergencyLoading }] =useUpdateUserEmergencyContactMutation();
 
   console.log("userdata", userData);
+
+    const [updateUserProfile, { isLoading }] = useUpdateUserProfileMutation();
+
 
   // State to manage form data
   const [formData, setFormData] = useState<UserDataType>(userData);
@@ -119,26 +122,29 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ userData }) => {
         address,
         country,
         blood_group,
-        height_cm: height_cm ? Number(height_cm) : null,
-        weight_lbs: weight_lbs ? Number(weight_lbs) : null,
+        height_cm: height_cm ? Number(height_cm) : 0,
+        weight_lbs: weight_lbs ? Number(weight_lbs) : 0,
         temperature,
         blood_pressure,
         heart_bit_rate,
       };
 
-      const result = await updateUser({
-        id: userData.id,
-        data: filteredData,
-      }).unwrap();
+      console.log("filteredDataaaaaaaaaaa", filteredData);
+        const { userId } = JSON.parse(localStorage.getItem("profileInfo") || "{}");
+
+          const res = await updateUserProfile({ userId, profileData: filteredData }).unwrap();
+      refetch()
+
 
       toast.success("Information updated successfully!");
       setIsModalOpen(false);
-      console.log("Update successful:", result);
+      console.log("Update successful:", res);
     } catch (error) {
       console.error("Update failed:", error);
       toast.error("Failed to update information. Please try again.");
     }
   };
+
 
   // Handle emergency contact submit
   const handleEmergencySubmit = async () => {
@@ -158,6 +164,8 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ userData }) => {
         id: userData.id,
         data: emergencyContactData,
       }).unwrap();
+
+      refetch()
 
       toast.success("Emergency contact added successfully!");
       setIsEmergencyModalOpen(false);

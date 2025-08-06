@@ -32,7 +32,7 @@ const     image = `${process.env.REACT_APP_API_BASE_URL}${doctor?.user?.profile_
     email: doctor?.user?.email || "N/A",
     phone: doctor?.phone || "N/A",
     hospital: doctor?.hospital || "N/A",
-    years_of_experience: `${doctor?.years_of_experience || 0} `,
+    years_of_experience: `${doctor?.years_of_experience || "N/A"} `,
    
   };
 
@@ -41,7 +41,7 @@ const     image = `${process.env.REACT_APP_API_BASE_URL}${doctor?.user?.profile_
   const researchList = doctor?.DoctorResearchAndPublication || [];
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-6xl mx-auto">
       <PersonalDetails reftch={refetch} image={image} personalInfo={personalInfo} />
       <Contact personalInfo={personalInfo} />
       <Education reftch={refetch} userId={userId} education={educationList} />

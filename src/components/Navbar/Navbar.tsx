@@ -81,25 +81,25 @@ const Navbar: FC<NavbarProps> = ({ title, onToggleSidebar }) => {
             </span>
           </div>
 
-          {/* Profile Dropdown */}
-          <div
-            className="relative"
-            ref={dropdownRef}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <div className="flex items-center gap-2 cursor-pointer">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE4g-3ZH_1TjfN-zOuCRru2LrfrGtPbwaCsQ&s"
-                alt="Profile"
-                className="w-8 h-8 rounded-full object-cover"
-              />
-              <div className="hidden sm:block">
-                <p className="font-medium text-sm">{data?.first_name} {data?.last_name}</p>
-                <p className="text-xs text-gray-500">{data?.role?.role_name}</p>
-              </div>
-              <ChevronDown size={16} className="text-gray-500" />
+        {/* Profile Dropdown */}
+        <div
+          className="relative"
+          ref={dropdownRef}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="flex items-center gap-2 cursor-pointer">
+            <img
+              src={`${process.env.REACT_APP_API_BASE_URL}${data?.profile_image?.file_URL}`}
+              alt="Profile"
+              className="w-8 h-8 rounded-full object-cover"
+            />
+            <div className="hidden sm:block">
+              <p className="font-medium text-sm">{data?.first_name} {data?.last_name}</p>
+              <p className="text-xs text-gray-500">{data?.role?.role_name}</p>
             </div>
+            <ChevronDown size={16} className="text-gray-500" />
+          </div>
 
             {/* Dropdown Menu */}
             <div
