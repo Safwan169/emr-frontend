@@ -79,7 +79,7 @@ const Navbar: FC<NavbarProps> = ({ title, onToggleSidebar }) => {
         >
           <div className="flex items-center gap-2 cursor-pointer">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE4g-3ZH_1TjfN-zOuCRru2LrfrGtPbwaCsQ&s"
+              src={`${process.env.REACT_APP_API_BASE_URL}${data?.profile_image.file_URL}`}
               alt="Profile"
               className="w-8 h-8 rounded-full object-cover"
             />

@@ -82,12 +82,7 @@ export const doctorProfileApi = baseApi.injectEndpoints({
     // ✅ Update Doctor Profile (PUT /users/:id)
    updateDoctorProfile: builder.mutation({
   query: ({ userId, profileData }) => {
-    console.log("Updating doctor profile with data:", profileData);
 
-
-    const dd={
-     specialization:"ddd"
-    }
     return {
       method: "POST",
       url: `/DoctorProfile/${userId}`,
@@ -103,7 +98,7 @@ updateUserProfile: builder.mutation({
     console.log("Updating user profile with data:", profileData);
     return {
       method: "PUT",
-      url: `/users/${userId}`,
+      url: `/Users/${userId}`,
       body: profileData,
       credentials: "include",
     };
