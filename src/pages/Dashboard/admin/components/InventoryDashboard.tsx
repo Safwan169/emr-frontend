@@ -15,7 +15,7 @@ import {
 interface Stat {
   title: string;
   value: string;
-  icon:any;
+  icon: any;
   bg: string;
   textColor: string;
   subText: string;
