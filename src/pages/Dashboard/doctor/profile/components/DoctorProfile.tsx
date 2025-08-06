@@ -22,7 +22,7 @@ const DoctorProfile: React.FC = () => {
   }
 
   const doctor = doctorData.data;
-const     image = doctor?.profile_image?.file_URL || "";
+const     image = `${process.env.REACT_APP_API_BASE_URL}${doctor?.user?.profile_image?.file_URL}` || "";
 
   const personalInfo = {
     first_name: `${doctor?.user?.first_name || ""} `,

@@ -3,7 +3,7 @@ import { RecentActivityCardProps } from "../../../../../types/global";
 
 const RecentActivityCard: React.FC<RecentActivityCardProps> = ({ data }) => {
   return (
-    <div className="p-4  bottom-0 w-full bg-white rounded-lg shadow-md">
+    <div className="p-4  bottom-0 w-full bg-white rounded-lg ">
       <h2 className="text-lg font-semibold mb-4">Recent Activities</h2>
       <div className="space-y-5">
         {data?.map((item) => (

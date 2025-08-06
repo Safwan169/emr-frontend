@@ -12,7 +12,7 @@ const DoctorAppointmentCard: React.FC<Props> = ({ data }) => {
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
         {/* Doctor Image */}
         <img
-          src={data.imageUrl}
+          src={`${process.env.REACT_APP_API_BASE_URL}${data.imageUrl}`}
           alt={data.doctorName}
           className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-full"
         />
