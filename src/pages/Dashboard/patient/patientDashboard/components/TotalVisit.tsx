@@ -14,8 +14,7 @@ const TotalVisit = () => {
     { title: "Prescription", content: "20", icon: FileText },
     { title: "Upcoming Appointment", content: "230", icon: CalendarDays },
     { title: "Lab Report", content: "320", icon: FlaskConical },
-    { title: "Cancelled Appointments", content: "12", icon: XCircle },
-    { title: "Discharged Today", content: "4:50pm", icon: LogOut },
+    
   ];
 
   return (
