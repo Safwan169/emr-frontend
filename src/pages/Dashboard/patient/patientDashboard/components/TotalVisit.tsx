@@ -14,20 +14,19 @@ const TotalVisit = () => {
     { title: "Prescription", content: "20", icon: FileText },
     { title: "Upcoming Appointment", content: "230", icon: CalendarDays },
     { title: "Lab Report", content: "320", icon: FlaskConical },
-    { title: "Cancelled Appointments", content: "12", icon: XCircle },
-    { title: "Discharged Today", content: "4:50pm", icon: LogOut },
+    
   ];
 
   return (
     <div className="flex flex-col xl:flex-row gap-3 w-full">
       {/* Left Section */}
-      <div className="w-full h-fit grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-3">
+      <div className="w-full h-fit grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-3">
         {cardData.map((card, index) => {
           const Icon = card.icon;
           return (
             <div
               key={index}
-              className="flex flex-col justify-between rounded-xl p-5  space-y-4  max-h-[160px]  bg-white shadow-sm hover:shadow-md transition-all duration-300"
+              className="flex flex-col justify-between rounded-xl p-5  space-y-4  max-h-[160px]  bg-white "
             >
               {/* Title */}
               <h2 className="text-base   font-semibold text-gray-600 ">
