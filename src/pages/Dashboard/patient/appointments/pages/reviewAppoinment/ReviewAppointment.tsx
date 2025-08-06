@@ -25,10 +25,11 @@ const ReviewAppointment = () => {
         dispatch(setStep(4));
     }, [])
 
+
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3   ">
             {/* Left Content */}
-            <Summary doctor = {selectedDoctor} />
+            <Summary  />
             {/* Right Sidebar */}
             <div className="md:col-span-1 space-y-2">
                 <SelectedDoctorSection doctor={selectedDoctor} />

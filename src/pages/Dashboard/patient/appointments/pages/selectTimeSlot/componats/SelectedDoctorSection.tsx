@@ -44,7 +44,7 @@ const SelectedDoctorSection: React.FC<SelectedDoctorProps> = ({ doctor }) => {
             <img
               src={doctor.imageUrl}
               alt={doctor.name}
-              className="w-17 h-16 rounded-full object-cover border border-gray-200"
+              className="w-16 h-16 sm:w-16 sm:h-16 object-cover rounded-full border border-gray-200"
             />
             
             {/* Doctor Details */}
@@ -59,7 +59,7 @@ const SelectedDoctorSection: React.FC<SelectedDoctorProps> = ({ doctor }) => {
               {/* Fee */}
               <div className="mt-2">
                 <span className="text-sm  font-bold text-gray-800">
-                  ৳ {doctor.fee.toFixed(2)}
+                  ৳ {doctor.fee}
                 </span>
               </div>
             </div>
