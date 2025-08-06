@@ -23,7 +23,7 @@ export default function DoctorCard({
   experience,
   nextAvailable,
   fee,
-  imageUrl,
+  imageUrl
 }: DoctorProps) {
   const dispatch = useAppDispatch();
 
@@ -40,6 +40,8 @@ export default function DoctorCard({
         nextAvailable,
         fee,
         imageUrl,
+        date: '',
+        timeSlot: ''
       })
     );
     navigate('select-timeSlot')
@@ -77,7 +79,7 @@ export default function DoctorCard({
 
       {/* Right */}
       <div className="text-right min-w-[120px] h-fit">
-        <h4 className="text-lg font-semibold text-gray-800">৳ {fee.toFixed(2)}</h4>
+        <h4 className="text-lg font-semibold text-gray-800">৳ {fee}</h4>
         <p className="text-xs text-gray-500">CONSULTATION FEE</p>
       </div>
     </div>

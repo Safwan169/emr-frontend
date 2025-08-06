@@ -100,7 +100,9 @@ tagTypes: ["users",
     "allergies",
     "doctorProfile",
     "userProfile",
-    "doctors"
+    "doctors",
+    "appointments",
+    "availableSlots",
 ],
 
   endpoints: () => ({}),

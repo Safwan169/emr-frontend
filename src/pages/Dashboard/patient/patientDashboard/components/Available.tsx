@@ -253,10 +253,10 @@ const Available: React.FC = () => {
       : doctors.filter((doc) => doc.specialization === selectedSpeciality);
 
   return (
-    <div className="w-full max-w-4xl mx-auto rounded-2xl py-4 px-4 sm:py-6 sm:px-6 lg:py-8 lg:px-8 bg-white">
+    <div className="w-full max-w-4xl mx-auto rounded-lg p-4 bg-white">
       {/* Header with Dropdown */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800">
+        <h1 className="text-xl 2xl:text-2xl  font-bold text-gray-800">
           Available Doctors
         </h1>
 
@@ -295,7 +295,7 @@ const Available: React.FC = () => {
       </div>
 
       {/* Doctor Cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 2xl:grid-cols-2 gap-4 sm:gap-6">
         {filteredDoctors.map((doc, index) => (
           <div
             key={index}
