@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PatientDashboard from './patient/patientDashboard/PatientDashboard';
 import DoctorDashboard from './doctor/dashboard/DoctorDashboard';
+import Dashboard from './admin/components/Dashboard';
 
 interface UserProfile {
     role_name?: 'patient' | 'doctor' | string;
@@ -37,6 +38,10 @@ const CenterDashboard: React.FC = () => {
 
     if (userRole === 'doctor') {
         return <DoctorDashboard />;
+    }
+
+    if (userRole === 'admin') {
+        return <Dashboard />;
     }
 
     return (

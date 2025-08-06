@@ -23,7 +23,7 @@ export interface NavItem {
   ],
   admin: [
     { label: "Dashboard", path: "/", icon: Home },
-    { label: "Users", path: "/users", icon: Users },
+    { label: "Doctors", path: "/add-doctors", icon: Users },
     { label: "Settings", path: "/settings", icon: Settings },
   ],
 };
