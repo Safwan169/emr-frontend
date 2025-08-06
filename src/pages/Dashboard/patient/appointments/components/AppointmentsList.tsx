@@ -20,9 +20,7 @@ const AppointmentsList: React.FC = () => {
     room: "Room 101", // Hardcoded (change if data available)
     rating: doctor.rating || 0,
     experience: doctor.years_of_experience || 0,
-    imageUrl: doctor.user?.profile_image_id
-      ? `/images/${doctor.user.profile_image_id}.jpg` // Example path
-      : "/images/default-doctor.jpg"
+    imageUrl: doctor?.user?.profile_image?.file_URL || "",
   })) || [];
 
   return (
@@ -32,7 +30,7 @@ const AppointmentsList: React.FC = () => {
           <DoctorAppointmentCard key={appt.id} data={appt} />
         ))
       ) : (
-        <p className="text-center">No appointments available</p>
+        <p className="text-center">No doctor available</p>
       )}
     </div>
   );

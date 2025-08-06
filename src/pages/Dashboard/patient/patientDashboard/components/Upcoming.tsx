@@ -51,9 +51,9 @@ const Upcoming: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 w-full">
-      <div className="w-full bg-white max-h-[450px] overflow-y-auto  rounded-2xl  p-4 sm:p-5">
-        <h2 className="text-lg sm:text-xl font-bold mb-4 flex items-center gap-2">
+    <div className="flex flex-col lg:flex-row  gap-6 w-full">
+      <div className="w-full bg-white   rounded-2xl  p-4 sm:p-5">
+        <h2 className="text-lg 2xl:text-xl font-bold mb-4 flex items-center gap-2">
           {" "}
           Upcoming Appointments
         </h2>

@@ -1,5 +1,6 @@
 
 import Aichat from "../pages/Dashboard/patient/chat/Aichat";
+import Chat from "../pages/Dashboard/patient/chat/Chat";
 import PatientDashboard from "../pages/Dashboard/patient/patientDashboard/PatientDashboard";
 import PatientProfile from "../pages/Dashboard/patient/patientProfile/PatientProfile";
 
@@ -9,7 +10,7 @@ const PatientRoute = [
     element: <PatientProfile />,
   },{
     path: "chat",
-    element: <Aichat />,
+    element: <Chat />,
   },
   
 ];

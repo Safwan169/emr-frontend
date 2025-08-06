@@ -1,7 +1,8 @@
 import { useGetUserByIdQuery } from "../redux/features/user/userApi";
 
 const useGetUserData = () => {
-  const userId = 1;
+  const userId = JSON.parse(localStorage.getItem("profileInfo") || "{}").userId;
+  console.log(userId,'thsis is user id');
 
   const {
     data: userData,
