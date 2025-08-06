@@ -20,10 +20,15 @@ const DoctorDashboard = () => {
   return (
     <>
       <AtAGlance doctorId={userId} />
-      <div className="flex flex-row w-full gap-4">
-        <PatientTracking />
-        <AppointmentList doctorId={userId} />
+      <div className="flex flex-col lg:flex-row w-full gap-4 ">
+        <div className="w-full lg:w-1/2">
+          <PatientTracking />
+        </div>
+        <div className="w-full lg:w-1/2">
+          <AppointmentList doctorId={userId} />
+        </div>
       </div>
+
       <PatientList doctorId={userId} />
     </>
   );
