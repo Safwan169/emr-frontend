@@ -392,7 +392,7 @@ const Dashboard: React.FC = () => {
                     {stat.change}
                   </p>
                   <img
-                    src={stat.graphSrc}
+                    src={''}
                     alt={`${stat.title} graph`}
                     className="w-20 h-12 object-contain"
                   />

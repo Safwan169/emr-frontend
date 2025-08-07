@@ -31,7 +31,7 @@ const SelectDoctorSection: React.FC = () => {
   ];
 
   // ✅ Fetch doctors from API
-  const { data, isLoading, isError } = useGetAllDoctorsQuery(null);
+  const { data=[], isLoading, isError } = useGetAllDoctorsQuery(null);
 console.log(data.data,'thsi is data for doctors');
   // ✅ Transform API data into Doctor[]
   const doctors: Doctor[] =
