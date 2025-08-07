@@ -22,7 +22,7 @@ const Appointments = () => {
       </div>
 
 
-      <div className="space-y-5 md:hidden md:hidden">
+      <div className="space-y-5 md:hidden block">
         <AppointmentTabs />
         <AppointmentsList />
           {/* <Cleander weatherComponent={false} /> */}
