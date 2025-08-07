@@ -62,7 +62,7 @@ const DoctorProfile: React.FC = () => {
   return (
     <div className="py-5 px-5 flex flex-col items-center gap-5">
       {/* Doctor Profile */}
-      <div className="flex flex-col sm:flex-row items-center p-4 rounded-lg bg-white w-full max-w-4xl shadow gap-4">
+      <div className="flex flex-col sm:flex-row items-center p-4 rounded-lg bg-white w-full max-w-8xl shadow gap-4">
         <div className="relative">
           <img
             src={doctor.image}
@@ -89,7 +89,7 @@ const DoctorProfile: React.FC = () => {
       </div>
 
       {/* Performance Statistics */}
-      <div className="w-full max-w-4xl p-6 bg-blue-50 rounded-xl shadow">
+      <div className="w-full max-w-8xl p-6 bg-blue-50 rounded-xl shadow">
         <h2 className="text-lg font-bold text-gray-800">Performance Statistics</h2>
         <hr className="my-4 border-gray-300" />
 
@@ -114,7 +114,7 @@ const DoctorProfile: React.FC = () => {
       </div>
 
       {/* Education & Qualifications */}
-      <div className="w-full max-w-4xl p-6 bg-white border border-gray-200 rounded-xl shadow">
+      <div className="w-full max-w-8xl p-6 bg-white border border-gray-200 rounded-xl shadow">
         <h2 className="text-lg font-bold text-gray-800">Education & Qualifications</h2>
         <hr className="my-4 border-gray-300" />
 
@@ -138,7 +138,7 @@ const DoctorProfile: React.FC = () => {
       </div>
 
       {/* Specializations */}
-      <div className="w-full max-w-4xl p-6 bg-white rounded-xl border border-gray-200 shadow">
+      <div className="w-full max-w-8xl p-6 bg-white rounded-xl border border-gray-200 shadow">
         <h2 className="text-lg font-bold text-gray-800">Specializations</h2>
         <hr className="my-4 border-gray-300" />
 
