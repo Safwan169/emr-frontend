@@ -132,7 +132,7 @@ const Login = () => {
               </button>
 
               {/* Google Button */}
-              <div className="w-full text-center">
+              {/* <div className="w-full text-center">
                 <button
                   type="button"
                   className="w-full border border-gray-300 flex items-center justify-center py-2 rounded-md gap-2"
@@ -144,7 +144,7 @@ const Login = () => {
                   />
                   Sign in with Google
                 </button>
-              </div>
+              </div> */}
 
               {/* Signup Link */}
               <p className="text-sm text-center text-gray-500">

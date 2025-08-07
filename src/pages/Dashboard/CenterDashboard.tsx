@@ -28,6 +28,8 @@ const CenterDashboard: React.FC = () => {
         }
     }, []);
 
+    console.log(userRole,'thsi is role')
+
     if (isLoading) {
         return <div>Loading dashboard...</div>;
     }

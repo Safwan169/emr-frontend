@@ -1,29 +1,49 @@
-// src/pages/ForgotPassword.tsx
+// src/pages/ResetPassword.tsx
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { useForgotPasswordRequestMutation } from "../../redux/features/auth/authApi";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { useResetPasswordMutation } from "../../redux/features/auth/authApi";
 import "react-toastify/dist/ReactToastify.css";
 
-const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
+const ResetPassword = () => {
+  const location = useLocation();
   const navigate = useNavigate();
-  const [forgotPasswordRequest, { isLoading }] =
-    useForgotPasswordRequestMutation();
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
+
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  // ✅ Correct token reference from OTP page
+  const resetToken = location?.state?.reset_token || "";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (newPassword !== confirmPassword) {
+      toast.error("Passwords do not match!");
+      return;
+    }
+
+    if (!resetToken) {
+      toast.error("Invalid or expired reset token.");
+      return;
+    }
+
     try {
-      const response = await forgotPasswordRequest({ email }).unwrap();
-      toast.success("Reset code sent to your email!");
+      const payload = {
+        reset_token: resetToken,
+        new_password: newPassword,
+      };
+
+      await resetPassword(payload).unwrap();
+      toast.success("Password reset successfully!");
 
       setTimeout(() => {
-        navigate("/verify-forgot-password-otp", { state: { email } });
+        navigate("/login");
       }, 1000);
     } catch (error: any) {
-      console.error("Forgot password error:", error);
-      toast.error(error?.data?.message || "Failed to send reset email.");
+      console.error("Reset password error:", error);
+      toast.error(error?.data?.message || "Failed to reset password.");
     }
   };
 
@@ -41,7 +61,7 @@ const ForgotPassword = () => {
         >
           <div className="text-white text-center z-10">
             <div className="absolute top-10 w-full left-1/2 transform -translate-x-1/2 z-10 text-white text-center">
-              <h1 className="text-3xl font-bold">Reset Your Password</h1>
+              <h1 className="text-3xl font-bold">Set New Password</h1>
             </div>
             <div className="flex items-center justify-center h-full z-10 relative pt-20">
               <img
@@ -57,34 +77,44 @@ const ForgotPassword = () => {
         <div className="w-1/2 flex items-center justify-center px-8">
           <div className="w-full max-w-md">
             <h2 className="text-3xl font-bold text-gray-800 mb-2">
-              Forgot Password?
+              Create New Password
             </h2>
             <p className="text-gray-500 mb-6">
-              Enter your email address and we'll send you a link to reset your
-              password.
+              Enter your new password and confirm to reset your account.
             </p>
 
             <form className="space-y-4" onSubmit={handleSubmit}>
-              {/* Email Input */}
+              {/* New Password */}
               <div>
                 <input
-                  type="email"
-                  name="email"
-                  value={email}
-                  placeholder="Enter your email"
-                  onChange={(e) => setEmail(e.target.value)}
+                  type="password"
+                  placeholder="New Password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
                   className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
 
-              {/* Submit Button */}
+              {/* Confirm Password */}
+              <div>
+                <input
+                  type="password"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              {/* Submit */}
               <button
                 type="submit"
                 className="w-full bg-[#1434CB] hover:bg-blue-700 text-white py-2 rounded-md font-semibold"
                 disabled={isLoading}
               >
-                {isLoading ? "Sending..." : "Send Reset Link"}
+                {isLoading ? "Resetting..." : "Reset Password"}
               </button>
             </form>
 
@@ -105,4 +135,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;

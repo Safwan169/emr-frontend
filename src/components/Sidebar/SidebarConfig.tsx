@@ -5,26 +5,27 @@ import { ComponentType } from "react";
 export interface NavItem {
   label: string;
   path: string;
+  title: string;
   icon: ComponentType<{ size?: number; className?: string }>; // Proper type for Lucide icons
 }
 
  const SidebarConfig: Record<string, NavItem[]> = {
   patient: [
-    { label: "Dashboard", path: "/", icon: Home },
-    { label: "Appointments", path: "/appointments", icon: Calendar },
-    { label: "Chat", path: "/chat", icon: MessageCircle },
-    { label: "Profile", path: "/profile", icon: User },
+    { label: "Dashboard", path: "/", title: "Patient Dashboard", icon: Home },
+    { label: "Appointments", path: "/appointments", title: "Patient Appointments", icon: Calendar },
+    { label: "Chat", path: "/chat", title: "Pathent Chat Portal", icon: MessageCircle },
+    { label: "Profile", path: "/profile", title: "Patient Profile", icon: User },
   ],
   doctor: [
-    { label: "Dashboard", path: "/", icon: Home },
+    { label: "Dashboard", path: "/", title: "Doctor Dashboard", icon: Home },
     // { label: "Patients", path: "/patients", icon: Users },
-    { label: "Appointments", path: "doctor/appoinment", icon: Calendar },
-    { label: "Profile", path: "/doctor/profile", icon: User },
+    { label: "Appointments", path: "doctor/appoinment", title: "Doctor Appointments", icon: Calendar },
+    { label: "Profile", path: "/doctor/profile", title: "Doctor Profile", icon: User },
   ],
   admin: [
-    { label: "Dashboard", path: "/", icon: Home },
-    { label: "Doctors", path: "/add-doctors", icon: Users },
-    { label: "Settings", path: "/settings", icon: Settings },
+    { label: "Dashboard", path: "/", title: "Admin Dashboard", icon: Home },
+    { label: "Doctors", path: "/add-doctors", title: "Admin Appointments", icon: Users },
+    { label: "Settings", path: "/settings", title: "Admin Settings", icon: Settings },
   ],
 };
 
