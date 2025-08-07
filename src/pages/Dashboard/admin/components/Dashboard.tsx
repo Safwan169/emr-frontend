@@ -204,8 +204,8 @@ const departments: Department[] = [
 // --- Component ---
 const Dashboard: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen  bg-gray-50  mt-2">
+      <div className="max-w-8xl mx-auto space-y-6">
         {/* Stats Cards with api data*/}
        <NewCard />
 
@@ -237,7 +237,7 @@ const Dashboard: React.FC = () => {
             <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-100">
               <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Today's Appointment</h2>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-5">
                   <span className="text-sm sm:text-base text-green-600 font-medium">Total 18</span>
                   <button className="text-sm sm:text-base text-blue-900">View All</button>
                 </div>
@@ -287,7 +287,7 @@ const Dashboard: React.FC = () => {
                     <img
                       src={doctor.avatar}
                       alt={`${doctor.name} avatar`}
-                      className="w-14 h-14 rounded-full flex-shrink-0 object-cover"
+                      className="w-15 h-15 rounded-full flex-shrink-0 object-cover"
                     />
                     <div className="flex-1">
                       <h3 className="text-sm font-semibold text-gray-900">{doctor.name}</h3>
