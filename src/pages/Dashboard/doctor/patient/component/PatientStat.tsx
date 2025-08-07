@@ -12,12 +12,11 @@ interface Patient {
   status: string;
 }
 
-interface PatientListProps {
-  doctorId: string;
-}
 
-const PatientStat: React.FC<PatientListProps> = ({ doctorId }) => {
-  const { data: patients = [], isLoading, isError } = useGetPatientsListQuery(doctorId);
+
+const PatientStat: React.FC = () => {
+  const {userId}=JSON.parse(localStorage.getItem("profileInfo")||"{}")
+  const { data: patients = [], isLoading, isError } = useGetPatientsListQuery(userId);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("Status");
