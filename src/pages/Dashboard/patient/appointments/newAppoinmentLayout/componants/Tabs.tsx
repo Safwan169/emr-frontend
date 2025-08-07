@@ -19,7 +19,7 @@ const steps: Step[] = [
 
 export default function StepTabsExact({ currentStep }: Props) {
   return (
-    <div className="flex items-center gap-4 w-full">
+    <div className="sm:flex items-center mt-2  hidden  gap-4 w-full">
       {steps.map((step, idx) => {
         const isDone = currentStep > step.number;
         const isActive = currentStep === step.number;
