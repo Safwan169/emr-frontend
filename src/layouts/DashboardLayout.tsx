@@ -84,14 +84,23 @@ const DashboardLayout: FC<LayoutProps> = () => {
     }
   };
 
+const handleToggleSidebar = () => {
+  setSidebarOpen(!isSidebarOpen);
+};
+
+const handleCloseSidebar = () => {
+  setSidebarOpen(false);
+};
+
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50">
+    <div className="flex h-screen  bg-gray-50">
       {/* Sidebar */}
-      <Sidebar
-        isOpen={isSidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-        role={role}
-      />
+<Sidebar
+  isOpen={isSidebarOpen}
+  onClose={handleCloseSidebar}
+  onToggle={handleToggleSidebar}
+  role={role}/>
+
       
       {/* Main content area */}
       <div className={`
@@ -117,7 +126,7 @@ const DashboardLayout: FC<LayoutProps> = () => {
           onClick={handleMainClick}
         >
           {/* Content wrapper for better mobile spacing */}
-          <div className="min-h-full p-4 md:p-0">
+          <div className="min-h-full  md:p-0">
             <Outlet />
           </div>
         </main>

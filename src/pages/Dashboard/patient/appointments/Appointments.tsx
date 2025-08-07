@@ -9,8 +9,8 @@ const Appointments = () => {
 
 
 
-      <div className="md:flex hidden flex-col lg:flex-row gap-5">
-        <div className="bg-white p-3 rounded-lg w-full lg:w-[60%]">
+      <div className="md:flex flex flex-col lg:flex-row xl:gap-5 gap-3">
+        <div className="bg-white  p-3 rounded-lg w-full lg:w-[60%]">
           <AppointmentTabs />
           <AppointmentsList />
 
@@ -22,14 +22,7 @@ const Appointments = () => {
       </div>
 
 
-      <div className="space-y-5 md:hidden block">
-        <AppointmentTabs />
-        <AppointmentsList />
-          {/* <Cleander weatherComponent={false} /> */}
-          <RecentActivites />
-
-
-      </div>
+   
     </>
   );
 };

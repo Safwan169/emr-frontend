@@ -15,7 +15,7 @@ const Contact:React.FC <any>  = ({personalInfo}) => {
             <p className="text-gray-500/95 font-medium">Specialization</p>
             <p>{personalInfo?.specialization}</p>
           </div>
-          <div>
+          <div className='w-full hidden sm:block col-span-2 md:col-span-1 '>
             <p className="text-gray-500/95 font-medium">Email</p>
             <p>{personalInfo?.email}</p>
           </div>
@@ -27,6 +27,10 @@ const Contact:React.FC <any>  = ({personalInfo}) => {
           <div>
             <p className="text-gray-500/95 font-medium">Years of Experience</p>
             <p>{personalInfo?.years_of_experience} Years</p>
+          </div>
+            <div className='w-full block sm:hidden col-span-2 md:col-span-1 '>
+            <p className="text-gray-500/95 font-medium">Email</p>
+            <p>{personalInfo?.email}</p>
           </div>
         </div>
       </div>

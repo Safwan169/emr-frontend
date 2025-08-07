@@ -66,7 +66,7 @@ const Chat: React.FC = () => {
   };
 
   return (
-    <div className="md:p-6 flex flex-col h-screen bg-gray-50">
+    <div className=" flex flex-col h-screen bg-gray-50">
       <div className="bg-white p-4 rounded-lg shadow mb-4">
         <h2 className="text-lg font-semibold mb-3">Quick Questions</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">

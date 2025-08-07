@@ -8,7 +8,7 @@ const PatientDashboard = () => {
   console.log('dfasf')
   return (
     <div>
-      <div className=" gap-3 grid grid-cols-1 xl:grid-cols-2 ">
+      <div className=" gap-1 xl:gap-3 grid grid-cols-1  xl:grid-cols-2 ">
         <div className="space-y-3">
           <TotalVisit />
           <Available />
