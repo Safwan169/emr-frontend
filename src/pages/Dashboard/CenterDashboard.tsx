@@ -42,7 +42,7 @@ const CenterDashboard: React.FC = () => {
         return <DoctorDashboard />;
     }
 
-    if (userRole === 'super admin') {
+    if (userRole === 'super_admin') {
         return <Dashboard />;
     }
 

@@ -21,10 +21,12 @@ export interface NavItem {
     { label: "Appointments", path: "doctor/appoinment", icon: Calendar },
     { label: "Profile", path: "/doctor/profile", icon: User },
   ],
-  admin: [
+  super_admin: [
     { label: "Dashboard", path: "/", icon: Home },
     { label: "Doctors", path: "/add-doctors", icon: Users },
-    { label: "Settings", path: "/settings", icon: Settings },
+    { label: "patients", path: "/admin/patients", icon: Settings },
+    { label: "Medical Records", path: "admin/medical_records", icon: Settings },
+    { label: "Pharmacy", path: "admin/pharmacy", icon: Settings },
   ],
 };
 

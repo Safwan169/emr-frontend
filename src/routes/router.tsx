@@ -13,6 +13,7 @@ import AppointmentRoute from "./AppointmentRoute";
 import DoctorRoute from "./DoctorRoute";
 import PatientRoute from "./PatientRoute";
 import CenterDashboard from "../pages/Dashboard/CenterDashboard";
+import AdminRoute from "./AdminRoute";
 
 // Private routes under DashboardLayout
 const privateRoutes = {
@@ -26,6 +27,7 @@ const privateRoutes = {
     ...AppointmentRoute,
     ...PatientRoute,
     ...DoctorRoute,
+    ...AdminRoute,
     {
       path: "/",
       element: <CenterDashboard />,
