@@ -14,10 +14,10 @@
 
 //   return (
 //     <div
-//       className={`z-50 fixed bottom-0 my-3 ml-2 left-0 min-w-[13rem]   md:relative md:top-0 md:left-0 
-//          bg-[#1A3EAB] text-white p-4 transform 
-//         ${isOpen ? "translate-y-0" : "translate-y-full"} 
-//         transition-transform duration-300 
+//       className={`z-50 fixed bottom-0 my-3 ml-2 left-0 min-w-[13rem]   md:relative md:top-0 md:left-0
+//          bg-[#1A3EAB] text-white p-4 transform
+//         ${isOpen ? "translate-y-0" : "translate-y-full"}
+//         transition-transform duration-300
 //         md:translate-y-0 rounded-t-xl md:rounded-xl`}
 //     >
 //       {/* Header */}
@@ -57,7 +57,6 @@
 
 // export default Sidebar;
 
-
 import { X, ChevronUp } from "lucide-react";
 import { FC, useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
@@ -74,10 +73,13 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
   const location = useLocation();
   const [activeIndex, setActiveIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
+  console.log(navItems);
 
   // Find active nav item index
   useEffect(() => {
-    const currentIndex = navItems.findIndex(item => item.path === location.pathname);
+    const currentIndex = navItems.findIndex(
+      (item) => item.path === location.pathname
+    );
     if (currentIndex !== -1) {
       setActiveIndex(currentIndex);
     }
@@ -91,7 +93,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
   const handleTouchEnd = (e: React.TouchEvent) => {
     const touchEnd = e.changedTouches[0].clientY;
     const diff = touchStart - touchEnd;
-    
+
     // If swipe down is detected (diff < -50), close sidebar
     if (diff < -50) {
       onClose();
@@ -102,7 +104,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
     <>
       {/* Mobile Backdrop */}
       {isOpen && (
-        <div 
+        <div
           className="md:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-40 transition-opacity duration-300"
           onClick={onClose}
         />
@@ -173,23 +175,29 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
               <NavLink
                 key={item.path}
                 to={item.path}
+                // ✅ Passing title via state
+                state={{ title: item.title }}
                 onClick={onClose}
                 className={`
-                  flex flex-col items-center gap-2 p-4 rounded-2xl
-                  transition-all duration-300 transform hover:scale-105
-                  ${location.pathname === item.path 
-                    ? 'bg-white/20 backdrop-blur-sm shadow-lg scale-105' 
-                    : 'bg-white/5 hover:bg-white/10'
-                  }
-                `}
+    flex flex-col items-center gap-2 p-4 rounded-2xl
+    transition-all duration-300 transform hover:scale-105
+    ${
+      location.pathname === item.path
+        ? "bg-white/20 backdrop-blur-sm shadow-lg scale-105"
+        : "bg-white/5 hover:bg-white/10"
+    }
+  `}
               >
-                <div className={`
-                  w-10 h-10 rounded-xl flex items-center justify-center
-                  ${location.pathname === item.path 
-                    ? 'bg-white/20 text-white shadow-lg' 
-                    : 'bg-white/10 text-white/80'
-                  }
-                `}>
+                <div
+                  className={`
+    w-10 h-10 rounded-xl flex items-center justify-center
+    ${
+      location.pathname === item.path
+        ? "bg-white/20 text-white shadow-lg"
+        : "bg-white/10 text-white/80"
+    }
+  `}
+                >
                   {item.icon && <item.icon size={20} />}
                 </div>
                 <span className="text-xs text-center font-medium leading-tight">
@@ -198,22 +206,26 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
               </NavLink>
             ))}
           </div>
-          
+
           {/* Additional items as list if more than 6 */}
           {navItems.length > 6 && (
             <div className="space-y-2">
-              <div className="text-xs text-white/50 font-medium px-2 mb-3">More Options</div>
+              <div className="text-xs text-white/50 font-medium px-2 mb-3">
+                More Options
+              </div>
               {navItems.slice(6).map((item) => (
                 <NavLink
                   key={item.path}
                   to={item.path}
+                  state={{ title: item.title }}
                   onClick={onClose}
                   className={`
                     flex items-center gap-3 p-3 rounded-xl
                     transition-all duration-200
-                    ${location.pathname === item.path 
-                      ? 'bg-white/15 text-white' 
-                      : 'text-white/80 hover:bg-white/5 hover:text-white'
+                    ${
+                      location.pathname === item.path
+                        ? "bg-white/15 text-white"
+                        : "text-white/80 hover:bg-white/5 hover:text-white"
                     }
                   `}
                 >
@@ -231,6 +243,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
             <NavLink
               key={item.path}
               to={item.path}
+              state={{ title: item.title }}
               className="flex items-center gap-2 hover:text-gray-300"
             >
               {item.icon && <item.icon size={20} />} {item.label}
@@ -253,6 +266,3 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
 };
 
 export default Sidebar;
-
-
-
