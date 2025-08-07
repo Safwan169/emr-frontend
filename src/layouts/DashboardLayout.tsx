@@ -59,10 +59,9 @@ import { decodeToken } from "../utils/decodeToken";
 
 interface LayoutProps {
   children?: React.ReactNode;
-  pageTitle: string;
 }
 
-const DashboardLayout: FC<LayoutProps> = ({ pageTitle }) => {
+const DashboardLayout: FC<LayoutProps> = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [role, setRole] = useState<any>('');
 
@@ -104,7 +103,7 @@ const DashboardLayout: FC<LayoutProps> = ({ pageTitle }) => {
       `}>
         {/* Navbar */}
         <div className="sticky top-0 z-20 bg-white md:bg-transparent">
-          <Navbar title={pageTitle} onToggleSidebar={toggleSidebar} />
+          <Navbar onToggleSidebar={toggleSidebar} />
         </div>
 
         {/* Scrollable content */}

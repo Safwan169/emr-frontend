@@ -13,22 +13,24 @@ const CenterDashboard: React.FC = () => {
   const [userRole, setUserRole] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    try {
-      const profileString = localStorage.getItem("profileInfo");
-      if (profileString) {
-        const profile: UserProfile = JSON.parse(profileString);
-        setUserRole(profile.role_name || null);
-      } else {
-        setUserRole(null);
-      }
-    } catch (error) {
-      console.error("Error parsing profileInfo from localStorage:", error);
-      setUserRole(null);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+    useEffect(() => {
+        try {
+            const profileString = localStorage.getItem("profileInfo");
+            if (profileString) {
+                const profile: UserProfile = JSON.parse(profileString);
+                setUserRole(profile.role_name || null);
+            } else {
+                setUserRole(null);
+            }
+        } catch (error) {
+            console.error("Error parsing profileInfo from localStorage:", error);
+            setUserRole(null);
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    console.log(userRole,'thsi is role')
 
   if (isLoading) {
     return <div>Loading dashboard...</div>;

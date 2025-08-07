@@ -13,16 +13,17 @@ import AppointmentRoute from "./AppointmentRoute";
 import DoctorRoute from "./DoctorRoute";
 import PatientRoute from "./PatientRoute";
 import CenterDashboard from "../pages/Dashboard/CenterDashboard";
+import VerifyForgotPasswordOtp from "../pages/login/VerifyForgotPasswordOtp";
+import ResetPassword from "../pages/login/ResetPassword";
 import AdminRoute from "./AdminRoute";
 
 // Private routes under DashboardLayout
 const privateRoutes = {
   path: "/",
   element: isAuthenticated() ?  (
-    <DashboardLayout pageTitle="Dashboard" />
-
+    <DashboardLayout/>
   ) : (
- <Navigate to="/login"   />
+ <Navigate to="/login" replace  />
   ),
   children: [
     ...AppointmentRoute,
@@ -57,6 +58,14 @@ const publicRoutes = [
   {
     path: "/forgot-password",
     element: <ForgotPassword />,
+  },
+  {
+    path: "/verify-forgot-password-otp",
+    element: <VerifyForgotPasswordOtp />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
   },
 
   {
