@@ -22,7 +22,7 @@ const AdminRoute =[
     },
     {
         path:'admin/pharmacy',
-        element:<MedicineInventory/>
+        element:<DoctorProfile/>
     }
     
 

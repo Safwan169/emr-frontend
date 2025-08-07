@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
-import { Search, Star, Mail, Phone, Users, Pencil } from "lucide-react";
+import { Search, Star, Mail, Phone, Users, Pencil, Plus } from "lucide-react";
 
 interface Doctor {
   name: string;
@@ -79,7 +79,7 @@ const DoctorMan: React.FC = () => {
       <h1 className="text-xl font-bold text-gray-800 mb-4">Doctor Management</h1>
 
       {/* Search & Filter Bar */}
-      <div className="w-full py-5 px-4  bg-white ">
+      <div className="w-full py-5 px-4 bg-white">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-4 w-full">
           {/* Search Bar + Status Info */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full lg:w-auto">
@@ -107,12 +107,17 @@ const DoctorMan: React.FC = () => {
             </div>
           </div>
 
-          {/* Speciality Dropdown */}
-          <div className="w-full sm:w-48">
+          {/* Right Side: Add Doctor + Dropdown */}
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto sm:items-center">
+            <button className="flex items-center justify-center gap-2 bg-blue-900 text-white px-4 py-2 rounded-md text-sm font-semibold ">
+              <Plus className="w-4 h-4" />
+              Add Doctor
+            </button>
+
             <select
               value={selectedSpeciality}
               onChange={handleSelectChange}
-              className="w-full border border-gray-200  px-3 py-2 rounded-md bg-gray-50 hover:bg-gray-100 cursor-pointer text-sm"
+              className="w-full sm:w-48 border border-gray-200 px-3 py-2 rounded-md bg-gray-50 hover:bg-gray-100 cursor-pointer text-sm"
             >
               {specialities.map((spec, index) => (
                 <option key={index} value={spec}>
@@ -135,7 +140,7 @@ const DoctorMan: React.FC = () => {
             <img
               src={doc.image}
               alt={doc.name}
-              className="w-16 h-16 rounded-full object-cover  mx-auto sm:mx-0"
+              className="w-16 h-16 rounded-full object-cover mx-auto sm:mx-0"
             />
 
             {/* Details Section */}
