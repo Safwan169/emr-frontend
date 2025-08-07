@@ -32,8 +32,7 @@ export const authApi = baseApi.injectEndpoints({
     logoutUser: builder.mutation({
       query: () => ({
         url: "/Auth/Logout",
-        method: "POST", // or "GET" if your backend uses GET for logout
-        credentials: "include", // required if logout relies on cookies/session
+        method: "POST",
       }),
     }),
 
@@ -61,6 +60,32 @@ export const authApi = baseApi.injectEndpoints({
         body,
       }),
     }),
+
+    // 🔁 Forgot Password
+    forgotPasswordRequest: builder.mutation({
+      query: (payload: { email: string }) => ({
+        url: "/Auth/ForgotPassword",
+        method: "POST",
+        body: payload,
+      }),
+    }),
+
+    verifyForgotPasswordOtp: builder.mutation({
+      query: (payload: { email: string; otp: string }) => ({
+        url: "/Auth/ForgotPassword/VerifyOTP",
+        method: "POST",
+        body: payload,
+      }),
+    }),
+
+    // 🔁 Reset Password ✅ NEW
+    resetPassword: builder.mutation({
+      query: (payload: { reset_token: string; new_password: string }) => ({
+        url: "/Auth/ResetPassword",
+        method: "POST",
+        body: payload,
+      }),
+    }),
   }),
 });
 
@@ -71,5 +96,8 @@ export const {
   useVerifyLoginOtpMutation,
   useResendLoginOtpMutation,
   useResendRegisterOtpMutation,
-  useLogoutUserMutation, // ✅ export logout hook
+  useLogoutUserMutation,
+  useForgotPasswordRequestMutation,
+  useVerifyForgotPasswordOtpMutation,
+  useResetPasswordMutation, 
 } = authApi;
