@@ -62,7 +62,7 @@ interface LayoutProps {
 }
 
 const DashboardLayout: FC<LayoutProps> = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [role, setRole] = useState<any>('');
 
   useEffect(() => {
@@ -83,6 +83,9 @@ const DashboardLayout: FC<LayoutProps> = () => {
       setSidebarOpen(false);
     }
   };
+  useEffect(() => {
+    handleMainClick();
+  },[])
 
 const handleToggleSidebar = () => {
   setSidebarOpen(!isSidebarOpen);
