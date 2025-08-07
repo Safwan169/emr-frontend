@@ -9,7 +9,7 @@ const Appointments = () => {
 
 
 
-      <div className="lg:flex hidden flex-col lg:flex-row gap-5">
+      <div className="md:flex hidden flex-col lg:flex-row gap-5">
         <div className="bg-white p-3 rounded-lg w-full lg:w-[60%]">
           <AppointmentTabs />
           <AppointmentsList />
