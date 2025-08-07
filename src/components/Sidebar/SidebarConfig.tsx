@@ -1,5 +1,5 @@
 // src/components/Sidebar/sidebarConfig.ts
-import { Calendar, Home, MessageCircle, Settings, User, Users } from "lucide-react";
+import { Calendar, Home, MessageCircle, Settings, User, Users,Activity,ClipboardPlus,Pill } from "lucide-react";
 import { ComponentType } from "react";
 
 export interface NavItem {
@@ -17,16 +17,16 @@ export interface NavItem {
   ],
   doctor: [
     { label: "Dashboard", path: "/", icon: Home },
-    // { label: "Patients", path: "/patients", icon: Users },
+    { label: "Patients", path: "/doctor/patients", icon: Users },
     { label: "Appointments", path: "doctor/appoinment", icon: Calendar },
     { label: "Profile", path: "/doctor/profile", icon: User },
   ],
   super_admin: [
     { label: "Dashboard", path: "/", icon: Home },
     { label: "Doctors", path: "/add-doctors", icon: Users },
-    { label: "patients", path: "/admin/patients", icon: Settings },
-    { label: "Medical Records", path: "admin/medical_records", icon: Settings },
-    { label: "Pharmacy", path: "admin/pharmacy", icon: Settings },
+    { label: "patients", path: "/admin/patients", icon: Activity },
+    { label: "Medical Records", path: "admin/medical_records", icon: ClipboardPlus },
+    { label: "Pharmacy", path: "admin/pharmacy", icon: Pill },
   ],
 };
 
