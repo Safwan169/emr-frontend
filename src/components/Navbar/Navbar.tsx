@@ -44,7 +44,7 @@ const Navbar: FC<NavbarProps> = ({onToggleSidebar }) => {
 
   return (
     <>
-      <div className="flex justify-between items-center bg-white px-6 py-4 shadow-sm rounded-lg mx-2">
+      <div className="flex justify-between items-center bg-white px-6 py-4 shadow-sm rounded-lg mt-0 m-2">
         {/* Left: Title */}
         <div className="flex items-center gap-4">
           <button onClick={onToggleSidebar} className="md:hidden text-2xl">

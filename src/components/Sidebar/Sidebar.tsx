@@ -111,7 +111,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
       )}
 
       <div
-        className={`z-50 fixed bottom-0 left-0 right-0 md:relative md:top-0 m-2 md:left-0 md:right-auto
+        className={`z-50 fixed bottom-0 left-0 right-0 md:relative md:top-0 m-2 mr-0 md:left-0 md:right-auto
          md:min-w-[13rem] md:max-w-[13rem]
          bg-gradient-to-br from-[#1A3EAB] via-[#1A3EAB] to-[#0F2A7A] md:bg-[#1A3EAB] 
          text-white transform 
