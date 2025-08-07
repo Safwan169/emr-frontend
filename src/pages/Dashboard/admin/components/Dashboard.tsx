@@ -8,7 +8,7 @@ import {
   AlertCircle,
   Star,
 } from "lucide-react";
-// Using fetch instead of axios since it's not available in this environment
+import NewCard from "./NewCard";
 
 // --- Types ---
 interface Stat {
@@ -193,16 +193,17 @@ const departments: Department[] = [
   { name: "Pediatrics", usage: 65, color: "bg-blue-500", status: "Moderate" },
 ];
 
-
 // --- Utility Functions ---
 const calculatePercentageChange = (data: Array<{ count: number }>) => {
   console.log(data, "thsi is fdata");
 
   if (data.length < 2) return 0;
 
-  const currentWeekTotal = data?.slice(-7)
+  const currentWeekTotal = data
+    ?.slice(-7)
     .reduce((sum, item) => sum + item.count, 0);
-  const previousWeekTotal = data?.slice(-14, -7)
+  const previousWeekTotal = data
+    ?.slice(-14, -7)
     .reduce((sum, item) => sum + item.count, 0);
 
   if (previousWeekTotal === 0) return currentWeekTotal > 0 ? 100 : 0;
@@ -371,37 +372,31 @@ const Dashboard: React.FC = () => {
           {stats.map((stat, i) => (
             <div
               key={i}
-              className="bg-white rounded-xl p-6 border border-gray-100 hover:shadow-lg transition-shadow"
+              className="bg-white rounded-xl p-6 border border-gray-100 flex"
             >
-              <div className="flex items-center space-x-3 mb-4">
-                <div className={`p-3 rounded-lg ${stat.bgColor}`}>
-                  {stat.icon}
+              {/* Left icon + vertical stack */}
+              <div className="flex flex-col mr-4">
+                <div className="flex items-center space-x-3">
+                  <div className={`p-3 rounded-lg ${stat.bgColor}`}>
+                    {stat.icon}
+                  </div>
+                  <p className="text-lg font-semibold text-gray-900">
+                    {stat.title}
+                  </p>
                 </div>
-                <p className="text-lg font-semibold text-gray-900">
-                  {stat.title}
+                <p className="mt-4 text-2xl font-bold text-gray-900">
+                  {stat.value}
                 </p>
-              </div>
-
-              <p className="text-2xl font-bold text-gray-900 mb-2">
-                {stat.value}
-              </p>
-
-              <div className="flex items-center justify-between">
-                <p className={`text-xs font-medium ${stat.textColor}`}>
-                  {stat.change}
-                </p>
-                <MiniBarChart
-                  data={stat.chartData}
-                  color={
-                    stat.textColor.includes("green")
-                      ? "bg-green-400"
-                      : stat.textColor.includes("blue")
-                      ? "bg-blue-400"
-                      : stat.textColor.includes("red")
-                      ? "bg-red-400"
-                      : "bg-purple-400"
-                  }
-                />
+                <div className="flex items-center justify-between mt-2 w-full">
+                  <p className={`text-xs font-medium ${stat.textColor}`}>
+                    {stat.change}
+                  </p>
+                  <img
+                    src={stat.graphSrc}
+                    alt={`${stat.title} graph`}
+                    className="w-20 h-12 object-contain"
+                  />
+                </div>
               </div>
             </div>
           ))}

@@ -16,7 +16,7 @@ import Prescription from "./prescription/Prescription";
 export default function MedicalInfoInterface() {
   const [activeTab, setActiveTab] = useState(0);
 
-  const { data } = useGetUserData();
+  const { data ,refetch} = useGetUserData();
 
   const navItems = [
     { icon: User, label: "Personal Info" },
@@ -29,7 +29,7 @@ export default function MedicalInfoInterface() {
   const renderContent = () => {
     switch (activeTab) {
       case 0:
-        return <PersonalInfo userData={data} />;
+        return <PersonalInfo refetch={refetch} userData={data} />;
       case 1:
         return <MedicalHistory />;
       case 2:

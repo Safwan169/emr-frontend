@@ -8,7 +8,15 @@ const AdminRoute =[
         element: <DoctorMan/>,
 
     },{
-        path:'add-doctors',
+        path:'admin/patients',
+        element:<DoctorMan/>
+    },
+    {
+        path:'admin/medical_records',
+        element:<DoctorMan/>
+    },
+    {
+        path:'admin/pharmacy',
         element:<DoctorMan/>
     }
 

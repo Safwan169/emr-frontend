@@ -65,7 +65,7 @@ export const userEmergencyContactApi = baseApi.injectEndpoints({
     updateUserEmergencyContact: builder.mutation({
       query: ({ id, data }) => ({
         method: "PUT",
-        url: `/users/${id}/emergency-contact`,
+        url: `/Users/${id}/EmergencyContact`,
         body: data,
       }),
       invalidatesTags: ["users"],
