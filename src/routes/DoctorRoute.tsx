@@ -1,20 +1,28 @@
-import React from 'react';
-import DoctorProfile from '../pages/Dashboard/doctor/profile/components/DoctorProfile';
+import DoctorAppoinment from '../pages/Dashboard/doctor/appointment/components/DoctorAppoinment';
+import DoctorAppoinmentDetails from '../pages/Dashboard/doctor/appointment/DoctorAppoinmentDetails';
+import PatientStat from '../pages/Dashboard/doctor/patient/component/PatientStat';
 import Profile from '../pages/Dashboard/doctor/profile/Profile';
-import DoctorDashboard from '../pages/Dashboard/doctor/dashboard/DoctorDashboard';
-import DocApp from '../pages/Dashboard/doctor/appointment/DocApp';
+
 
 const DoctorRoute = [
 
 
     {
         path: "doctor/profile",
-        element: <Profile/>,
+        element: <Profile />,
     },
-   
+
     {
         path: "doctor/appoinment",
-        element: <DocApp/>,
+        element: <DoctorAppoinment />,
+    },
+    {
+        path: "doctor/patients",
+        element: <PatientStat />,
+    },
+    {
+        path: "doctor/appoinment-details",
+        element: <DoctorAppoinmentDetails />,
     }
 ]
 

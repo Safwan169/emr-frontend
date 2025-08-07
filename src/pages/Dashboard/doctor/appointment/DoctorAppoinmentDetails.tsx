@@ -3,7 +3,7 @@ import AppointDet from './components/AppointDet';
 import ConsultationN from './components/ConsultationN';
 import PatientVital from './components/PatientVital';
 
-const DocApp = () => {
+const DoctorAppoinmentDetails = () => {
     return (
         <div>
          <AppointDet/>
@@ -13,4 +13,4 @@ const DocApp = () => {
     );
 };
 
-export default DocApp;
+export default DoctorAppoinmentDetails;

@@ -1,4 +1,6 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
+import { useGetUserByIdQuery } from "../../../../../redux/features/user/userApi";
 
 interface Vital {
   name: string;
@@ -7,12 +9,27 @@ interface Vital {
 
 const PatientVital: React.FC = () => {
   // Sample patient vitals
-  const vitals: Vital[] = [
-    { name: "Blood Pressure", value: "120/80 mmHg" },
-    { name: "Heart Rate", value: "78 bpm" },
-    { name: "Temperature", value: "98.6°F" },
-    { name: "Weight", value: "72 kg" },
+ 
+
+
+    const location = useLocation();
+    const userId = location?.state || ""; // Safe access
+  
+    const { data: userResponse, isLoading: isUserLoading } = useGetUserByIdQuery(userId);
+
+
+    const user = userResponse?.data;
+
+
+     const vitals: Vital[] = [
+    { name: "Blood Pressure", value: `${user?.blood_pressure?`${user?.blood_pressure} mmHg`:'N/A'} ` },
+    { name: "Heart Rate", value: `${user?.heart_bit_rate?`${user?.heart_bit_rate} bpm` :'N/A'} ` },
+    { name: "Temperature", value: `${user?.temperature?`${user?.temperature} °C` :'N/A'} ` },
+    { name: "Weight", value: `${user?.weight_lbs ?`${user?.weight_lbs} kg`:'N/A'} ` },
   ];
+
+    console.log(user,'tadfasdfad')
+
 
   return (
     <div className="w-full h-auto rounded-lg bg-white">

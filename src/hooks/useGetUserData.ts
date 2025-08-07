@@ -9,6 +9,7 @@ const useGetUserData = () => {
     isLoading,
     isError,
     error,
+    refetch
   } = useGetUserByIdQuery(userId);
 
   return {
@@ -16,6 +17,7 @@ const useGetUserData = () => {
     isLoading,
     isError,
     error,
+    refetch
   };
 };
 

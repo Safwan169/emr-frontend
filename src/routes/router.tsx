@@ -15,6 +15,7 @@ import PatientRoute from "./PatientRoute";
 import CenterDashboard from "../pages/Dashboard/CenterDashboard";
 import VerifyForgotPasswordOtp from "../pages/login/VerifyForgotPasswordOtp";
 import ResetPassword from "../pages/login/ResetPassword";
+import AdminRoute from "./AdminRoute";
 
 // Private routes under DashboardLayout
 const privateRoutes = {
@@ -28,6 +29,7 @@ const privateRoutes = {
     ...AppointmentRoute,
     ...PatientRoute,
     ...DoctorRoute,
+    ...AdminRoute,
     {
       path: "/",
       element: <CenterDashboard />,

@@ -8,6 +8,7 @@ import {
   AlertCircle,
   Star
 } from "lucide-react";
+import NewCard from "./NewCard";
 
 // --- Types ---
 interface Stat {
@@ -203,38 +204,10 @@ const departments: Department[] = [
 // --- Component ---
 const Dashboard: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat, i) => (
-            <div
-              key={i}
-              className="bg-white rounded-xl p-6 border border-gray-100 flex"
-            >
-              {/* Left icon + vertical stack */}
-              <div className="flex flex-col mr-4">
-                <div className="flex items-center space-x-3">
-                  <div className={`p-3 rounded-lg ${stat.bgColor}`}>
-                    {stat.icon}
-                  </div>
-                  <p className="text-lg font-semibold text-gray-900">{stat.title}</p>
-                </div>
-                <p className="mt-4 text-2xl font-bold text-gray-900">{stat.value}</p>
-                <div className="flex items-center justify-between mt-2 w-full">
-                  <p className={`text-xs font-medium ${stat.textColor}`}>
-                    {stat.change}
-                  </p>
-                  <img
-                    src={stat.graphSrc}
-                    alt={`${stat.title} graph`}
-                    className="w-20 h-12 object-contain"
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+    <div className="min-h-screen  bg-gray-50  mt-2">
+      <div className="max-w-8xl mx-auto space-y-6">
+        {/* Stats Cards with api data*/}
+       <NewCard />
 
         {/* Main Content Grid - Equal Width (50/50) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -264,7 +237,7 @@ const Dashboard: React.FC = () => {
             <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-100">
               <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Today's Appointment</h2>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-5">
                   <span className="text-sm sm:text-base text-green-600 font-medium">Total 18</span>
                   <button className="text-sm sm:text-base text-blue-900">View All</button>
                 </div>
@@ -314,7 +287,7 @@ const Dashboard: React.FC = () => {
                     <img
                       src={doctor.avatar}
                       alt={`${doctor.name} avatar`}
-                      className="w-14 h-14 rounded-full flex-shrink-0 object-cover"
+                      className="w-15 h-15 rounded-full flex-shrink-0 object-cover"
                     />
                     <div className="flex-1">
                       <h3 className="text-sm font-semibold text-gray-900">{doctor.name}</h3>

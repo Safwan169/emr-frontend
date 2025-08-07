@@ -45,7 +45,7 @@ export interface Publication {
 export interface Research {
   id: number;
   research_name: string;
-  publication_year: number;
+  publication_year: string;
   published_by: string;
 }
 

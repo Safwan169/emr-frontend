@@ -1,5 +1,5 @@
 import { Calendar, Mail, Phone, Pencil } from "lucide-react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import useGetUserData from "../../../../../hooks/useGetUserData";
 import { useUpdateUserProfileMutation } from "../../../../../redux/features/doctor/doctorApi";
 
@@ -15,29 +15,55 @@ interface FormDataType {
   bloodGroup: string;
   height: string;
   weight: string;
-  emergencyContact: string;
+  temperature: string;
+  bloodPressure: string;
+  heartBitRate: string;
 }
 
 export default function PatientProfileCard() {
-  const { data } = useGetUserData(); // ✅ refetch after update
+  const { data, refetch } = useGetUserData();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const [formData, setFormData] = useState<FormDataType>({
-    firstName: data?.first_name || "",
-    lastName: data?.last_name || "",
-    dateOfBirth: data?.date_of_birth || "",
-    gender: data?.gender || "",
-    phone: data?.phone_number || "",
-    email: data?.email || "",
-    address: data?.address || "",
-    country: data?.country || "",
-    bloodGroup: data?.blood_group || "",
-    height: data?.height_cm?.toString() || "",
-    weight: data?.weight_lbs?.toString() || "",
-    emergencyContact: data?.emergency_contact || "",
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    gender: "",
+    phone: "",
+    email: "",
+    address: "",
+    country: "",
+    bloodGroup: "",
+    height: "",
+    weight: "",
+    temperature: "",
+    bloodPressure: "",
+    heartBitRate: "",
   });
+
+  // ✅ Populate formData from API response
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        firstName: data.first_name || "",
+        lastName: data.last_name || "",
+        dateOfBirth: data.date_of_birth || "",
+        gender: data.gender || "",
+        phone: data.phone_number || "",
+        email: data.email || "",
+        address: data.address || "",
+        country: data.country || "",
+        bloodGroup: data.blood_group || "",
+        height: data.height_cm?.toString() || "",
+        weight: data.weight_lbs?.toString() || "",
+        temperature: data.temperature || "",
+        bloodPressure: data.blood_pressure || "",
+        heartBitRate: data.heart_bit_rate || "",
+      });
+    }
+  }, [data]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -50,18 +76,20 @@ export default function PatientProfileCard() {
   const { userId } = JSON.parse(localStorage.getItem("profileInfo") || "{}");
   const [updateUserProfile, { isLoading }] = useUpdateUserProfileMutation();
 
+  // ✅ Handle profile image upload
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setImageFile(file);
-
+      refetch()
       const payload = new FormData();
       payload.append("profile_image", file);
 
       try {
         const res = await updateUserProfile({ userId, profileData: payload }).unwrap();
         console.log(res, "Profile Image Updated");
-        alert("Profile image updated successfully!");
+        refetch()
+        // alert("Profile image updated successfully!");
       } catch (err) {
         console.error("Update failed", err);
         alert("Failed to update profile image.");
@@ -69,18 +97,39 @@ export default function PatientProfileCard() {
     }
   };
 
-  const handleSubmit = async () => {
-    const payload = new FormData();
+  // ✅ Convert camelCase → snake_case for API
+  const convertToSnakeCase = (data: FormDataType) => {
+    return {
+      first_name: data.firstName,
+      last_name: data.lastName,
+      date_of_birth: data.dateOfBirth,
+      gender: data.gender,
+      phone_number: data.phone,
+      email: data.email,
+      address: data.address,
+      country: data.country,
+      blood_group: data.bloodGroup,
+      height_cm: data.height ? Number(data.height) : null,
+      weight_lbs: data.weight ? Number(data.weight) : null,
+      temperature: data.temperature,
+      blood_pressure: data.bloodPressure,
+      heart_bit_rate: data.heartBitRate,
+    };
+  };
 
-    for (const key in formData) {
-      payload.append(key, formData[key as keyof FormDataType]);
-    }
+
+
+  // ✅ Submit updated info
+  const handleSubmit = async () => {
+    const payload = convertToSnakeCase(formData);
 
     try {
+      console.log(payload, "Payload sending to API...");
       const res = await updateUserProfile({ userId, profileData: payload }).unwrap();
       console.log(res, "Profile Updated");
-      alert("Information updated successfully!");
-      setIsModalOpen(false);
+
+refetch()    
+  setIsModalOpen(false);
     } catch (err) {
       console.error("Update failed", err);
       alert("Failed to update information.");
@@ -119,7 +168,7 @@ export default function PatientProfileCard() {
 
           <div className="flex-1">
             <h2 className="text-xl font-bold text-gray-900 mb-1">
-              {data?.first_name} {data?.last_name}
+              {data?.first_name}{' '}{data?.last_name}
             </h2>
             <p className="text-sm text-gray-600 mb-3">
               Patient ID: {data?.display_user_id}

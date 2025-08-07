@@ -1,5 +1,5 @@
 // src/components/Sidebar/sidebarConfig.ts
-import { Calendar, Home, MessageCircle, Settings, User, Users } from "lucide-react";
+import { Calendar, Home, MessageCircle, Settings, User, Users,Activity,ClipboardPlus,Pill } from "lucide-react";
 import { ComponentType } from "react";
 
 export interface NavItem {
