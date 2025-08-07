@@ -137,11 +137,11 @@ const Certifications: React.FC<Props> = ({ certifications, userId }) => {
 
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className="grid   grid-cols-1sm:grid-cols-2 gap-4 mb-6">
           {certifications.map((cert) => (
             <div
               key={cert.id}
-              className="p-4 flex justify-between border border-gray-200/70 rounded-lg bg-white relative group"
+              className="p-4 sm:flex block justify-between border border-gray-200/70 rounded-lg bg-white relative group"
             >
               <div className="space-y-2">
                 <p className="text-[18px] font-medium">{cert.name}</p>

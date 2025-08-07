@@ -41,7 +41,7 @@ const     image = `${process.env.REACT_APP_API_BASE_URL}${doctor?.user?.profile_
   const researchList = doctor?.DoctorResearchAndPublication || [];
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="xl:max-w-6xl w-full mx-auto">
       <PersonalDetails reftch={refetch} image={image} personalInfo={personalInfo} />
       <Contact personalInfo={personalInfo} />
       <Education reftch={refetch} userId={userId} education={educationList} />

@@ -2,20 +2,22 @@ import { FC, useState, useRef, useEffect } from "react";
 import { ChevronDown, Bell, Search } from "lucide-react";
 import Logout from "../../pages/logout/Logout";
 import useGetUserData from "../../hooks/useGetUserData";
+import { useLocation } from "react-router-dom";
 
 interface NavbarProps {
-  title: string;
   onToggleSidebar: () => void;
 }
 
-const Navbar: FC<NavbarProps> = ({ title, onToggleSidebar }) => {
+const Navbar: FC<NavbarProps> = ({onToggleSidebar }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { data } = useGetUserData();
   
-  console.log(data, 'this is data');
+
+  const title=useLocation()?.state
+  console.log(data, title,'this is data');
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -42,13 +44,13 @@ const Navbar: FC<NavbarProps> = ({ title, onToggleSidebar }) => {
 
   return (
     <>
-      <div className="flex justify-between items-center bg-white px-6 py-4 shadow-sm rounded-lg mx-2">
+      <div className="flex justify-between items-center bg-white px-6 py-4 shadow-sm rounded-lg mt-0 m-2">
         {/* Left: Title */}
         <div className="flex items-center gap-4">
           <button onClick={onToggleSidebar} className="md:hidden text-2xl">
             ☰
           </button>
-          <h2 className="text-xl font-semibold">{title}</h2>
+          <h2 className="text-xl font-semibold">{title?.title || "EMR Dashboard"}</h2>
         </div>
 
         {/* Right: Search, Notification, Profile */}
@@ -114,7 +116,7 @@ const Navbar: FC<NavbarProps> = ({ title, onToggleSidebar }) => {
                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                   Settings
                 </li>
-                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500">
+                <li className="px-4 py-2 h-fit hover:bg-gray-100 cursor-pointer text-red-500">
                   <Logout />
                 </li>
               </ul>
