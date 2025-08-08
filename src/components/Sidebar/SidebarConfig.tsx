@@ -22,7 +22,7 @@ export interface NavItem {
     { label: "Appointments", path: "doctor/appoinment", title: "Doctor Appointments", icon: Calendar },
     { label: "Profile", path: "doctor/profile", title: "Doctor Profile", icon: User },
   ],
-  admin: [
+  super_admin: [
     { label: "Dashboard", path: "/", title: "Admin Dashboard", icon: Home },
     { label: "Doctors", path: "/add-doctors", title: "Admin Appointments", icon: Users },
     { label: "Settings", path: "/settings", title: "Admin Settings", icon: Settings },

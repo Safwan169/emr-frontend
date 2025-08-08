@@ -37,7 +37,7 @@ const Cleander: React.FC<{ weatherComponent: boolean }> = ({weatherComponent}) =
   }, [currentDate]);
 
   return (
-    <div className="   w-[320px] mx-auto md:w-full md:max-w-lg">
+    <div className="   w-[320px] mx-auto md:w-full md:max-w-lg 2xl:max-w-4xl">
       {/* Weather Widget */}
      {
       weatherComponent &&  <div className={` bg-white p-5 rounded-xl  mb-3`}>
