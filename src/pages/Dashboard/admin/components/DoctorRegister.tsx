@@ -166,6 +166,7 @@ const DoctorRegister: React.FC = () => {
         </div>
       </form>
     </div>
+    // giii
   );
 };
 
