@@ -17,7 +17,7 @@ export default function AppointmentConfirmation() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-white p-8 mt-5 rounded-lg shadow-lg">
+    <div className="max-w-3xl mx-2 md:mx-auto bg-white p-3 xl:p-8 mt-5 rounded-lg ">
       {/* Success Icon */}
       <div className="flex justify-center mb-6">
         <div className="w-16 h-16 bg-[#1C3BA4] rounded-full flex items-center justify-center">
@@ -41,15 +41,15 @@ export default function AppointmentConfirmation() {
           Appointment Details
         </h2>
 
-        <div className="grid grid-cols-2 text-[16px] gap-4">
-          <div className="flex items-center gap-2">
+        <div className="grid grid-cols-1 w-full md:grid-cols-2 text-[16px] gap-4">
+          <div className="flex-col md:flex-row items-center gap-2">
             <p className="text-[16px] font-bold text-gray-700">Doctor Name:</p>
             <p className="text-[16px] font-normal text-gray-900">
               {selectedDoctor?.name || "Not selected"}
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex-col lg:flex-row items-center gap-2">
             <p className="text-sm font-bold text-gray-700">Date:</p>
             <p className="text-gray-900">
               {selectedDoctor?.date ? formatDate(selectedDoctor.date) : "Not selected"}

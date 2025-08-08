@@ -19,7 +19,7 @@ const steps: Step[] = [
 
 export default function StepTabsExact({ currentStep }: Props) {
   return (
-    <div className="flex items-center gap-4 w-full">
+    <div className="sm:flex items-center mt-2  hidden  gap-4 w-full">
       {steps.map((step, idx) => {
         const isDone = currentStep > step.number;
         const isActive = currentStep === step.number;
@@ -32,7 +32,7 @@ export default function StepTabsExact({ currentStep }: Props) {
             {/* Circle */}
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold
-                ${isDone ? 'bg-blue-800 text-white' : isActive ? 'border rounded-full' : 'border border-gray-300 text-gray-500'}`}
+                ${isDone ? 'bg-blue-800 text-white' : isActive ? 'border border-gray-500 rounded-full' : 'border border-gray-300 text-gray-500'}`}
             >
               {isDone ? <Check className="w-4 h-4" /> : step.number}
             </div>

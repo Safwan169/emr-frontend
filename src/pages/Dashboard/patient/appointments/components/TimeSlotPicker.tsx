@@ -63,7 +63,7 @@ export default function TimeSlotPicker({ selectedDate }: TimeSlotPickerProps) {
             >
               <div className="flex flex-col items-center">
                 <span className="font-medium">{slot.start_time}</span>
-                {slot.booked && (
+                {slot.status ==="booked" && (
                   <span className="text-xs text-gray-400">Booked</span>
                 )}
               </div>

@@ -15,13 +15,13 @@ const AppointmentDetails = () => {
   }, [] )
 
   return (
-    <div className='flex  w-full  gap-[14px]'>
-      <div className="w-full max-w-[60%] ">
+    <div className='xl:flex   w-full  gap-[14px]'>
+      <div className="w-full xl:max-w-[60%] ">
         {/* left content */}
         <DetailForm/>
       </div>
 {/* right content */}
-      <div className='w-full space-y-2 max-w-[40%]'>
+      <div className='w-full space-y-2 xl:max-w-[40%]'>
         <SelectedDoctorSection doctor={selectedDoctor}/>
         
         <SelectedTimeAndDate/>

@@ -53,15 +53,19 @@ export default function DoctorCard({
       className="flex justify-between cursor-pointer border border-gray-100/90 rounded-md p-4 shadow-sm hover:shadow-md transition-all"
     >
       {/* Left */}
-      <div className="flex items-start gap-4">
+      <div className="flex-col sm:flex-row sm:flex justify-center items-center  sm:items-start gap-4">
         <img
           src={imageUrl}
           alt={name}
-          className="w-16 h-16 rounded-full object-cover border"
+          className="w-16 h-16 rounded-full mx-auto sm:mx-0 object-cover border"
         />
-        <div>
+        <div className="">
           <h3 className="font-semibold text-gray-900">{name}</h3>
           <p className="text-sm text-[#1C3BA4] font-medium">{specialty}</p>
+             <div className="text-right flex-row-reverse flex  sm:hidden items-center justify-between min-w-[120px] h-fit">
+        <h4 className="text-lg font-semibold text-gray-800">৳ {fee}</h4>
+        <p className="text-xs text-gray-500">CONSULTATION FEE</p>
+      </div>
           <div className="flex items-center text-sm text-gray-500 mt-1 space-x-3">
             <div className="flex items-center gap-1">
               <Star className="w-4 h-4 text-yellow-500 fill-yellow-400" />
@@ -78,7 +82,7 @@ export default function DoctorCard({
       </div>
 
       {/* Right */}
-      <div className="text-right min-w-[120px] h-fit">
+      <div className="text-right hidden sm:block min-w-[120px] h-fit">
         <h4 className="text-lg font-semibold text-gray-800">৳ {fee}</h4>
         <p className="text-xs text-gray-500">CONSULTATION FEE</p>
       </div>

@@ -12,13 +12,13 @@ const AppointmentTabs: React.FC = () => {
   };
 
   return (
-    <div className="py-4 w-full max-w-5xl">
-      <h2 className="text-sm font-medium text-gray-700 mb-2">
+    <div className="py-4  mx-auto 2xl:mx-0 mb-2 w-full  xl:w-full">
+      <h2 className="xl:text-sm text-center xl:text-left text-lg font-medium text-gray-700 mb-2">
         All Appointments
       </h2>
-      <div className="flex flex-col md:flex-row justify-between gap-3 items-start md:items-center">
+      <div className="flex flex-col xl:flex-row justify-center md:justify-between gap-3 items-start md:items-center">
         {/* Tabs */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap justify-center gap-2">
           {tabs.map((tab) => (
             <button
               key={tab}
@@ -37,7 +37,7 @@ const AppointmentTabs: React.FC = () => {
         {/* New Appointment Button */}
         <Link
           to={"/new-appointment"}
-          className="bg-[#1C3BA4] hover:bg-blue-800 text-white px-5 py-2 text-sm rounded-md font-medium shadow"
+          className="bg-[#1C3BA4] hover:bg-blue-800 text-white mx-auto 2xl:mx-0 px-5 py-2 text-sm rounded-md font-medium shadow"
         >
           + New Appointment
         </Link>

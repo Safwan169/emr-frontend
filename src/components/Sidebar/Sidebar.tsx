@@ -1,63 +1,4 @@
-// import { X } from "lucide-react";
-// import { FC } from "react";
-// import { NavLink } from "react-router-dom";
-// import SidebarConfig from "./SidebarConfig";
-
-// interface SidebarProps {
-//   isOpen: boolean;
-//   onClose: () => void;
-//   role: string; // patient | doctor | admin etc.
-// }
-
-// const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
-//   const navItems = SidebarConfig[role] || [];
-
-//   return (
-//     <div
-//       className={`z-50 fixed bottom-0 my-3 ml-2 left-0 min-w-[13rem]   md:relative md:top-0 md:left-0
-//          bg-[#1A3EAB] text-white p-4 transform
-//         ${isOpen ? "translate-y-0" : "translate-y-full"}
-//         transition-transform duration-300
-//         md:translate-y-0 rounded-t-xl md:rounded-xl`}
-//     >
-//       {/* Header */}
-//       <div className="flex justify-between items-center mb-6">
-//         <h1 className="text-2xl font-bold">EMR Logo</h1>
-//         <button
-//           className="md:hidden text-white text-2xl"
-//           onClick={onClose}
-//           aria-label="Close Sidebar"
-//         >
-//           <X size={24} />
-//         </button>
-//       </div>
-
-//       {/* Optional image */}
-//       <img
-//         className="absolute bottom-0 h-[60%] right-0 -translate-x-1/4"
-//         src="/vector.png"
-//         alt=""
-//       />
-
-//       {/* Navigation */}
-//       <nav className="flex flex-col gap-4">
-//         {navItems.map((item) => (
-//           <NavLink
-//             key={item.path}
-//             to={item.path}
-//             className="flex items-center gap-2 hover:text-gray-300"
-//           >
-//             {item.icon && <item.icon size={20} />} {item.label}
-//           </NavLink>
-//         ))}
-//       </nav>
-//     </div>
-//   );
-// };
-
-// export default Sidebar;
-
-import { X, ChevronUp } from "lucide-react";
+import { X, ChevronUp, Menu } from "lucide-react";
 import { FC, useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import SidebarConfig from "./SidebarConfig";
@@ -65,10 +6,11 @@ import SidebarConfig from "./SidebarConfig";
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  onToggle: () => void; // Added onToggle prop for hamburger functionality
   role: string; // patient | doctor | admin etc.
 }
 
-const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
+const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, onToggle, role }) => {
   const navItems = SidebarConfig[role] || [];
   const location = useLocation();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -111,8 +53,8 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
       )}
 
       <div
-        className={`z-50 fixed bottom-0 left-0 right-0 md:relative md:top-0 m-2 md:left-0 md:right-auto
-         md:min-w-[13rem] md:max-w-[13rem]
+        className={`z-50 fixed bottom-0 left-0 right-0 md:relative md:top-0 m-2 mr-0 md:left-0 md:right-auto
+         ${isOpen ? "md:min-w-[13rem] md:max-w-[13rem]" : "md:min-w-[4rem] md:max-w-[4rem]"}
          bg-gradient-to-br from-[#1A3EAB] via-[#1A3EAB] to-[#0F2A7A] md:bg-[#1A3EAB] 
          text-white transform 
         ${isOpen ? "translate-y-0" : "translate-y-full"} 
@@ -156,9 +98,16 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
           </div>
         </div>
 
-        {/* Desktop Header (unchanged) */}
-        <div className="hidden md:flex justify-between items-center mb-6 p-4">
-          <h1 className="text-2xl font-bold">EMR Logo</h1>
+        {/* Desktop Header with Hamburger Menu */}
+        <div className={`hidden md:flex items-center mb-6 p-4 ${isOpen ? "justify-between" : "justify-center"}`}>
+          {isOpen && <h1 className="text-2xl font-bold">EMR Logo</h1>}
+          <button
+            className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors duration-200 flex items-center justify-center"
+            onClick={onToggle}
+            aria-label="Toggle Sidebar"
+          >
+            <Menu size={20} />
+          </button>
           <button
             className="md:hidden text-white text-2xl"
             onClick={onClose}
@@ -237,26 +186,32 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, role }) => {
           )}
         </nav>
 
-        {/* Desktop Navigation (unchanged) */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex flex-col gap-4 px-4">
           {navItems.map((item) => (
             <NavLink
               key={item.path}
               to={item.path}
               state={{ title: item.title }}
-              className="flex items-center gap-2 hover:text-gray-300"
+              className={`flex items-center gap-2 hover:text-gray-300 transition-all duration-200 ${
+                isOpen ? "justify-start" : "justify-center"
+              }`}
+              title={!isOpen ? item.label : undefined} // Show tooltip when collapsed
             >
-              {item.icon && <item.icon size={20} />} {item.label}
+              {item.icon && <item.icon size={20} />} 
+              {isOpen && <span>{item.label}</span>}
             </NavLink>
           ))}
         </nav>
 
-        {/* Desktop Image (unchanged for desktop, hidden on mobile) */}
-        <img
-          className="hidden md:block absolute bottom-0 h-[60%] right-0 -translate-x-1/4"
-          src="/vector.png"
-          alt=""
-        />
+        {/* Desktop Image (only show when expanded) */}
+        {isOpen && (
+          <img
+            className="hidden md:block absolute bottom-0 h-[60%] right-0 -translate-x-1/4"
+            src="/vector.png"
+            alt=""
+          />
+        )}
 
         {/* Mobile Bottom Gradient */}
         <div className="md:hidden absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-[#0F2A7A] to-transparent pointer-events-none" />

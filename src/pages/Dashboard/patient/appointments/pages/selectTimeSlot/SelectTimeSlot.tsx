@@ -17,12 +17,12 @@ const SelectTimeSlot = () => {
   
 
   return (
-    <div className="flex gap-2">
-      <div className="max-w-[65%] w-full space-y-2 mt-2">
+    <div className="xl:flex  gap-2">
+      <div className="xl:max-w-[65%] w-full space-y-2 mt-2">
         <CalenderPicker onDateSelect={setSelectedDate} />
         <TimeSlotPicker selectedDate={selectedDate} />
       </div>
-      <div>
+      <div className='sm:flex-row sm:flex xl:flex-col flex-col gap-3 xl:gap-0'>
         <SelectedDoctorSection doctor={selectedDoctor} />
         <NeedHelpSection />
       </div>
