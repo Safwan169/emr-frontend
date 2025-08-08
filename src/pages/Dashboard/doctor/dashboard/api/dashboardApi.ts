@@ -32,6 +32,53 @@ interface DailyStat {
   count: number;
 }
 
+// 🆕 New Interface for Doctor Availability POST Payload
+interface DoctorAvailabilityPayload {
+  weekdays: string[];
+  start_time: string;
+  end_time: string;
+  slot_duration_minutes: number;
+}
+
+// 🆕 Interfaces matching your All Available Slots JSON response
+
+interface Doctor {
+  id: number;
+  name: string;
+}
+
+interface WorkingHours {
+  start_time: string;
+  end_time: string;
+  slot_duration: number;
+}
+
+interface Availability {
+  working_hours: WorkingHours;
+  available_days: string[];
+}
+
+interface Slot {
+  slot_id: number;
+  start_time: string;
+  end_time: string;
+  day: string;
+  is_booked: boolean;
+  status: string | null;
+  appointment: any | null;
+}
+
+interface SlotsByDate {
+  [date: string]: Slot[];
+}
+
+interface AllAvailableSlotsResponse {
+  success: boolean;
+  doctor: Doctor;
+  availability: Availability;
+  slots: SlotsByDate;
+}
+
 // API slice
 export const dashboardApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -76,6 +123,22 @@ export const dashboardApi = baseApi.injectEndpoints({
         url: `/Appointments/DailyAppointmentsLast7Days/${doctorId}`,
       }),
     }),
+
+    // 🆕 POST Doctor Availability
+    postDoctorAvailability: builder.mutation<void, { doctorId: string; data: DoctorAvailabilityPayload }>({
+      query: ({ doctorId, data }) => ({
+        url: `/DoctorAvailability/${doctorId}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+
+    // 🆕 GET All Available Slots - UPDATED with correct typing
+    getAllAvailableSlots: builder.query<AllAvailableSlotsResponse, string>({
+      query: (doctorId: string) => ({
+        url: `/Appointments/Doctor/${doctorId}/AllSlots`,
+      }),
+    }),
   }),
 });
 
@@ -87,4 +150,6 @@ export const {
   useGetTodaysAppoimentListQuery,
   useGetDailyNewPatientsLast7DaysQuery,
   useGetDailyAppointmentsLast7DaysQuery,
+  usePostDoctorAvailabilityMutation,
+  useGetAllAvailableSlotsQuery, // 🆕 Updated hook
 } = dashboardApi;
