@@ -1,12 +1,12 @@
 import React, { ReactElement } from "react";
-import { 
-  User, 
-  Users, 
-  Calendar, 
-  Package, 
-  Activity, 
+import {
+  User,
+  Users,
+  Calendar,
+  Package,
+  Activity,
   AlertCircle,
-  Star
+  Star,
 } from "lucide-react";
 import NewCard from "./NewCard";
 
@@ -207,7 +207,7 @@ const Dashboard: React.FC = () => {
     <div className="min-h-screen  bg-gray-50  mt-2">
       <div className="max-w-8xl mx-auto space-y-6">
         {/* Stats Cards with api data*/}
-       <NewCard />
+        <NewCard />
 
         {/* Main Content Grid - Equal Width (50/50) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -216,7 +216,9 @@ const Dashboard: React.FC = () => {
             {/* Recent Activities */}
             <div className="bg-white rounded-xl p-6 border border-gray-100">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-gray-900">Recent Activities</h2>
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Recent Activities
+                </h2>
                 <button className="text-sm text-blue-900 ">View All</button>
               </div>
               <div className="divide-y divide-gray-200">
@@ -224,10 +226,16 @@ const Dashboard: React.FC = () => {
                   <div key={i} className="flex items-start space-x-3 py-3">
                     <div className="flex-shrink-0 mt-1">{activity.icon}</div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900">{activity.title}</p>
-                      <p className="text-xs text-gray-500">{activity.subtitle}</p>
+                      <p className="text-sm font-medium text-gray-900">
+                        {activity.title}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {activity.subtitle}
+                      </p>
                     </div>
-                    <span className="text-xs text-gray-400 whitespace-nowrap">{activity.time}</span>
+                    <span className="text-xs text-gray-400 whitespace-nowrap">
+                      {activity.time}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -236,10 +244,16 @@ const Dashboard: React.FC = () => {
             {/* Today's Appointments */}
             <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-100">
               <div className="flex items-center justify-between mb-3 sm:mb-4">
-                <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Today's Appointment</h2>
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
+                  Today's Appointment
+                </h2>
                 <div className="flex items-center space-x-5">
-                  <span className="text-sm sm:text-base text-green-600 font-medium">Total 18</span>
-                  <button className="text-sm sm:text-base text-blue-900">View All</button>
+                  <span className="text-sm sm:text-base text-green-600 font-medium">
+                    Total 18
+                  </span>
+                  <button className="text-sm sm:text-base text-blue-900">
+                    View All
+                  </button>
                 </div>
               </div>
               <div className="divide-y divide-gray-200">
@@ -254,8 +268,12 @@ const Dashboard: React.FC = () => {
                       className="w-8 sm:w-10 h-8 sm:h-10 rounded-full flex-shrink-0 object-cover"
                     />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm sm:text-base font-medium text-gray-900">{appointment.name}</p>
-                      <p className="text-xs sm:text-sm text-gray-500">{appointment.doctor}</p>
+                      <p className="text-sm sm:text-base font-medium text-gray-900">
+                        {appointment.name}
+                      </p>
+                      <p className="text-xs sm:text-sm text-gray-500">
+                        {appointment.doctor}
+                      </p>
                       <button className="mt-1 px-2 py-0.5 text-xs sm:text-sm bg-green-100 text-green-700 rounded-full whitespace-nowrap">
                         {appointment.status}
                       </button>
@@ -275,7 +293,9 @@ const Dashboard: React.FC = () => {
             {/* Top Performing Doctors */}
             <div className="bg-white rounded-xl p-6 border border-gray-100">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-gray-900">Top Performing Doctors</h2>
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Top Performing Doctors
+                </h2>
                 <button className="text-sm text-blue-600 ">View All</button>
               </div>
               <div className="space-y-4">
@@ -290,18 +310,28 @@ const Dashboard: React.FC = () => {
                       className="w-15 h-15 rounded-full flex-shrink-0 object-cover"
                     />
                     <div className="flex-1">
-                      <h3 className="text-sm font-semibold text-gray-900">{doctor.name}</h3>
-                      <p className="text-xs text-blue-500 font-semibold">{doctor.specialty}</p>
+                      <h3 className="text-sm font-semibold text-gray-900">
+                        {doctor.name}
+                      </h3>
+                      <p className="text-xs text-blue-500 font-semibold">
+                        {doctor.specialty}
+                      </p>
                       <div className="flex items-center space-x-3 mt-1">
                         <div className="flex items-center space-x-1">
                           <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                          <span className="text-xs text-gray-600">{doctor.rating}</span>
+                          <span className="text-xs text-gray-600">
+                            {doctor.rating}
+                          </span>
                         </div>
-                        <span className="text-xs text-gray-500">{doctor.experience}</span>
+                        <span className="text-xs text-gray-500">
+                          {doctor.experience}
+                        </span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-bold text-gray-900">{doctor.earnings}</p>
+                      <p className="text-lg font-bold text-gray-900">
+                        {doctor.earnings}
+                      </p>
                       <p className="text-xs text-gray-500">{doctor.patients}</p>
                     </div>
                   </div>
@@ -311,18 +341,26 @@ const Dashboard: React.FC = () => {
 
             {/* Department Utilization */}
             <div className="bg-white rounded-xl p-6 border border-gray-100">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Department Utilization</h2>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                Department Utilization
+              </h2>
               <div className="space-y-4">
                 {departments.map((dept, i) => (
                   <div key={i} className="space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
-                        <div className={`w-3 h-3 rounded-full ${dept.color}`}></div>
-                        <span className="text-sm font-medium text-gray-700">{dept.name}</span>
+                        <div
+                          className={`w-3 h-3 rounded-full ${dept.color}`}
+                        ></div>
+                        <span className="text-sm font-medium text-gray-700">
+                          {dept.name}
+                        </span>
                       </div>
                       <div className="flex items-center space-x-4">
                         <div className="text-right">
-                          <p className="text-sm font-semibold text-gray-900">{dept.usage}%</p>
+                          <p className="text-sm font-semibold text-gray-900">
+                            {dept.usage}%
+                          </p>
                           <p className="text-xs text-gray-500">Occupied</p>
                         </div>
                         <span

@@ -6,12 +6,12 @@ import NewCard from './admin/components/NewCard';
 import Dashboard from './admin/components/Dashboard';
 
 interface UserProfile {
-    role_name?: 'patient' | 'doctor' | string;
+  role_name?: "patient" | "doctor" | string;
 }
 
 const CenterDashboard: React.FC = () => {
-    const [userRole, setUserRole] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [userRole, setUserRole] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         try {
@@ -32,17 +32,17 @@ const CenterDashboard: React.FC = () => {
 
     console.log(userRole,'thsi is role')
 
-    if (isLoading) {
-        return <div>Loading dashboard...</div>;
-    }
+  if (isLoading) {
+    return <div>Loading dashboard...</div>;
+  }
 
-    if (userRole === 'patient') {
-        return <PatientDashboard />;
-    }
+  if (userRole === "patient") {
+    return <PatientDashboard />;
+  }
 
-    if (userRole === 'doctor') {
-        return <DoctorDashboard />;
-    }
+  if (userRole === "doctor") {
+    return <DoctorDashboard />;
+  }
 
     if (userRole === 'super_admin') {
         return <Dashboard />;
