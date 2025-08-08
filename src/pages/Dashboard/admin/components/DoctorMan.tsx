@@ -28,7 +28,18 @@ const DoctorMan: React.FC = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Doctors List</h2>
+      {/* Header with Add Doctor button */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">Doctors List</h2>
+        <Link
+          to="/doctor/register"
+          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
+        >
+          Add Doctor
+        </Link>
+      </div>
+
+      {/* Doctor list */}
       <div className="space-y-4">
         {doctors.map((doctor) => (
           <div

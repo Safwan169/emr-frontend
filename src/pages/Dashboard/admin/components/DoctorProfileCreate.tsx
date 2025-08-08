@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DoctorProfileCreate: React.FC = () => {
   const { user_id } = useParams<{ user_id: string }>();
@@ -36,7 +38,7 @@ const DoctorProfileCreate: React.FC = () => {
     e.preventDefault();
 
     if (!user_id) {
-      alert("User ID is missing from URL");
+      toast.error("User ID is missing from URL");
       return;
     }
 
@@ -62,19 +64,31 @@ const DoctorProfileCreate: React.FC = () => {
 
       const result = await response.json();
       if (response.ok) {
-        alert("Doctor profile updated successfully!");
+        toast.success("Doctor profile updated successfully!");
+        setFormData({
+          license_number: "",
+          specialization: "",
+          fee: "",
+          years_of_experience: "",
+          phone: "",
+          hospital: "",
+          voice: null,
+        });
       } else {
         console.error(result);
-        alert("Error: " + (result.message || "Failed to update profile."));
+        toast.error(result.message || "Failed to update profile.");
       }
     } catch (error) {
       console.error(error);
-      alert("Something went wrong while submitting the form.");
+      toast.error("Something went wrong while submitting the form.");
     }
   };
 
   return (
     <div className="w-full max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
+      {/* Toast Notifications */}
+      <ToastContainer position="top-right" autoClose={3000} />
+
       <h2 className="text-2xl font-bold mb-6">Edit Doctor Profile</h2>
       <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
         <input
