@@ -9,6 +9,20 @@ export const userApi = baseApi.injectEndpoints({
       }),
       providesTags: ["users"],
     }),
+    getUserPreviousPrescreption: builder.query({
+      query: (userId) => ({
+        method: "GET",
+        url: `Dashboard/PreviousPrescription/${userId}`,
+      }),
+      providesTags: ["users"],
+    }),
+    getUserPreviousLabReport: builder.query({
+      query: (userId) => ({
+        method: "GET",
+        url: `Dashboard/PreviousLabReport/${userId}`,
+      }),
+      providesTags: ["users"],
+    }),
     getUserByEmail: builder.query({
       query: (email) => ({
         method: "GET",
@@ -59,4 +73,6 @@ export const {
   useDeleteUserByIdMutation,
   useGetUserByEmailQuery,
   useGetUserByIdQuery,
+  useGetUserPreviousPrescreptionQuery,
+  useGetUserPreviousLabReportQuery,
 } = userApi;

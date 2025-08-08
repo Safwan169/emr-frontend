@@ -15,9 +15,8 @@ export default function TimeSlotPicker({ selectedDate }: TimeSlotPickerProps) {
   const navigate = useNavigate();
 
   const { data: slots, isLoading } = useGetAvailableSlotsQuery(selectedDoctor?.id);
-  console.log(slots, 'slots', selectedDoctor);
-  const availableSlots =
-    selectedDate && slots ? slots.available_slots[selectedDate] || [] : [];
+  console.log(slots, 'slots', selectedDate);
+  const availableSlots =selectedDate && slots ? slots.slots[selectedDate] || [] : [];
 
   const handleSlotClick = (index: number, slotId: string, slotTime: string) => {
     setSelectedSlot(index);
@@ -36,6 +35,8 @@ export default function TimeSlotPicker({ selectedDate }: TimeSlotPickerProps) {
     );
   }
 
+  
+    console.log(availableSlots,'availableSlots');
   return (
     <div className="mx-auto p-6 bg-white shadow-md rounded-xl">
       <h2 className="text-lg font-medium text-gray-900 mb-6">
@@ -51,9 +52,9 @@ export default function TimeSlotPicker({ selectedDate }: TimeSlotPickerProps) {
             <button
               key={index}
               onClick={() => handleSlotClick(index, slot?.slot_id, slot?.start_time)}
-              // disabled={!slot.available || slot.booked}
+              disabled={slot.is_booked}
               className={`px-4 py-3 h-14 rounded-lg text-sm font-medium transition-all duration-200
-                ${slot.booked
+                ${slot.is_booked
                   ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                   : selectedSlot === index
                     ? "bg-[#1C3BA4] text-white shadow-md"
@@ -61,9 +62,9 @@ export default function TimeSlotPicker({ selectedDate }: TimeSlotPickerProps) {
                 }
               `}
             >
-              <div className="flex flex-col items-center">
+              <div className={`flex flex-col items-center`}>
                 <span className="font-medium">{slot.start_time}</span>
-                {slot.status ==="booked" && (
+                {slot.is_booked && (
                   <span className="text-xs text-gray-400">Booked</span>
                 )}
               </div>

@@ -50,6 +50,7 @@ const Summary: React.FC = () => {
 
     try {
 
+      console.log('user',userId);
  await bookAppointment({
       patientId: userId,
       slotData: payload,
