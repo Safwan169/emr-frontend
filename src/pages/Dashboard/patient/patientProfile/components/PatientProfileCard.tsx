@@ -128,8 +128,8 @@ export default function PatientProfileCard() {
       const res = await updateUserProfile({ userId, profileData: payload }).unwrap();
       console.log(res, "Profile Updated");
 
-refetch()    
-  setIsModalOpen(false);
+      refetch()
+      setIsModalOpen(false);
     } catch (err) {
       console.error("Update failed", err);
       alert("Failed to update information.");
@@ -150,11 +150,14 @@ refetch()
               src={
                 imageFile
                   ? URL.createObjectURL(imageFile)
-                  : `${process.env.REACT_APP_API_BASE_URL}${data?.profile_image?.file_URL}` || ""
+                  : data?.profile_image?.file_URL
+                    ? `${process.env.REACT_APP_API_BASE_URL}${data.profile_image.file_URL}`
+                    : "/profile.jpg"
               }
               alt="Patient Avatar"
               className="w-full h-full object-cover"
             />
+
             <label className="absolute inset-0 bg-black bg-opacity-40 hidden group-hover:flex items-center justify-center cursor-pointer">
               <Pencil className="text-white w-4 h-4" />
               <input
@@ -180,7 +183,7 @@ refetch()
                 <span>Age: {data?.age} Years</span>
               </div>
 
-              <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <div className={`${data?.phone_number ? '' : 'hidden'} flex items-center space-x-2 text-sm text-gray-600`}>
                 <Phone className="w-4 h-4" />
                 <span>{data?.phone_number}</span>
               </div>
@@ -197,7 +200,7 @@ refetch()
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md transition-colors duration-200"
+          className="bg-[#1a3eab] hover:bg-blue-700 text-white p-2 rounded-md transition-colors duration-200"
         >
           {isLoading ? "Updating..." : "Edit Info"}
         </button>

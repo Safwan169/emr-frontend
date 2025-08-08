@@ -196,7 +196,7 @@ interface Doctor {
   address: string;
   rating: number;
   years_of_experience: number;
-  user:{
+  user: {
     first_name: string;
     last_name: string;
     profile_image: {
@@ -254,14 +254,14 @@ const Available: React.FC = () => {
   //   },
   // ];
 
-const {data=[]}=useGetAllDoctorsQuery(null)
-// Doctor[]
+  const { data = [] } = useGetAllDoctorsQuery(null)
+  // Doctor[]
   const filteredDoctors: Doctor[] =
     selectedSpeciality === "All Specialities"
       ? data.data
-      : data?.data.filter((doc:any) => doc.specialization === selectedSpeciality);
+      : data?.data.filter((doc: any) => doc.specialization === selectedSpeciality);
 
-      console.log(data,"doctors",filteredDoctors)
+  console.log(data, "doctors", filteredDoctors)
 
   return (
     <div className="w-full max-w-4xl mx-auto rounded-lg p-4 bg-white">
@@ -280,9 +280,8 @@ const {data=[]}=useGetAllDoctorsQuery(null)
             <span className="truncate">{selectedSpeciality}</span>
             <ChevronDown
               size={16}
-              className={`ml-2 flex-shrink-0 transition-transform duration-200 ${
-                dropdownOpen ? "rotate-180" : ""
-              }`}
+              className={`ml-2 flex-shrink-0 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""
+                }`}
             />
           </button>
 
@@ -316,15 +315,20 @@ const {data=[]}=useGetAllDoctorsQuery(null)
             <div className="flex items-start gap-4 mb-4">
               {/* Profile Picture */}
               <img
-                src={doc?.user?.profile_image?.file_URL}
-                alt={doc.user.first_name}
+                src={
+                  doc?.user?.profile_image?.file_URL
+                    ? `${process.env.REACT_APP_API_BASE_URL}${doc.user.profile_image.file_URL}`
+                    : '/profile.jpg'
+                }
+                alt={doc?.user?.first_name || 'User'}
                 className="w-16 h-16 sm:w-18 sm:h-18 rounded-full object-cover flex-shrink-0 border-2 border-gray-100"
               />
+
 
               {/* Doctor Basic Info */}
               <div className="flex-1 min-w-0 flex flex-col gap-1">
                 <h2 className="text-lg sm:text-xl font-semibold text-gray-800 truncate">
-                  {doc.user.first_name} { doc.user.last_name}
+                  {doc.user.first_name} {doc.user.last_name}
                 </h2>
                 <p className="text-blue-600 text-sm sm:text-base font-medium">
                   {doc.specialization}
@@ -340,7 +344,7 @@ const {data=[]}=useGetAllDoctorsQuery(null)
                     {doc.rating.toFixed(1)}
                   </span>
                   <span className="text-sm text-gray-500 font-medium">
-                    {doc.years_of_experience} years 
+                    {doc.years_of_experience} years
                   </span>
                 </div>
               </div>

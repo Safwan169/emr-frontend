@@ -29,7 +29,7 @@ const {data:previousLabReport=[]}=useGetUserPreviousLabReportQuery(userId)
     { title: "Upcoming Appointment", content: "0", icon: CalendarDays },
     { title: "Previous Lab Report", content: previousLabReport?.total_previous_lab_report
  || 0, icon: FlaskConical },
-    
+     
   ];
   console.log(data.length,'user appoinment')
   console.log(cardData[0],'cardData')

@@ -218,7 +218,7 @@ return (
           {/* Left Section - Avatar and Info */}
           <div className="flex items-center gap-3 sm:gap-4">
             <img
-              src={appointment.avatar}
+              src={appointment.avatar || '/profile.jpg'}
               alt={appointment.name}
               className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
             />

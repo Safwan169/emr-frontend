@@ -89,26 +89,27 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({ reftch, image, person
         <div className="  w-full flex gap-5">
           <div className="relative w-20 h-20 rounded-full overflow-hidden bg-gray-200 flex-shrink-0 group">
             <img
-            src={
-              imageFile
-                ? URL.createObjectURL(imageFile)
-                : `${process.env.REACT_APP_API_BASE_URL}${data?.profile_image?.file_URL}` || ""
-            }
-            alt="Patient Avatar"
-            className="w-full h-full object-cover"
-          />
-          <label className="absolute inset-0 bg-black bg-opacity-40 hidden group-hover:flex items-center justify-center cursor-pointer">
-            <Pencil className="text-white w-4 h-4" />
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="hidden"
+              src={
+                data?.profile_image?.file_URL
+                  ? `${process.env.REACT_APP_API_BASE_URL}${data.profile_image.file_URL}`
+                  : "/profile.jpg"
+              }
+              alt="Patient Avatar"
+              className="w-full h-full object-cover"
             />
-          </label>
+
+            <label className="absolute inset-0 bg-black bg-opacity-40 hidden group-hover:flex items-center justify-center cursor-pointer">
+              <Pencil className="text-white w-4 h-4" />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+              />
+            </label>
           </div>
 
-          
+
           <div className=" ">
             <h2 className="text-lg font-semibold text-gray-900 mb-1">
               {data?.first_name} {data?.last_name}

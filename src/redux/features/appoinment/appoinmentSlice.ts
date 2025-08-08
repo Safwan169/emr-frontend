@@ -8,7 +8,7 @@ export interface SelectedDoctor {
   experience: string;
   nextAvailable: string;
   fee: number;
-  imageUrl: string;
+  imageUrl: string ;
   date?: string;
   timeSlot?: string;
   slotId?: string; 

@@ -15,7 +15,7 @@ const Summary: React.FC = () => {
     (state) => state.booking
   );
 
-  const {userId} = JSON.parse(localStorage.getItem('profileInfo') || '{}');
+  const { userId } = JSON.parse(localStorage.getItem('profileInfo') || '{}');
   const [bookAppointment, { isLoading }] = useBookAppointmentMutation();
   const navigate = useNavigate();
 
@@ -50,12 +50,12 @@ const Summary: React.FC = () => {
 
     try {
 
-      console.log('user',userId);
- await bookAppointment({
-      patientId: userId,
-      slotData: payload,
-    }).unwrap();
-        navigate("/confirm-appointment"); 
+      console.log('user', userId);
+      await bookAppointment({
+        patientId: userId,
+        slotData: payload,
+      }).unwrap();
+      navigate("/confirm-appointment");
     } catch (error) {
       console.error("Booking failed:", error);
       alert("Failed to book appointment. Please try again.");
@@ -72,10 +72,14 @@ const Summary: React.FC = () => {
         {/* Doctor Info */}
         <div className="flex items-center bg-blue-50 p-4 rounded-lg">
           <img
-            src={selectedDoctor?.imageUrl}
+            src={
+              selectedDoctor?.imageUrl
+           
+            }
             alt={selectedDoctor?.name || "Doctor"}
             className="w-14 h-14 rounded-full object-cover mr-4"
           />
+
           <div>
             <h4 className="text-md font-semibold text-gray-800">
               {selectedDoctor?.name || "Doctor Name"}
