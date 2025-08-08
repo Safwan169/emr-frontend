@@ -102,7 +102,7 @@ const DoctorProfile: React.FC = () => {
               <h3 className="text-xl font-medium text-gray-700 mb-2">{stat.title}</h3>
               <div className="flex items-center gap-3">
                 <img
-                  src={stat.img}
+                  src={stat.img }
                   alt={stat.title}
                   className="w-8 h-8 object-contain"
                 />

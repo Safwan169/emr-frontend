@@ -189,14 +189,21 @@
 
 import { ChevronDown, Star } from "lucide-react";
 import React, { useState } from "react";
+import { useGetAllDoctorsQuery } from "../../../../../redux/features/doctor/doctorApi";
 
 interface Doctor {
-  name: string;
   specialization: string;
   address: string;
   rating: number;
-  experience: number;
-  image: string;
+  years_of_experience: number;
+  user: {
+    first_name: string;
+    last_name: string;
+    profile_image: {
+      file_URL: string;
+    };
+    address: string;
+  }
 }
 
 const Available: React.FC = () => {
@@ -212,45 +219,49 @@ const Available: React.FC = () => {
     "Orthopedic",
   ];
 
-  const doctors: Doctor[] = [
-    {
-      name: "Dr. Sarah Johnson",
-      specialization: "Cardiologist",
-      address: "Dhaka Medical, Dhaka",
-      rating: 4.5,
-      experience: 10,
-      image: "https://randomuser.me/api/portraits/women/44.jpg",
-    },
-    {
-      name: "Dr. Alex Carter",
-      specialization: "Dermatologist",
-      address: "Square Hospital, Dhaka",
-      rating: 4.8,
-      experience: 8,
-      image: "https://randomuser.me/api/portraits/men/45.jpg",
-    },
-    {
-      name: "Dr. Emily Brown",
-      specialization: "Neurologist",
-      address: "Apollo Hospital, Dhaka",
-      rating: 4.7,
-      experience: 12,
-      image: "https://randomuser.me/api/portraits/women/47.jpg",
-    },
-    {
-      name: "Dr. James Wilson",
-      specialization: "Orthopedic",
-      address: "United Hospital, Dhaka",
-      rating: 4.6,
-      experience: 15,
-      image: "https://randomuser.me/api/portraits/men/49.jpg",
-    },
-  ];
+  // const doctors: Doctor[] = [
+  //   {
+  //     name: "Dr. Sarah Johnson",
+  //     specialization: "Cardiologist",
+  //     address: "Dhaka Medical, Dhaka",
+  //     rating: 4.5,
+  //     experience: 10,
+  //     image: "https://randomuser.me/api/portraits/women/44.jpg",
+  //   },
+  //   {
+  //     name: "Dr. Alex Carter",
+  //     specialization: "Dermatologist",
+  //     address: "Square Hospital, Dhaka",
+  //     rating: 4.8,
+  //     experience: 8,
+  //     image: "https://randomuser.me/api/portraits/men/45.jpg",
+  //   },
+  //   {
+  //     name: "Dr. Emily Brown",
+  //     specialization: "Neurologist",
+  //     address: "Apollo Hospital, Dhaka",
+  //     rating: 4.7,
+  //     experience: 12,
+  //     image: "https://randomuser.me/api/portraits/women/47.jpg",
+  //   },
+  //   {
+  //     name: "Dr. James Wilson",
+  //     specialization: "Orthopedic",
+  //     address: "United Hospital, Dhaka",
+  //     rating: 4.6,
+  //     experience: 15,
+  //     image: "https://randomuser.me/api/portraits/men/49.jpg",
+  //   },
+  // ];
 
+  const { data = [] } = useGetAllDoctorsQuery(null)
+  // Doctor[]
   const filteredDoctors: Doctor[] =
     selectedSpeciality === "All Specialities"
-      ? doctors
-      : doctors.filter((doc) => doc.specialization === selectedSpeciality);
+      ? data.data
+      : data?.data.filter((doc: any) => doc.specialization === selectedSpeciality);
+
+  console.log(data, "doctors", filteredDoctors)
 
   return (
     <div className="w-full max-w-4xl mx-auto rounded-lg p-4 bg-white">
@@ -269,9 +280,8 @@ const Available: React.FC = () => {
             <span className="truncate">{selectedSpeciality}</span>
             <ChevronDown
               size={16}
-              className={`ml-2 flex-shrink-0 transition-transform duration-200 ${
-                dropdownOpen ? "rotate-180" : ""
-              }`}
+              className={`ml-2 flex-shrink-0 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""
+                }`}
             />
           </button>
 
@@ -296,7 +306,7 @@ const Available: React.FC = () => {
 
       {/* Doctor Cards */}
       <div className="grid grid-cols-1 2xl:grid-cols-2 gap-4 sm:gap-6">
-        {filteredDoctors.map((doc, index) => (
+        {filteredDoctors?.map((doc, index) => (
           <div
             key={index}
             className="rounded-xl p-4 sm:p-5 bg-white border border-gray-200 flex flex-col"
@@ -305,21 +315,26 @@ const Available: React.FC = () => {
             <div className="flex items-start gap-4 mb-4">
               {/* Profile Picture */}
               <img
-                src={doc.image}
-                alt={doc.name}
+                src={
+                  doc?.user?.profile_image?.file_URL
+                    ? `${process.env.REACT_APP_API_BASE_URL}${doc.user.profile_image.file_URL}`
+                    : '/profile.jpg'
+                }
+                alt={doc?.user?.first_name || 'User'}
                 className="w-16 h-16 sm:w-18 sm:h-18 rounded-full object-cover flex-shrink-0 border-2 border-gray-100"
               />
+
 
               {/* Doctor Basic Info */}
               <div className="flex-1 min-w-0 flex flex-col gap-1">
                 <h2 className="text-lg sm:text-xl font-semibold text-gray-800 truncate">
-                  {doc.name}
+                  {doc.user.first_name} {doc.user.last_name}
                 </h2>
                 <p className="text-blue-600 text-sm sm:text-base font-medium">
                   {doc.specialization}
                 </p>
                 <p className="text-gray-500 text-sm leading-relaxed truncate">
-                  {doc.address}
+                  {doc.user.address}
                 </p>
 
                 {/* Rating and experience line */}
@@ -329,7 +344,7 @@ const Available: React.FC = () => {
                     {doc.rating.toFixed(1)}
                   </span>
                   <span className="text-sm text-gray-500 font-medium">
-                    {doc.experience} years 
+                    {doc.years_of_experience} years
                   </span>
                 </div>
               </div>
@@ -349,7 +364,7 @@ const Available: React.FC = () => {
       </div>
 
       {/* Empty State */}
-      {filteredDoctors.length === 0 && (
+      {filteredDoctors?.length === 0 && (
         <div className="text-center py-12">
           <div className="text-gray-400 text-lg mb-2">No doctors found</div>
           <div className="text-gray-500 text-sm">

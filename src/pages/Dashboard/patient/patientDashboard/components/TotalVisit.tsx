@@ -7,15 +7,32 @@ import {
   XCircle,
 } from "lucide-react";
 import Cleander from "./Cleander";
+import { useGetPatientAppointmentsQuery } from "../../../../../redux/features/appoinment/appoinmentApi";
+import { useEffect } from "react";
+import { useGetUserPreviousLabReportQuery, useGetUserPreviousPrescreptionQuery } from "../../../../../redux/features/user/userApi";
 
 const TotalVisit = () => {
-  const cardData = [
-    { title: "Total Visits", content: "2,098", icon: Users },
-    { title: "Prescription", content: "20", icon: FileText },
-    { title: "Upcoming Appointment", content: "230", icon: CalendarDays },
-    { title: "Lab Report", content: "320", icon: FlaskConical },
-    
+
+
+
+
+  const {userId}=JSON.parse(localStorage.getItem('profileInfo')||'{}')
+
+  const {data=[]}=useGetPatientAppointmentsQuery(userId)
+const {data:patientData=[]}=useGetUserPreviousPrescreptionQuery(userId)
+console.log(patientData,'patientData')
+const {data:previousLabReport=[]}=useGetUserPreviousLabReportQuery(userId)
+  console.log(previousLabReport,'previousLabReport')
+  let cardData = [
+    { title: "Total Appoinments", content: data?.length || 0, icon: Users },
+    { title: "Previous Prescription", content: patientData?.total_previous_prescription || 0, icon: FileText },
+    { title: "Upcoming Appointment", content: "0", icon: CalendarDays },
+    { title: "Previous Lab Report", content: previousLabReport?.total_previous_lab_report
+ || 0, icon: FlaskConical },
+     
   ];
+  console.log(data.length,'user appoinment')
+  console.log(cardData[0],'cardData')
 
   return (
     <div className="flex flex-col xl:flex-row gap-3 w-full">

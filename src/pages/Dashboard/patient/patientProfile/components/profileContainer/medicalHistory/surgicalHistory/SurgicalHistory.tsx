@@ -227,7 +227,7 @@ const SurgicalHistory = () => {
         </h2>
         <button
           onClick={handleCreate}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+          className="flex items-center px-4 py-2 bg-[#1a3eab] text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
         >
           Add New
         </button>

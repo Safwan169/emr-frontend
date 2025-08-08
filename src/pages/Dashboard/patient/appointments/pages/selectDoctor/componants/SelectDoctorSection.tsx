@@ -31,8 +31,8 @@ const SelectDoctorSection: React.FC = () => {
   ];
 
   // ✅ Fetch doctors from API
-  const { data=[], isLoading, isError } = useGetAllDoctorsQuery(null);
-console.log(data.data,'thsi is data for doctors');
+  const { data = [], isLoading, isError } = useGetAllDoctorsQuery(null);
+  console.log(data.data, 'thsi is data for doctors');
   // ✅ Transform API data into Doctor[]
   const doctors: Doctor[] =
     data?.data?.map((doc: any) => ({
@@ -43,8 +43,10 @@ console.log(data.data,'thsi is data for doctors');
       experience: `${doc.years_of_experience || 0} years`,
       nextAvailable: 'Tomorrow, 10:00 AM', // API does not provide this → Hardcoded
       fee: doc.fee || 0,
-      imageUrl:`${process.env.REACT_APP_API_BASE_URL}${doc?.user?.profile_image?.file_URL}`
-,
+      imageUrl : doc?.user?.profile_image?.file_URL
+        ? `${process.env.REACT_APP_API_BASE_URL}${doc.user.profile_image.file_URL}`
+        : '/profile.jpg'
+
     })) || [];
 
   // ✅ Apply filters

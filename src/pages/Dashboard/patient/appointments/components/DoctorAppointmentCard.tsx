@@ -13,10 +13,15 @@ const DoctorAppointmentCard: React.FC<Props> = ({ data }) => {
         {/* Doctor Image */}
         <div className="flex-shrink-0 flex justify-center">
           <img
-            src={`${process.env.REACT_APP_API_BASE_URL}${data.imageUrl}`}
-            alt={data.doctorName}
+            src={
+              data?.imageUrl
+                ? `${process.env.REACT_APP_API_BASE_URL}${data.imageUrl}`
+                : '/profile.jpg'
+            }
+            alt={data?.doctorName || 'Doctor Avatar'}
             className="w-24 h-24 object-cover rounded-full"
           />
+
         </div>
 
         {/* Doctor Info */}

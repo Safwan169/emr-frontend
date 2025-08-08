@@ -72,11 +72,11 @@ const CurrentLabReport = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <h1 className="text-2xl font-bold text-gray-900">Lab Reports</h1>
         <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-blue-700 transition w-full sm:w-auto">
+          <button className="bg-[#1a3eab] text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-blue-700 transition w-full sm:w-auto">
             <Download size={16} />
             Download
           </button>
-          <button className="bg-[#009E18] text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-green-700 transition w-full sm:w-auto">
+          <button className="bg-[#1a3eab] text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-green-700 transition w-full sm:w-auto">
             <span>📅</span>
             Schedule
           </button>
@@ -162,7 +162,7 @@ const CurrentLabReport = () => {
             <div className="h-48 sm:h-56 bg-gray-100">
               <img
                 className="w-full h-full object-cover"
-                src={report.image}
+                src={report.image || 'https://via.placeholder.com/150'}
                 alt={report.title}
               />
             </div>

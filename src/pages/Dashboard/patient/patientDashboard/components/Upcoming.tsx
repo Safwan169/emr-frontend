@@ -178,14 +178,17 @@ const Upcoming: React.FC = () => {
               className="relative p-3 sm:p-4 rounded-lg border border-gray-200 flex flex-col sm:flex-row items-start sm:items-center gap-4"
             >
               <img
-                src={appt.image}
-                alt={appt.doctor}
+                src={
+                 '/profile.jpg'
+                }
+                alt={appt?.doctor || 'Doctor'}
                 className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover"
               />
 
+
               <div className="flex-1">
                 <p className="font-semibold text-blue-900 border-b border-gray-300 pb-1 text-sm sm:text-base">
-                  {appt.doctor} 
+                  {appt.doctor}
                 </p>
 
 

@@ -27,7 +27,7 @@ export default function DoctorCard({
 }: DoctorProps) {
   const dispatch = useAppDispatch();
 
-
+console.log(imageUrl,'adfas')
   const navigate = useNavigate()
   const handleClick = () => {
     dispatch(
@@ -55,17 +55,24 @@ export default function DoctorCard({
       {/* Left */}
       <div className="flex-col sm:flex-row sm:flex justify-center items-center  sm:items-start gap-4">
         <img
-          src={imageUrl}
-          alt={name}
+          src={
+            imageUrl
+              ? imageUrl
+              : 'profile.jpg'
+          }
+          alt={name ?? 'Profile'}
           className="w-16 h-16 rounded-full mx-auto sm:mx-0 object-cover border"
         />
+
+
+
         <div className="">
           <h3 className="font-semibold text-gray-900">{name}</h3>
           <p className="text-sm text-[#1C3BA4] font-medium">{specialty}</p>
-             <div className="text-right flex-row-reverse flex  sm:hidden items-center justify-between min-w-[120px] h-fit">
-        <h4 className="text-lg font-semibold text-gray-800">৳ {fee}</h4>
-        <p className="text-xs text-gray-500">CONSULTATION FEE</p>
-      </div>
+          <div className="text-right flex-row-reverse flex  sm:hidden items-center justify-between min-w-[120px] h-fit">
+            <h4 className="text-lg font-semibold text-gray-800">৳ {fee}</h4>
+            <p className="text-xs text-gray-500">CONSULTATION FEE</p>
+          </div>
           <div className="flex items-center text-sm text-gray-500 mt-1 space-x-3">
             <div className="flex items-center gap-1">
               <Star className="w-4 h-4 text-yellow-500 fill-yellow-400" />
