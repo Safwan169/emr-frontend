@@ -2,6 +2,8 @@ import React from "react";
 import { CalendarDays, Phone } from "lucide-react";
 import { useGetSpecificPatientsForDoctorQuery } from "../../../../../redux/features/doctor/doctorApi";
 import { Link as RouterLink } from "react-router-dom";
+import CreateSlot from "./CreateSlot";
+import ViewSlot from "./ViewSlot";
 
 // Define the appointment type
 interface Appointment {
@@ -29,17 +31,23 @@ const DoctorAppoinment: React.FC = () => {
   console.log(data);
 
   return (
-    <div className="w-full h-auto bg-white rounded-lg px-4 md:px-6 
-    lg:px-6 py-5">
+    <div
+      className="w-full h-auto bg-white rounded-lg px-4 md:px-6 
+    lg:px-6 py-5"
+    >
       {/* Title */}
-      <h1 className="text-xl font-bold mb-4 text-center md:text-left">Appointment</h1>
+      <h1 className="text-xl font-bold mb-4 text-center md:text-left">
+        Appointment
+      </h1>
 
       {/* Header Bar */}
       <div className="w-full border border-gray-200 flex flex-col md:flex-row md:justify-between md:items-center gap-3 p-4 rounded-lg">
         <div className="flex flex-col sm:flex-row sm:space-x-4 w-full md:max-w-2xl gap-3">
           <div className="border border-gray-200 justify-center flex items-center px-3 py-2 rounded-md bg-white w-full sm:w-1/2">
             <CalendarDays className="w-5 h-5 mr-2" />
-            <span className="text-gray-700 font-medium">{new Date().toDateString()}</span>
+            <span className="text-gray-700 font-medium">
+              {new Date().toDateString()}
+            </span>
           </div>
           <div className="flex items-center justify-center bg-white border border-gray-200 px-3 py-2 rounded-md w-full sm:w-1/2">
             <span className="text-[#1C3BA4] font-medium text-center">
@@ -48,9 +56,18 @@ const DoctorAppoinment: React.FC = () => {
           </div>
         </div>
         <div className="w-full md:w-auto">
-          <button className="w-full md:w-auto px-4 py-2 bg-[#1C3BA4] text-white rounded-md">
-            + Create Appointment
-          </button>
+          <CreateSlot>
+            <button className="w-full md:w-auto px-4 py-2 bg-[#1C3BA4] text-white rounded-md">
+              Create Slot
+            </button>
+          </CreateSlot>
+        </div>
+        <div className="w-full md:w-auto">
+          <ViewSlot>
+            <button className="w-full md:w-auto px-4 py-2 bg-[#1C3BA4] text-white rounded-md">
+              View Slot
+            </button>
+          </ViewSlot>
         </div>
       </div>
 
@@ -69,22 +86,30 @@ const DoctorAppoinment: React.FC = () => {
                 </div>
 
                 <p className="text-gray-400 flex flex-wrap gap-2 text-sm">
-                  <span className="font-semibold text-gray-500/80">{ap?.slot_time || "N/A"}</span>
+                  <span className="font-semibold text-gray-500/80">
+                    {ap?.slot_time || "N/A"}
+                  </span>
                   <span>.</span>
-                  <span className="text-[#1C3BA4] font-medium">{ap?.type || "N/A"}</span>
+                  <span className="text-[#1C3BA4] font-medium">
+                    {ap?.type || "N/A"}
+                  </span>
                 </p>
 
                 <div className="space-y-2 text-sm">
                   <p className="text-gray-400">
                     Reason:
                     <br />
-                    <span className="text-gray-800 font-semibold">{ap?.reason || "N/A"}</span>
+                    <span className="text-gray-800 font-semibold">
+                      {ap?.reason || "N/A"}
+                    </span>
                   </p>
 
                   <p className="text-gray-400">
                     Contact:
                     <br />
-                    <span className="text-gray-800 font-semibold">{ap?.contact || "N/A"}</span>
+                    <span className="text-gray-800 font-semibold">
+                      {ap?.contact || "N/A"}
+                    </span>
                   </p>
                 </div>
               </div>
