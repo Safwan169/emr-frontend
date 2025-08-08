@@ -16,7 +16,7 @@ const SelectDoctorSectionMain = () => {
       },[])
 
     return (
-        <div className='flex  gap-2'>
+        <div className= 'overflow-hidden flex-col xl:flex  xl:flex-row gap-2'>
 
             <SelectDoctorSection />
             <NeedHelpSection/>

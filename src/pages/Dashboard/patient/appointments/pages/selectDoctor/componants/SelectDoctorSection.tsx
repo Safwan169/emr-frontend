@@ -31,7 +31,7 @@ const SelectDoctorSection: React.FC = () => {
   ];
 
   // ✅ Fetch doctors from API
-  const { data, isLoading, isError } = useGetAllDoctorsQuery(null);
+  const { data=[], isLoading, isError } = useGetAllDoctorsQuery(null);
 console.log(data.data,'thsi is data for doctors');
   // ✅ Transform API data into Doctor[]
   const doctors: Doctor[] =
@@ -84,7 +84,7 @@ console.log(data.data,'thsi is data for doctors');
           <div className="relative">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center justify-between px-3 py-2 border border-gray-200 rounded-md text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-w-[140px]"
+              className=" hidden sm:flex items-center justify-between px-3 py-2 border border-gray-200 rounded-md text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-w-[140px]"
             >
               <span>{selectedSpecialty}</span>
               <ChevronDown className="h-4 w-4 ml-2 text-gray-400" />

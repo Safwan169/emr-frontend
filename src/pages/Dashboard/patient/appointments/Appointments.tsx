@@ -5,17 +5,25 @@ import RecentActivites from "./components/RecentActivites";
 
 const Appointments = () => {
   return (
-    <div className="flex flex-col lg:flex-row gap-5">
-      <div className="bg-white p-3 rounded-lg w-full lg:w-[60%]">
-        <AppointmentTabs />
-        <AppointmentsList />
+    <>
 
-      </div>
+
+
+      <div className="md:flex flex flex-col lg:flex-row xl:gap-5 gap-3">
+        <div className="bg-white  p-3 rounded-lg w-full lg:w-[60%]">
+          <AppointmentTabs />
+          <AppointmentsList />
+
+        </div>
         <div className="w-full lg:w-[40%]  space-y-2 p-3 lg:p-0">
-        <Cleander weatherComponent={false} />
+          <Cleander weatherComponent={false} />
           <RecentActivites />
+        </div>
       </div>
-    </div>
+
+
+   
+    </>
   );
 };
 
