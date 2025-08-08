@@ -179,9 +179,7 @@ const Upcoming: React.FC = () => {
             >
               <img
                 src={
-                  appt?.image
-                    ? `${process.env.REACT_APP_API_BASE_URL}${appt.image}`
-                    : '/profile.jpg'
+                 '/profile.jpg'
                 }
                 alt={appt?.doctor || 'Doctor'}
                 className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover"
