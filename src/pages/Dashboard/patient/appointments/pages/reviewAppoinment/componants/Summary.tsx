@@ -139,7 +139,7 @@ const Summary: React.FC = () => {
             <IndianRupee className="text-blue-600 w-5 h-5 mt-1" />
             <div>
               <p className="text-sm font-semibold text-gray-800">
-                ৳ {selectedDoctor?.fee?.toFixed(2) || "0.00"}
+                $ {selectedDoctor?.fee?.toFixed(2) || "0.00"}
               </p>
               <p className="text-xs text-gray-500">Consultation Fee</p>
             </div>
@@ -150,7 +150,7 @@ const Summary: React.FC = () => {
         <div className="border-t pt-4 flex justify-between items-center">
           <p className="text-sm font-semibold text-gray-800">Total Amount</p>
           <p className="text-lg font-bold text-gray-800">
-            ৳ {selectedDoctor?.fee?.toFixed(2) || "0.00"}
+            $ {selectedDoctor?.fee?.toFixed(2) || "0.00"}
           </p>
         </div>
 

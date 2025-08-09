@@ -13,7 +13,7 @@ export interface NavItem {
   patient: [
     { label: "Dashboard", path: "/", title: "Patient Dashboard", icon: Home },
     { label: "Appointments", path: "/appointments", title: "Patient Appointments", icon: Calendar },
-    { label: "Chat", path: "/chat", title: "Pathent Chat Portal", icon: MessageCircle },
+    { label: "Chat", path: "/chat", title: "Patient Chat Portal", icon: MessageCircle },
     { label: "Profile", path: "/profile", title: "Patient Profile", icon: User },
   ],
   doctor: [
