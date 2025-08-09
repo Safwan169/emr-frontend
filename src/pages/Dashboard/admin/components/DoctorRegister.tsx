@@ -51,7 +51,7 @@ const DoctorRegister: React.FC = () => {
       if (response.data.statusCode===201) {
                 toast.success("Doctor profile Created successfully!");
         
-        navigate (`/admin/doctor-profile/${response.data.data.user_id}`)
+        navigate (`/admin/doctor-profile/${response.data.data.id}`)
         
       }
     } catch (error: any) {
