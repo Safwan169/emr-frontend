@@ -11,6 +11,7 @@ import {
   useDeleteResearchMutation,
   useUpdateResearchMutation,
 } from "../../../../../redux/features/doctor/doctorApi";
+import Swal from "sweetalert2";
 
 interface Props extends PublicationResearchProps {
   userId: number;
@@ -108,8 +109,22 @@ const Publication_Research: React.FC<Props> = ({
   };
 
   const handleDelete = async (id: number) => {
-    if (!window.confirm("Are you sure you want to delete this research?"))
-      return;
+    
+
+
+       const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#ef4444",
+            cancelButtonColor: "#6b7280",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "Cancel",
+          });
+    
+          if (!result.isConfirmed) return;
+    
 
     try {
       await deleteResearch({ userId, researchId: id }).unwrap();

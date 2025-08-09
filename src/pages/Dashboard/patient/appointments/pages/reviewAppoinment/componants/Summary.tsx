@@ -9,6 +9,7 @@ import React from "react";
 import { useAppSelector } from "../../../../../../../redux/hooks";
 import { useBookAppointmentMutation } from "../../../../../../../redux/features/appoinment/appoinmentApi";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Summary: React.FC = () => {
   const { selectedDoctor, appointmentDetails } = useAppSelector(
@@ -56,6 +57,7 @@ const Summary: React.FC = () => {
         slotData: payload,
       }).unwrap();
       navigate("/confirm-appointment");
+      toast.success("Appointment Booked Successfully!");
     } catch (error) {
       console.error("Booking failed:", error);
       alert("Failed to book appointment. Please try again.");

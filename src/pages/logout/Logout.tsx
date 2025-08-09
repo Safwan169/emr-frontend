@@ -23,6 +23,7 @@ const Logout = () => {
 
       // 🧼 Clear storage
       localStorage.removeItem("EMRtoken");
+      localStorage.removeItem("profileInfo");
       sessionStorage.clear();
 
       toast.success("Logged out successfully");

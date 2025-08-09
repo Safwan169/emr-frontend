@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {  useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const DoctorRegister: React.FC = () => {
+
+  const navigate =useNavigate()
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -32,7 +36,7 @@ const DoctorRegister: React.FC = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/Users", payload);
+      const response = await axios.post(  `${process.env.REACT_APP_API_BASE_URL}/Users  `, payload);
       setMessage("Doctor registered successfully!");
       console.log("Success:", response.data);
       setFormData({
@@ -43,6 +47,13 @@ const DoctorRegister: React.FC = () => {
         date_of_birth: "",
         gender: "male",
       });
+
+      if (response.data.statusCode===201) {
+                toast.success("Doctor profile Created successfully!");
+        
+        navigate (`/admin/doctor-profile/${response.data.data.user_id}`)
+        
+      }
     } catch (error: any) {
       setMessage("Error registering doctor.");
       console.error("Error:", error.response?.data || error.message);
@@ -157,12 +168,16 @@ const DoctorRegister: React.FC = () => {
         </div>
 
         <div className="md:col-span-2 text-center">
+      
+       
+       
           <button
             type="submit"
-            className="bg-blue-900 text-white px-10 py-3 rounded-md font-semibold hover:bg-blue-800 transition duration-200"
+            className="bg-[#1a3eab] text-white px-10 py-3 rounded-md font-semibold hover:bg-blue-800 transition duration-200"
           >
             Register Doctor
           </button>
+      
         </div>
       </form>
     </div>

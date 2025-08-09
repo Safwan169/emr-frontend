@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const DoctorProfileCreate: React.FC = () => {
   const { user_id } = useParams<{ user_id: string }>();
-
+  const navigate=useNavigate()
+console.log(user_id,'user_id')
   const [formData, setFormData] = useState({
     license_number: "",
     specialization: "",
@@ -47,7 +48,7 @@ const DoctorProfileCreate: React.FC = () => {
     form.append("specialization", formData.specialization);
     form.append("fee", formData.fee);
     form.append("years_of_experience", formData.years_of_experience);
-    form.append("phone", formData.phone);
+    // form.append("phone", formData.phone);
     form.append("hospital", formData.hospital);
     if (formData.voice) {
       form.append("voice", formData.voice);
@@ -55,7 +56,7 @@ const DoctorProfileCreate: React.FC = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/DoctorProfile/${user_id}`,
+        `${process.env.REACT_APP_API_BASE_URL}/DoctorProfile/${user_id}`,
         {
           method: "POST",
           body: form,
@@ -74,6 +75,9 @@ const DoctorProfileCreate: React.FC = () => {
           hospital: "",
           voice: null,
         });
+
+        navigate(`/add-doctors`)
+
       } else {
         console.error(result);
         toast.error(result.message || "Failed to update profile.");
@@ -134,7 +138,6 @@ const DoctorProfileCreate: React.FC = () => {
           value={formData.phone}
           onChange={handleChange}
           className="border border-gray-300 rounded px-3 py-2"
-          required
         />
         <input
           type="text"

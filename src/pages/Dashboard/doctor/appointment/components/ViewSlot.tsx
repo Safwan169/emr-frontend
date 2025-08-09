@@ -13,12 +13,12 @@ const ViewSlot: React.FC<ViewSlotProps> = ({ children }) => {
   const { userId = "" } = profileInfo ? JSON.parse(profileInfo) : {};
 
   // Using the hook from your API with updated types
-  const { 
-    data: response, 
-    isLoading, 
-    isError, 
+  const {
+    data: response,
+    isLoading,
+    isError,
     refetch,
-    isFetching 
+    isFetching
   } = useGetAllAvailableSlotsQuery(userId);
 
   const handleOpen = () => {
@@ -35,7 +35,7 @@ const ViewSlot: React.FC<ViewSlotProps> = ({ children }) => {
   const doctor = response?.doctor;
 
   // Sort dates chronologically
-  const sortedDates = Object.keys(slots).sort((a, b) => 
+  const sortedDates = Object.keys(slots).sort((a, b) =>
     new Date(a).getTime() - new Date(b).getTime()
   );
 
@@ -64,7 +64,7 @@ const ViewSlot: React.FC<ViewSlotProps> = ({ children }) => {
 
       {/* Modal Backdrop & Container */}
       {open && (
-        <div 
+        <div
           className="fixed inset-0 bg-gradient-to-br from-slate-900/80 via-slate-800/70 to-slate-900/80 
                      backdrop-blur-sm flex justify-center items-center z-50 p-4 overflow-y-auto
                      opacity-0 scale-95 transition-all duration-300"
@@ -75,7 +75,7 @@ const ViewSlot: React.FC<ViewSlotProps> = ({ children }) => {
           }}
           onClick={handleClose}
         >
-          <div 
+          <div
             className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl relative
                        transform transition-all duration-300 scale-100 my-8
                        border border-slate-200/50 overflow-hidden max-h-[90vh]"
@@ -83,7 +83,7 @@ const ViewSlot: React.FC<ViewSlotProps> = ({ children }) => {
           >
             {/* Header with gradient background */}
             <div className="bg-gradient-to-r from-[#1C3BA4] to-[#2563eb] p-6 sm:p-8 text-white relative overflow-hidden">
-              <div 
+              <div
                 className="absolute inset-0 opacity-10"
                 style={{
                   backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), 
@@ -97,7 +97,7 @@ const ViewSlot: React.FC<ViewSlotProps> = ({ children }) => {
                 </h2>
                 <p className="text-blue-100 text-xs sm:text-sm font-medium">
                   {doctor?.name && `${doctor.name}'s `}
-                  {isLoading || isFetching ? "Loading slots..." : 
+                  {isLoading || isFetching ? "Loading slots..." :
                     `${Object.values(slots).flat().length} available slots found`}
                 </p>
                 {availability && (
@@ -107,7 +107,7 @@ const ViewSlot: React.FC<ViewSlotProps> = ({ children }) => {
                   </div>
                 )}
               </div>
-              
+
               {/* Close button */}
               <button
                 onClick={handleClose}
@@ -115,10 +115,11 @@ const ViewSlot: React.FC<ViewSlotProps> = ({ children }) => {
                           bg-white/20 hover:bg-white/30 transition-all duration-200
                           flex items-center justify-center group"
               >
-                <svg 
-                  className="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:scale-110 transition-transform" 
-                  fill="none" 
-                  stroke="currentColor" 
+                <svg
+
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:scale-110 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -163,7 +164,7 @@ const ViewSlot: React.FC<ViewSlotProps> = ({ children }) => {
                   {sortedDates.map((date) => {
                     const dateSlots = slots[date];
                     const dayName = new Date(date).toLocaleDateString('en-US', { weekday: 'long' });
-                    
+
                     return (
                       <div key={date} className="border border-slate-200 rounded-xl overflow-hidden">
                         <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-4 border-b border-slate-200">
@@ -191,13 +192,13 @@ const ViewSlot: React.FC<ViewSlotProps> = ({ children }) => {
                         <div className="bg-white p-4">
                           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                             {dateSlots.map((slot) => (
-                              <div 
-                                key={slot.slot_id} 
+                              <div
+                                key={slot.slot_id}
                                 className={`p-2 rounded-lg text-center text-sm font-medium border
-                                          ${slot.is_booked 
-                                            ? 'bg-rose-50 text-rose-700 border-rose-200' 
-                                            : 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                                          }`}
+                                          ${slot.is_booked
+                                    ? 'bg-rose-50 text-rose-700 border-rose-200'
+                                    : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                  }`}
                               >
                                 {formatTime(slot.start_time)}
                                 {slot.is_booked && (

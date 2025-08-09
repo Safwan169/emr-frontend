@@ -15,7 +15,7 @@ const DoctorMan: React.FC = () => {
     const fetchDoctors = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/Appointments/Doctors/Count"
+          `${process.env.REACT_APP_API_BASE_URL}/Appointments/Doctors/Count`
         );
         setDoctors(response.data.doctors);
       } catch (error) {
@@ -52,7 +52,7 @@ const DoctorMan: React.FC = () => {
             </div>
             <Link
               to={`/admin/doctor-profile/${doctor.user_id}`}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+              className="bg-[#1A3EAB] hover:bg-blue-600 text-white px-4 py-2 rounded"
             >
               Edit
             </Link>
