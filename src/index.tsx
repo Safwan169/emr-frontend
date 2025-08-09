@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import "./index.css";
-import { store } from "./redux/store";
+import { store  } from "./redux/store";
 import reportWebVitals from "./reportWebVitals";
 import router from "./routes/router";
 
