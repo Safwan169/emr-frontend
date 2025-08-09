@@ -15,10 +15,14 @@ const CenterDashboard: React.FC = () => {
 
     useEffect(() => {
         try {
+
+          setIsLoading(true);
             const profileString = localStorage.getItem("profileInfo");
             if (profileString) {
+              
                 const profile: UserProfile = JSON.parse(profileString);
-                setUserRole(profile.role_name || null);
+
+                setUserRole(profile?.role_name || null);
             } else {
                 setUserRole(null);
             }
