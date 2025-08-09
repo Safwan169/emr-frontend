@@ -111,7 +111,7 @@ const ViewSlot: React.FC<ViewSlotProps> = ({ children }) => {
               {/* Close button */}
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 sm:top-6 sm:right-6 w-8 h-8 rounded-full 
+                className="absolute top-4 right-4 sm:top-6 sm:right-6 w-8 h-8 z-50 rounded-full 
                           bg-white/20 hover:bg-white/30 transition-all duration-200
                           flex items-center justify-center group"
               >
