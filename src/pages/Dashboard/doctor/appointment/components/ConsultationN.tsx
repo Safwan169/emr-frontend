@@ -154,7 +154,7 @@ const ConsultationN: React.FC = () => {
         console.log("Uploading MP3 to backend...");
         
         // Upload to backend
-        const response = await fetch("http://localhost:5000/Conversations", {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/Conversations`, {
           method: "POST",
           body: formData,
         });

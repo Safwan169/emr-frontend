@@ -8,6 +8,7 @@ import {
   useDeleteCertificationMutation,
   useUpdateCertificationMutation,
 } from "../../../../../redux/features/doctor/doctorApi";
+import Swal from "sweetalert2";
 
 interface Props extends CertificationProps {
   userId: number; // ✅ For API calls
@@ -106,6 +107,20 @@ const Certifications: React.FC<Props> = ({ certifications, userId }) => {
 
   // ✅ Delete Certification
   const handleDelete = async (id: number) => {
+
+       const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ef4444",
+        cancelButtonColor: "#6b7280",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "Cancel",
+      });
+
+      if (!result.isConfirmed) return;
+
     try {
       await deleteCertification({ userId, certificationId: id }).unwrap();
       toast.success("Certification deleted successfully!");

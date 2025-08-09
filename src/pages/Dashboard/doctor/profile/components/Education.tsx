@@ -8,6 +8,7 @@ import {
   useDeleteEducationMutation,
   useUpdateEducationMutation,
 } from "../../../../../redux/features/doctor/doctorApi";
+import Swal from "sweetalert2";
 
 const Education: React.FC<EducationProps & { userId: number }> = ({ reftch, education, userId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -84,6 +85,19 @@ const Education: React.FC<EducationProps & { userId: number }> = ({ reftch, educ
 
   // Delete Education
   const handleDelete = async (educationId: number) => {
+       const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ef4444",
+        cancelButtonColor: "#6b7280",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "Cancel",
+      });
+
+      if (!result.isConfirmed) return;
+
     try {
       await deleteEducation({ userId, educationId }).unwrap();
       toast.success("Education deleted!");

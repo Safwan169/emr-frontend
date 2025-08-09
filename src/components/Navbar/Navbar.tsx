@@ -93,10 +93,16 @@ const Navbar: FC<NavbarProps> = ({ onToggleSidebar }) => {
             >
               <div className="flex items-center gap-2 cursor-pointer">
                 <img
-                  src={`${process.env.REACT_APP_API_BASE_URL}${data?.profile_image?.file_URL}` || '/profile.jpg'}
+                  src={
+                    data?.profile_image?.file_URL
+                      ? `${process.env.REACT_APP_API_BASE_URL}${data.profile_image.file_URL}`
+                      : '/profile.jpg'
+                  }
                   alt="Profile"
                   className="w-8 h-8 rounded-full object-cover"
                 />
+
+
                 <div className="hidden sm:block">
                   <p className="font-medium text-sm">{data?.first_name} {data?.last_name}</p>
                   <p className="text-xs text-gray-500">{data?.role?.role_name}</p>
@@ -110,12 +116,7 @@ const Navbar: FC<NavbarProps> = ({ onToggleSidebar }) => {
                   }`}
               >
                 <ul className="py-2 text-sm text-gray-700">
-                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                    Profile
-                  </li>
-                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                    Settings
-                  </li>
+                
                   <li className="px-4 py-2 h-fit hover:bg-gray-100 cursor-pointer text-red-500">
                     <Logout />
                   </li>
