@@ -14,6 +14,8 @@ interface SelectedDoctorProps {
 }
 
 const SelectedDoctorSection: React.FC<SelectedDoctorProps> = ({ doctor }) => {
+
+  console.log(doctor,'adfs')
   if (!doctor) {
     return (
       <div className="w-full   p-4">
@@ -36,17 +38,21 @@ const SelectedDoctorSection: React.FC<SelectedDoctorProps> = ({ doctor }) => {
             Selected Doctor
           </h3>
         </div>
-        
+
         {/* Doctor Info */}
         <div className="p-4 border border-gray-100/90 rounded-lg  ">
           <div className="flex items-start gap-3">
             {/* Doctor Image */}
             <img
-              src={doctor.imageUrl}
-              alt={doctor.name}
+              src={
+                doctor?.imageUrl
+                 
+              }
+              alt={doctor?.name || 'Doctor'}
               className="w-16 h-16 sm:w-16 sm:h-16 object-cover rounded-full border border-gray-200"
             />
-            
+
+
             {/* Doctor Details */}
             <div className="flex-1">
               <h4 className="font-bold text-gray-900 text-sm">
@@ -55,11 +61,11 @@ const SelectedDoctorSection: React.FC<SelectedDoctorProps> = ({ doctor }) => {
               <p className="text-xs text-[#1C3BA4] font-medium mt-0.5">
                 {doctor.specialty}
               </p>
-              
+
               {/* Fee */}
               <div className="mt-2">
                 <span className="text-sm  font-bold text-gray-800">
-                  ৳ {doctor.fee}
+                  $ {doctor.fee}
                 </span>
               </div>
             </div>

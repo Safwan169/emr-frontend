@@ -6,6 +6,14 @@ type Doctor = {
   user_id: number;
   name: string;
   email: string;
+  user: {
+    first_name: string;
+    last_name: string;
+    email: string;
+    profile_image: {
+      file_URL: string;
+    };
+  }
 };
 
 const DoctorMan: React.FC = () => {
@@ -15,9 +23,9 @@ const DoctorMan: React.FC = () => {
     const fetchDoctors = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/Appointments/Doctors/Count"
+          `${process.env.REACT_APP_API_BASE_URL}/DoctorProfile`
         );
-        setDoctors(response.data.doctors);
+        setDoctors(response.data.data);
       } catch (error) {
         console.error("Error fetching doctors:", error);
       }
@@ -41,18 +49,18 @@ const DoctorMan: React.FC = () => {
 
       {/* Doctor list */}
       <div className="space-y-4">
-        {doctors.map((doctor) => (
+        {doctors?.map((doctor) => (
           <div
             key={doctor.user_id}
             className="flex justify-between items-center border rounded p-4 shadow-sm"
           >
             <div>
-              <p className="text-lg font-medium">{doctor.name}</p>
+              <p className="text-lg font-medium">{doctor.user.first_name}</p>
               <p className="text-sm text-gray-500">{doctor.email}</p>
             </div>
             <Link
               to={`/admin/doctor-profile/${doctor.user_id}`}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+              className="bg-[#1A3EAB] hover:bg-blue-600 text-white px-4 py-2 rounded"
             >
               Edit
             </Link>

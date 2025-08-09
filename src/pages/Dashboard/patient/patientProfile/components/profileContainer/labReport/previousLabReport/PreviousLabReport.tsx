@@ -36,7 +36,7 @@ interface LabReportFormData {
   file: File | null;
 }
 
-const userId = 1;
+const {userId}=JSON.parse(localStorage.getItem("profileInfo") || "{}");
 
 // Move ImageModal outside of main component to prevent re-creation
 const ImageModal: React.FC<ImageModalProps> = React.memo(
@@ -232,7 +232,7 @@ const CreateModal: React.FC<
                 <button
                   onClick={handleSubmit}
                   disabled={isCreating}
-                  className="flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-[#1a3eab] text-white rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Save className="w-4 h-4" />
                   <span>
@@ -270,7 +270,7 @@ const PreviousLabReport: React.FC = () => {
     isLoading,
     isError,
     refetch,
-  } = useGetPreviousLabReportByIdQuery(1);
+  } = useGetPreviousLabReportByIdQuery(userId);
 
   const [deleteLabReport, { isLoading: isDeleting }] =
     useDeletePreviousLabReportByIdMutation();
@@ -613,7 +613,7 @@ const PreviousLabReport: React.FC = () => {
         </h2>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors text-sm"
+          className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-[#1a3eab] text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
         >
           <Plus className="w-4 h-4" />
           <span>Add New</span>
@@ -708,14 +708,14 @@ const PreviousLabReport: React.FC = () => {
                       <div className="flex space-x-1">
                         <button
                           onClick={() => setViewingImage(image)}
-                          className="flex-1 flex items-center justify-center space-x-1 px-2 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-xs"
+                          className="flex-1 flex items-center justify-center space-x-1 px-2 py-2 bg-[#1a3eab] text-white rounded-md hover:bg-blue-700 transition-colors text-xs"
                         >
                           <Eye className="w-3 h-3" />
                           <span>View</span>
                         </button>
                         <button
                           onClick={() => startEdit(image)}
-                          className="flex items-center justify-center px-2 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition-colors"
+                          className="flex items-center justify-center px-2 py-2 bg-green-600 text-white rounded-md hover:bg-yellow-700 transition-colors"
                         >
                           <Edit className="w-3 h-3" />
                         </button>
@@ -739,7 +739,7 @@ const PreviousLabReport: React.FC = () => {
           </p>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors text-sm"
+            className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 bg-[#1a3eab] text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
           >
             <Plus className="w-4 h-4" />
             <span>Add First Lab Report</span>

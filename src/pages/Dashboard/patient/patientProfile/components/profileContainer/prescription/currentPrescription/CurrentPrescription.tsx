@@ -187,7 +187,7 @@ const CurrentPrescription: React.FC = () => {
           <RotateCcw className="w-4 h-4" />
           <span>Request Refill</span>
         </button>
-        <button className="flex items-center justify-center space-x-1 px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-xs sm:text-sm">
+        <button className="flex items-center justify-center space-x-1 px-3 py-2 bg-[#1a3eab] text-white rounded-md hover:bg-blue-700 transition-colors text-xs sm:text-sm">
           <User className="w-4 h-4" />
           <span>Contact Doctor</span>
         </button>

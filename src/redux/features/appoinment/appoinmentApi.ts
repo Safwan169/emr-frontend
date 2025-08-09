@@ -6,7 +6,7 @@ export const appointmentApi = baseApi.injectEndpoints({
     getAvailableSlots: builder.query({
       query: (doctorId) => ({
         method: "GET",
-        url: `/Appointments/Doctor/${doctorId}/AvailableSlots`,
+        url: `/Appointments/Doctor/${doctorId}/AllSlots`,
         credentials: "include",
       }),
       providesTags: ["availableSlots"],

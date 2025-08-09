@@ -135,7 +135,7 @@ const ChronicConditions = () => {
         </h2>
         <button
           onClick={() => setShowCreateForm(true)}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          className="bg-[#1a3eab] hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
         >
           Add New
         </button>

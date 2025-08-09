@@ -128,7 +128,7 @@ const Login = () => {
                 className="w-full bg-[#1434CB] hover:bg-blue-700 text-white py-2 rounded-md font-semibold"
                 disabled={isLoading}
               >
-                {isLoading ? "Sending OTP to your mail ..." : "Login"}
+                {isLoading ? "Loging ..." : "Login"}
               </button>
 
               {/* Google Button */}

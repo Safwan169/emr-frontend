@@ -1,7 +1,7 @@
 import {
   CalendarDays,
   Clock,
-  IndianRupee,
+  DollarSign ,
   Star,
   Stethoscope,
 } from "lucide-react";
@@ -9,13 +9,14 @@ import React from "react";
 import { useAppSelector } from "../../../../../../../redux/hooks";
 import { useBookAppointmentMutation } from "../../../../../../../redux/features/appoinment/appoinmentApi";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Summary: React.FC = () => {
   const { selectedDoctor, appointmentDetails } = useAppSelector(
     (state) => state.booking
   );
 
-  const {userId} = JSON.parse(localStorage.getItem('profileInfo') || '{}');
+  const { userId } = JSON.parse(localStorage.getItem('profileInfo') || '{}');
   const [bookAppointment, { isLoading }] = useBookAppointmentMutation();
   const navigate = useNavigate();
 
@@ -50,11 +51,13 @@ const Summary: React.FC = () => {
 
     try {
 
- await bookAppointment({
-      patientId: userId,
-      slotData: payload,
-    }).unwrap();
-        navigate("/confirm-appointment"); 
+      console.log('user', userId);
+      await bookAppointment({
+        patientId: userId,
+        slotData: payload,
+      }).unwrap();
+      navigate("/confirm-appointment");
+      toast.success("Appointment Booked Successfully!");
     } catch (error) {
       console.error("Booking failed:", error);
       alert("Failed to book appointment. Please try again.");
@@ -71,10 +74,14 @@ const Summary: React.FC = () => {
         {/* Doctor Info */}
         <div className="flex items-center bg-blue-50 p-4 rounded-lg">
           <img
-            src={selectedDoctor?.imageUrl}
+            src={
+              selectedDoctor?.imageUrl
+           
+            }
             alt={selectedDoctor?.name || "Doctor"}
             className="w-14 h-14 rounded-full object-cover mr-4"
           />
+
           <div>
             <h4 className="text-md font-semibold text-gray-800">
               {selectedDoctor?.name || "Doctor Name"}
@@ -129,10 +136,10 @@ const Summary: React.FC = () => {
 
           {/* Fee */}
           <div className="flex items-start gap-3 border border-gray-200 rounded-lg p-3">
-            <IndianRupee className="text-blue-600 w-5 h-5 mt-1" />
+            <DollarSign  className="text-blue-600 w-5 h-5 mt-1" />
             <div>
               <p className="text-sm font-semibold text-gray-800">
-                ৳ {selectedDoctor?.fee?.toFixed(2) || "0.00"}
+                $ {selectedDoctor?.fee?.toFixed(2) || "0.00"}
               </p>
               <p className="text-xs text-gray-500">Consultation Fee</p>
             </div>
@@ -143,7 +150,7 @@ const Summary: React.FC = () => {
         <div className="border-t pt-4 flex justify-between items-center">
           <p className="text-sm font-semibold text-gray-800">Total Amount</p>
           <p className="text-lg font-bold text-gray-800">
-            ৳ {selectedDoctor?.fee?.toFixed(2) || "0.00"}
+            $ {selectedDoctor?.fee?.toFixed(2) || "0.00"}
           </p>
         </div>
 
