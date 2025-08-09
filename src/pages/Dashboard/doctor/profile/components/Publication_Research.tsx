@@ -1,4 +1,3 @@
-import React, {  useState } from "react";
 import toast from "react-hot-toast";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import ResearchModal from "./modals/ResearchModal";
@@ -12,6 +11,7 @@ import {
   useUpdateResearchMutation,
 } from "../../../../../redux/features/doctor/doctorApi";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 interface Props extends PublicationResearchProps {
   userId: number;
