@@ -1,7 +1,8 @@
 // src/pages/Dashboard/doctor/dashboard/components/CreateSlot.tsx
 import React, { useState } from "react";
 import { usePostDoctorAvailabilityMutation } from "../../../../../pages/Dashboard/doctor/dashboard/api/dashboardApi";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface CreateSlotProps {
   children: React.ReactNode; // Button or any trigger
@@ -41,11 +42,11 @@ const CreateSlot: React.FC<CreateSlotProps> = ({ children }) => {
     e.preventDefault();
 
     if (!selectedDays.length) {
-      toast.error("Please select at least one weekday.");
+      toast.error("Please select at least one weekday!");
       return;
     }
     if (!startTime || !endTime) {
-      toast.error("Please provide start and end time.");
+      toast.error("Please provide start and end time!");
       return;
     }
 
@@ -61,13 +62,14 @@ const CreateSlot: React.FC<CreateSlotProps> = ({ children }) => {
       }).unwrap();
 
       toast.success("Slot created successfully!");
+      
       setOpen(false);
       setSelectedDays([]);
       setStartTime("");
       setEndTime("");
       setDuration(30);
     } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to create slot");
+      toast.error(error?.data?.message || "Failed to create slot.");
     }
   };
 
@@ -82,6 +84,9 @@ const CreateSlot: React.FC<CreateSlotProps> = ({ children }) => {
 
   return (
     <>
+      {/* ToastContainer - Same style as ResetPassword */}
+      <ToastContainer position="top-right" autoClose={3000} />
+      
       {/* Trigger */}
       <div onClick={() => setOpen(true)} className="cursor-pointer">
         {children}
@@ -128,7 +133,7 @@ const CreateSlot: React.FC<CreateSlotProps> = ({ children }) => {
               {/* Close button */}
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 sm:top-6 sm:right-6 w-8 h-8 rounded-full 
+                className="absolute top-4 right-4 sm:top-6 sm:right-6 w-8 h-8 z-50 rounded-full 
                           bg-white/20 hover:bg-white/30 transition-all duration-200
                           flex items-center justify-center group"
               >
