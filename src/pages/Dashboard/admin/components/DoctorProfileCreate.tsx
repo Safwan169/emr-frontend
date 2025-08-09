@@ -148,15 +148,7 @@ console.log(user_id,'user_id')
           className="border border-gray-300 rounded px-3 py-2"
           required
         />
-        <div className="col-span-2">
-          <label className="block mb-1 font-medium">Voice File</label>
-          <input
-            type="file"
-            accept="audio/*"
-            onChange={handleFileChange}
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:rounded file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-          />
-        </div>
+    
         <button
           type="submit"
           className="col-span-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
