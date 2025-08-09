@@ -65,7 +65,7 @@ const SelectedDoctorSection: React.FC<SelectedDoctorProps> = ({ doctor }) => {
               {/* Fee */}
               <div className="mt-2">
                 <span className="text-sm  font-bold text-gray-800">
-                  ৳ {doctor.fee}
+                  $ {doctor.fee}
                 </span>
               </div>
             </div>

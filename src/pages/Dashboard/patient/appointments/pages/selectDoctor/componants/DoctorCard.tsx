@@ -70,7 +70,7 @@ console.log(imageUrl,'adfas')
           <h3 className="font-semibold text-gray-900">{name}</h3>
           <p className="text-sm text-[#1C3BA4] font-medium">{specialty}</p>
           <div className="text-right flex-row-reverse flex  sm:hidden items-center justify-between min-w-[120px] h-fit">
-            <h4 className="text-lg font-semibold text-gray-800">৳ {fee}</h4>
+            <h4 className="text-lg font-semibold text-gray-800">$ {fee}</h4>
             <p className="text-xs text-gray-500">CONSULTATION FEE</p>
           </div>
           <div className="flex items-center text-sm text-gray-500 mt-1 space-x-3">
@@ -90,7 +90,7 @@ console.log(imageUrl,'adfas')
 
       {/* Right */}
       <div className="text-right hidden sm:block min-w-[120px] h-fit">
-        <h4 className="text-lg font-semibold text-gray-800">৳ {fee}</h4>
+        <h4 className="text-lg font-semibold text-gray-800">$ {fee}</h4>
         <p className="text-xs text-gray-500">CONSULTATION FEE</p>
       </div>
     </div>
