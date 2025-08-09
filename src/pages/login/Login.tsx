@@ -4,6 +4,7 @@ import { useLoginUserMutation } from "../../redux/features/auth/authApi";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { json } from "stream/consumers";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -24,9 +25,11 @@ const Login = () => {
     try {
       const res = await loginUser(formData).unwrap();
 
-      if (res.message ===
-        "Login successful") {
+      if (res.message ==="Login successful") {
           localStorage.setItem("EMRtoken", res.access_token);
+          localStorage.setItem('profileInfo', JSON.stringify(res?.user))
+
+
           navigate("/");
         }
         

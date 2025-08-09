@@ -14,6 +14,7 @@ const Navbar: FC<NavbarProps> = ({ onToggleSidebar }) => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { data } = useGetUserData();
+const {first_name,last_name,role_name}=JSON.parse(localStorage.getItem('profileInfo')|| ' ')
 
 
   const title = useLocation()?.state
@@ -104,8 +105,8 @@ const Navbar: FC<NavbarProps> = ({ onToggleSidebar }) => {
 
 
                 <div className="hidden sm:block">
-                  <p className="font-medium text-sm">{data?.first_name} {data?.last_name}</p>
-                  <p className="text-xs text-gray-500">{data?.role?.role_name}</p>
+                  <p className="font-medium text-sm">{first_name} {last_name}</p>
+                  <p className="text-xs text-gray-500">{role_name}</p>
                 </div>
                 <ChevronDown size={16} className="text-gray-500" />
               </div>

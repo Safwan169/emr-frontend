@@ -16,23 +16,26 @@ import CenterDashboard from "../pages/Dashboard/CenterDashboard";
 import VerifyForgotPasswordOtp from "../pages/login/VerifyForgotPasswordOtp";
 import ResetPassword from "../pages/login/ResetPassword";
 import AdminRoute from "./AdminRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
 // Private routes under DashboardLayout
 const privateRoutes = {
   path: "/",
-  element: isAuthenticated() ?  (
-    <DashboardLayout/>
-  ) : (
- <Navigate to="/login" replace  />
-  ),
+  element: <ProtectedRoute />, // ✅ Use the wrapper
   children: [
-    ...AppointmentRoute,
-    ...PatientRoute,
-    ...DoctorRoute,
-    ...AdminRoute,
     {
       path: "/",
-      element: <CenterDashboard />,
+      element: <DashboardLayout />, // or put this layout around child routes
+      children: [
+        ...AppointmentRoute,
+        ...PatientRoute,
+        ...DoctorRoute,
+        ...AdminRoute,
+        {
+          path: "/",
+          element: <CenterDashboard />,
+        },
+      ],
     },
   ],
 };

@@ -76,7 +76,7 @@ const NewCard: React.FC = () => {
 
   useEffect(() => {
     setLoading(true);
-    const baseUrl = "http://localhost:5000";
+    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}`;
 
     Promise.all([
       axios.get<{ doctorCount: number }>(`${baseUrl}/Appointments/Doctors/Count`),
