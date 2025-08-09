@@ -36,7 +36,7 @@ interface LabReportFormData {
   file: File | null;
 }
 
-const userId = 1;
+const {userId}=JSON.parse(localStorage.getItem("profileInfo") || "{}");
 
 // Move ImageModal outside of main component to prevent re-creation
 const ImageModal: React.FC<ImageModalProps> = React.memo(
@@ -232,7 +232,7 @@ const CreateModal: React.FC<
                 <button
                   onClick={handleSubmit}
                   disabled={isCreating}
-                  className="flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-[#1a3eab] text-white rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Save className="w-4 h-4" />
                   <span>
@@ -270,7 +270,7 @@ const PreviousLabReport: React.FC = () => {
     isLoading,
     isError,
     refetch,
-  } = useGetPreviousLabReportByIdQuery(1);
+  } = useGetPreviousLabReportByIdQuery(userId);
 
   const [deleteLabReport, { isLoading: isDeleting }] =
     useDeletePreviousLabReportByIdMutation();
@@ -613,7 +613,7 @@ const PreviousLabReport: React.FC = () => {
         </h2>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-[#1a3eab] text-white rounded-md hover:bg-purple-700 transition-colors text-sm"
+          className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-[#1a3eab] text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
         >
           <Plus className="w-4 h-4" />
           <span>Add New</span>
@@ -739,7 +739,7 @@ const PreviousLabReport: React.FC = () => {
           </p>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors text-sm"
+            className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 bg-[#1a3eab] text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
           >
             <Plus className="w-4 h-4" />
             <span>Add First Lab Report</span>

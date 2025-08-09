@@ -21,7 +21,7 @@ export const userApi = baseApi.injectEndpoints({
         method: "GET",
         url: `Dashboard/PreviousLabReport/${userId}`,
       }),
-      providesTags: ["users"],
+      providesTags: ["previousLabReport"],
     }),
     getUserByEmail: builder.query({
       query: (email) => ({
