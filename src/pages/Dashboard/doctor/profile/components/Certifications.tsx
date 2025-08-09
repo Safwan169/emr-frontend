@@ -15,7 +15,6 @@ interface Props extends CertificationProps {
 }
 
 const Certifications: React.FC<Props> = ({ certifications, userId }) => {
-  const [certificationList, setCertificationList] = useState<Certification[]>(certifications);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [updateCertification] = useUpdateCertificationMutation();
