@@ -17,7 +17,7 @@ const Navbar: FC<NavbarProps> = ({ onToggleSidebar }) => {
 
 
   const title = useLocation()?.state
-  console.log(data, title, 'this is data');
+  // console.log(data, title, 'this is data');
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

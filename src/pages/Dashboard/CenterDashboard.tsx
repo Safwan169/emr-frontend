@@ -10,7 +10,7 @@ interface UserProfile {
 }
 
 const CenterDashboard: React.FC = () => {
-  const [userRole, setUserRole] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState<string >();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -22,13 +22,13 @@ const CenterDashboard: React.FC = () => {
               
                 const profile: UserProfile = JSON.parse(profileString);
 
-                setUserRole(profile?.role_name || null);
+                setUserRole(profile?.role_name );
             } else {
-                setUserRole(null);
+                setUserRole('');
             }
         } catch (error) {
             console.error("Error parsing profileInfo from localStorage:", error);
-            setUserRole(null);
+            setUserRole('');
         } finally {
             setIsLoading(false);
         }
