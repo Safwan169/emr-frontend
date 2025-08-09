@@ -1,40 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import PatientDashboard from './patient/patientDashboard/PatientDashboard';
 import DoctorDashboard from './doctor/dashboard/DoctorDashboard';
-
-import NewCard from './admin/components/NewCard';
 import Dashboard from './admin/components/Dashboard';
 
 interface UserProfile {
-  role_name?: "patient" | "doctor" | string;
+  role_name?: string;
 }
 
 const CenterDashboard: React.FC = () => {
-  const [userRole, setUserRole] = useState<string >();
+  const [userRole, setUserRole] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    useEffect(() => {
-        try {
+  useEffect(() => {
+    if (typeof window !== 'undefined') { // শুধু client-side এ চলবে
+      try {
+        setIsLoading(true);
+        const profileString = localStorage.getItem("profileInfo");
 
-          setIsLoading(true);
-            const profileString = localStorage.getItem("profileInfo");
-            if (profileString) {
-              
-                const profile: UserProfile = JSON.parse(profileString);
-
-                setUserRole(profile?.role_name );
-            } else {
-                setUserRole('');
-            }
-        } catch (error) {
-            console.error("Error parsing profileInfo from localStorage:", error);
-            setUserRole('');
-        } finally {
-            setIsLoading(false);
+        if (profileString) {
+          const profile: UserProfile = JSON.parse(profileString);
+          setUserRole(profile?.role_name?.toLowerCase() || '');
+        } else {
+          setUserRole('');
         }
-    }, []);
-
-    console.log(userRole,'thsi is role')
+      } catch (error) {
+        console.error("Error parsing profileInfo:", error);
+        setUserRole('');
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  }, []);
 
   if (isLoading) {
     return <div>Loading dashboard...</div>;
@@ -48,16 +44,16 @@ const CenterDashboard: React.FC = () => {
     return <DoctorDashboard />;
   }
 
-    if (userRole === 'super_admin') {
-        return <Dashboard />;
-    }
+  if (userRole === "super_admin") {
+    return <Dashboard />;
+  }
 
-    return (
-        <div>
-            <h2>Welcome to the Dashboard</h2>
-            <p>Please log in or select a valid role to view your specific dashboard.</p>
-        </div>
-    );
+  return (
+    <div>
+      <h2>Welcome to the Dashboard</h2>
+      <p>Please log in or select a valid role to view your specific dashboard.</p>
+    </div>
+  );
 };
 
 export default CenterDashboard;
