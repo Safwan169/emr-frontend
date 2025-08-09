@@ -14,8 +14,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} >
-      </RouterProvider>
+      <RouterProvider router={router} />
       <Toaster />
     </Provider>
   </React.StrictMode>
