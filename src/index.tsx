@@ -7,7 +7,6 @@ import "./index.css";
 import { store } from "./redux/store";
 import reportWebVitals from "./reportWebVitals";
 import router from "./routes/router";
-import ScrollToTop from "./components/ScrollToTop";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -16,7 +15,6 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} >
-      <ScrollToTop />
       </RouterProvider>
       <Toaster />
     </Provider>
