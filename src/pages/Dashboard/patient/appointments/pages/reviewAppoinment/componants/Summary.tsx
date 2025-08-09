@@ -1,7 +1,7 @@
 import {
   CalendarDays,
   Clock,
-  IndianRupee,
+  DollarSign ,
   Star,
   Stethoscope,
 } from "lucide-react";
@@ -136,7 +136,7 @@ const Summary: React.FC = () => {
 
           {/* Fee */}
           <div className="flex items-start gap-3 border border-gray-200 rounded-lg p-3">
-            <IndianRupee className="text-blue-600 w-5 h-5 mt-1" />
+            <DollarSign  className="text-blue-600 w-5 h-5 mt-1" />
             <div>
               <p className="text-sm font-semibold text-gray-800">
                 $ {selectedDoctor?.fee?.toFixed(2) || "0.00"}
